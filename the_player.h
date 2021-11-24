@@ -8,7 +8,7 @@
 
 #include <QApplication>
 #include <QMediaPlayer>
-#include "the_button.h"
+#include "thumbnailButton.h"
 #include <vector>
 #include <QTimer>
 
@@ -17,8 +17,8 @@ class ThePlayer : public QMediaPlayer {
 Q_OBJECT
 
 private:
-    std::vector<TheButtonInfo>* infos;
-    std::vector<TheButton*>* buttons;
+    std::vector<VideoFile>* infos;
+    std::vector<ThumbnailButton*>* buttons;
     QTimer* mTimer;
     long updateCount = 0;
 
@@ -34,7 +34,7 @@ public:
     }
 
     // all buttons have been setup, store pointers here
-    void setContent(std::vector<TheButton*>* b, std::vector<TheButtonInfo>* i);
+    void setContent(std::vector<ThumbnailButton*>* b, std::vector<VideoFile>* i);
 
 private slots:
 
@@ -46,7 +46,7 @@ private slots:
 public slots:
 
     // start playing this ButtonInfo
-    void jumpTo (TheButtonInfo* button);
+    void jumpTo (VideoFile* button);
 };
 
 #endif //CW2_THE_PLAYER_H

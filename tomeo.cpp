@@ -24,7 +24,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QDirIterator>
 #include "the_player.h"
-#include "the_button.h"
+#include "thumbnailButton.h"
 
 // read in videos and thumbnails to this directory
 std::vector<VideoFile> getInfoIn (std::string loc) {
@@ -110,7 +110,7 @@ int main(int argc, char *argv[]) {
     // a row of buttons
     QWidget *buttonWidget = new QWidget();
     // a list of the buttons
-    std::vector<TheButton*> buttons;
+    std::vector<ThumbnailButton*> buttons;
     // the buttons are arranged horizontally
     QHBoxLayout *layout = new QHBoxLayout();
     buttonWidget->setLayout(layout);
@@ -118,11 +118,10 @@ int main(int argc, char *argv[]) {
 
     // create the four buttons
     for ( int i = 0; i < 4; i++ ) {
-        TheButton *button = new TheButton(buttonWidget);
+        ThumbnailButton *button = new ThumbnailButton(buttonWidget, &videos.at(i));
         button->connect(button, SIGNAL(jumpTo(VideoFile* )), player, SLOT (jumpTo(VideoFile*))); // when clicked, tell the player to play.
         buttons.push_back(button);
         layout->addWidget(button);
-        button->init(&videos.at(i));
     }
 
     // tell the player what buttons and videos are available
