@@ -27,9 +27,9 @@
 #include "the_button.h"
 
 // read in videos and thumbnails to this directory
-std::vector<TheButtonInfo> getInfoIn (std::string loc) {
+std::vector<VideoFile> getInfoIn (std::string loc) {
 
-    std::vector<TheButtonInfo> out =  std::vector<TheButtonInfo>();
+    std::vector<VideoFile> out =  std::vector<VideoFile>();
     QDir dir(QString::fromStdString(loc) );
     QDirIterator it(dir);
 
@@ -52,7 +52,7 @@ std::vector<TheButtonInfo> getInfoIn (std::string loc) {
                     if (!sprite.isNull()) {
                         QIcon* ico = new QIcon(QPixmap::fromImage(sprite)); // voodoo to create an icon for the button
                         QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
-                        out . push_back(TheButtonInfo( url , ico  ) ); // add to the output list
+                        out . push_back(VideoFile( url , ico  ) ); // add to the output list
                     }
                     else
                         qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb << endl;
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     // collect all the videos in the folder
-    std::vector<TheButtonInfo> videos;
+    std::vector<VideoFile> videos;
 
     if (argc == 2)
         videos = getInfoIn( std::string(argv[1]) );
@@ -119,7 +119,7 @@ int main(int argc, char *argv[]) {
     // create the four buttons
     for ( int i = 0; i < 4; i++ ) {
         TheButton *button = new TheButton(buttonWidget);
-        button->connect(button, SIGNAL(jumpTo(TheButtonInfo* )), player, SLOT (jumpTo(TheButtonInfo*))); // when clicked, tell the player to play.
+        button->connect(button, SIGNAL(jumpTo(VideoFile* )), player, SLOT (jumpTo(VideoFile*))); // when clicked, tell the player to play.
         buttons.push_back(button);
         layout->addWidget(button);
         button->init(&videos.at(i));
