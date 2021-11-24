@@ -23,7 +23,7 @@
 #include <QMessageBox>
 #include <QtCore/QDir>
 #include <QtCore/QDirIterator>
-#include "the_player.h"
+#include "player.h"
 #include "thumbnailButton.h"
 
 // read in videos and thumbnails to this directory
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     QVideoWidget *videoWidget = new QVideoWidget;
 
     // the QMediaPlayer which controls the playback
-    ThePlayer *player = new ThePlayer;
+    Player *player = new Player;
     player->setVideoOutput(videoWidget);
 
     // a row of buttons

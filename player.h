@@ -12,7 +12,7 @@
 #include <vector>
 #include <QTimer>
 
-class ThePlayer : public QMediaPlayer {
+class Player : public QMediaPlayer {
 
 Q_OBJECT
 
@@ -23,7 +23,7 @@ private:
     long updateCount = 0;
 
 public:
-    ThePlayer() : QMediaPlayer(NULL) {
+    Player() : QMediaPlayer(NULL) {
         setVolume(0); // be slightly less annoying
         connect (this, SIGNAL (stateChanged(QMediaPlayer::State)), this, SLOT (playStateChanged(QMediaPlayer::State)) );
 

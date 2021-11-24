@@ -2,23 +2,23 @@
 // Created by twak on 11/11/2019.
 //
 
-#include "the_player.h"
+#include "Player.h"
 
 // all buttons have been setup, store pointers here
-void ThePlayer::setContent(std::vector<ThumbnailButton*>* b, std::vector<VideoFile>* i) {
+void Player::setContent(std::vector<ThumbnailButton*>* b, std::vector<VideoFile>* i) {
     buttons = b;
     infos = i;
     jumpTo(buttons -> at(0) -> info);
 }
 
 // change the image and video for one button every one second
-void ThePlayer::shuffle() {
+void Player::shuffle() {
     VideoFile* i = & infos -> at (rand() % infos->size() );
 //        setMedia(*i->url);
     buttons -> at( updateCount++ % buttons->size() ) -> setFile( i );
 }
 
-void ThePlayer::playStateChanged (QMediaPlayer::State ms) {
+void Player::playStateChanged (QMediaPlayer::State ms) {
     switch (ms) {
         case QMediaPlayer::State::StoppedState:
             play(); // starting playing again...
@@ -28,7 +28,7 @@ void ThePlayer::playStateChanged (QMediaPlayer::State ms) {
     }
 }
 
-void ThePlayer::jumpTo (VideoFile* button) {
+void Player::jumpTo (VideoFile* button) {
     setMedia( * button -> url);
     play();
 }
