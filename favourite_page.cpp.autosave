@@ -1,0 +1,6 @@
+#include "favourite_page.h"
+
+favouriteLayout::favouriteLayout()
+{
+
+}

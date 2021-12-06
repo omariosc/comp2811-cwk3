@@ -2,13 +2,13 @@
 // Created by twak on 11/11/2019.
 //
 
-#ifndef CW2_THE_PLAYER_H
-#define CW2_THE_PLAYER_H
+#ifndef THE_PLAYER_H
+#define THE_PLAYER_H
 
 
 #include <QApplication>
 #include <QMediaPlayer>
-#include "thumbnailButton.h"
+#include "thumbnail_button.h"
 #include <vector>
 #include <QTimer>
 
@@ -49,4 +49,4 @@ public slots:
     void jumpTo (VideoFile* button);
 };
 
-#endif //CW2_THE_PLAYER_H
+#endif //THE_PLAYER_H

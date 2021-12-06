@@ -1,5 +1,6 @@
-#ifndef VIDEOFILE_H
-#define VIDEOFILE_H
+#ifndef THE_VIDEO_FILE_H
+#define THE_VIDEO_FILE_H
+
 #include <QIcon>
 #include <QUrl>
 
@@ -13,4 +14,4 @@ public:
 };
 
 
-#endif // VIDEOFILE_H
+#endif // THE_VIDEO_FILE_H
