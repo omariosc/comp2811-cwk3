@@ -3,10 +3,10 @@
 
 #include <QLayout>
 
-class albumLayout : public QLayout {
+class AlbumLayout : public QLayout {
 
 public:
-    albumLayout() : QLayout() {}
+    AlbumLayout() : QLayout() {}
 };
 
 #endif // ALBUMLAYOUT_H

@@ -3,10 +3,10 @@
 
 #include <QLayout>
 
-class filterLayout : public QLayout {
+class FilterLayout : public QLayout {
 
 public:
-    filterLayout() : QLayout() {}
+    FilterLayout() : QLayout() {}
 };
 
 #endif // FILTERLAYOUT_H

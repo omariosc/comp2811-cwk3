@@ -3,10 +3,10 @@
 
 #include <QLayout>
 
-class libraryLayout : public QLayout {
+class LibraryLayout : public QLayout {
 
 public:
-    libraryLayout() : QLayout() {}
+    LibraryLayout() : QLayout() {}
 };
 
 #endif // LIBRARYLAYOUT_H

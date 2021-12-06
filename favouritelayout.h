@@ -3,10 +3,10 @@
 
 #include <QLayout>
 
-class favouriteLayout : public QLayout {
+class FavouriteLayout : public QLayout {
 
 public:
-    favouriteLayout() : QLayout() {}
+    FavouriteLayout() : QLayout() {}
 };
 
 #endif // FAVOURITELAYOUT_H

@@ -3,10 +3,10 @@
 
 #include <QLayout>
 
-class mapLayout : public QLayout {
+class MapLayout : public QLayout {
 
 public:
-    mapLayout() : QLayout() {}
+    MapLayout() : QLayout() {}
 };
 
 #endif // MAPLAYOUT_H
