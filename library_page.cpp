@@ -1,6 +1,1 @@
-#include "librarylayout.h"
-
-libraryLayout::libraryLayout()
-{
-
-}
+#include "library_page.h"

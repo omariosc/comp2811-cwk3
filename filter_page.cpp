@@ -1,6 +1,1 @@
-#include "filterlayout.h"
-
-filterLayout::filterLayout()
-{
-
-}
+#include "filter_page.h"

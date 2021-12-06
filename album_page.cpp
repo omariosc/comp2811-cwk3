@@ -1,6 +1,1 @@
-#include "albumlayout.h"
-
-albumLayout::albumLayout()
-{
-
-}
+#include "album_page.h"

@@ -1,6 +1,1 @@
-#include "favouritelayout.h"
-
-favouriteLayout::favouriteLayout()
-{
-
-}
+#include "favourite_page.h"
