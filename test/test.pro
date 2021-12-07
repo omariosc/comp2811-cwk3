@@ -1,7 +1,5 @@
-QT += core gui widgets multimedia multimediawidgets
-
+QT += core gui widgets network
 CONFIG += c++11
-
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -15,5 +13,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-FORMS +=
+RESOURCES += \
+    svg.qrc
 
+HEADERS += \
+    test.h

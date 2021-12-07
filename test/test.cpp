@@ -1,27 +1,26 @@
 #include <iostream>
-#include <QApplication>
-#include <QtMultimediaWidgets/QVideoWidget>
-#include <QMediaPlaylist>
-#include <string>
-#include <vector>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QHBoxLayout>
-#include <QtCore/QFileInfo>
-#include <QtWidgets/QFileIconProvider>
-#include <QDesktopServices>
-#include <QImageReader>
-#include <QMessageBox>
-#include <QtCore/QDir>
-#include <QtCore/QDirIterator>
+#include "test.h"
+
+MyObject::MyObject(QApplication* app) {
+    manager = new QNetworkAccessManager(app);
+}
+
+void MyObject::TestConnection() const {
+    auto status = connect(manager, &QNetworkAccessManager::finished, this, &MyObject::ReplyFinished);
+    qDebug() << "Connection status:" << status;
+
+    manager->get(QNetworkRequest(QUrl("https://nominatim.openstreetmap.org/reverse?lat=53.794812445781105&lon=-1.505817435048274&format=json&zoom=3")));
+}
+
+void MyObject::ReplyFinished(QNetworkReply *reply) {
+    QString answer = reply->readAll();
+    qDebug() << answer;
+    QApplication::quit();
+}
 
 int main(int argc, char *argv[]) {
-
-    // let's just check that Qt is operational first
-    qDebug() << "Qt version: " << QT_VERSION_STR << endl;
-
-    // create the Qt Application
-    QApplication app(argc, argv);
-
-    // wait for the app to terminate
-    return app.exec();
+    auto *app = new QApplication(argc, argv);
+    auto myObject = new MyObject(app);
+    myObject->TestConnection();
+    return QApplication::exec();
 }
