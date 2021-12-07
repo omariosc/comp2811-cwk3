@@ -2,7 +2,7 @@
 // Created by twak on 11/11/2019.
 //
 
-#include "Player.h"
+#include "player.h"
 
 // all buttons have been setup, store pointers here
 void Player::setContent(std::vector<ThumbnailButton*>* b, std::vector<VideoFile>* i) {
