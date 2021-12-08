@@ -4,6 +4,7 @@
 #include <QWidget>
 
 class AlbumPage : public QWidget {
+    Q_OBJECT
 
 public:
     AlbumPage() : QWidget() {}

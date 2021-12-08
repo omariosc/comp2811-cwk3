@@ -14,8 +14,13 @@
 #include <QMediaPlayer>
 #include <string>
 #include <vector>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QStackedWidget>
+
 #include <QtCore/QFileInfo>
 #include <QtWidgets/QFileIconProvider>
 #include <QDesktopServices>
@@ -23,8 +28,18 @@
 #include <QMessageBox>
 #include <QtCore/QDir>
 #include <QtCore/QDirIterator>
+#include "library_page.h"
+#include "favourite_page.h"
+#include "map_page.h"
+#include "album_page.h"
+#include "filter_page.h"
 #include "player.h"
-#include "thumbnailButton.h"
+#include "thumbnail_button.h"
+#include "mainPage/navigation_button.h"
+#include "mainPage/title_label.h"
+
+#include "main_window.h"
+
 
 #include "Map/map.h"
 
@@ -102,50 +117,46 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
-    // the widget that will show the video
-    QVideoWidget *videoWidget = new QVideoWidget;
 
-    // the QMediaPlayer which controls the playback
-    Player *player = new Player;
-    player->setVideoOutput(videoWidget);
+//    // the widget that will show the video
+//    QVideoWidget *videoWidget = new QVideoWidget;
 
-    // a row of buttons
-    QWidget *buttonWidget = new QWidget();
-    // a list of the buttons
-    std::vector<ThumbnailButton*> buttons;
-    // the buttons are arranged horizontally
-    QHBoxLayout *layout = new QHBoxLayout();
-    buttonWidget->setLayout(layout);
+//    // the QMediaPlayer which controls the playback
+//    Player *player = new Player;
+//    player->setVideoOutput(videoWidget);
+
+//    // a row of buttons
+//    QWidget *buttonWidget = new QWidget();
+//    // a list of the buttons
+//    std::vector<ThumbnailButton*> buttons;
+//    // the buttons are arranged horizontally
+//    QHBoxLayout *layout = new QHBoxLayout();
+//    buttonWidget->setLayout(layout);
 
 
-    // create the four buttons
-    for ( int i = 0; i < 4; i++ ) {
-        ThumbnailButton *button = new ThumbnailButton(buttonWidget, &videos.at(i));
-        button->connect(button, SIGNAL(jumpTo(VideoFile* )), player, SLOT (jumpTo(VideoFile*))); // when clicked, tell the player to play.
-        buttons.push_back(button);
-        layout->addWidget(button);
-    }
+//    // create the four buttons
+//    for ( int i = 0; i < 4; i++ ) {
+//        ThumbnailButton *button = new ThumbnailButton(buttonWidget, &videos.at(i));
+//        button->connect(button, SIGNAL(jumpTo(VideoFile* )), player, SLOT (jumpTo(VideoFile*))); // when clicked, tell the player to play.
+//        buttons.push_back(button);
+//        layout->addWidget(button);
+//    }
 
-    // tell the player what buttons and videos are available
-    player->setContent(&buttons, & videos);
+//    // tell the player what buttons and videos are available
+//    player->setContent(&buttons, &videos);
+
+
 
     // create the main window and layout
-    QWidget window;
-    QVBoxLayout *top = new QVBoxLayout();
-    window.setLayout(top);
-    window.setWindowTitle("tomeo");
-    window.setMinimumSize(800, 680);
 
-    // add the video and the buttons to the top level widget
-    top->addWidget(videoWidget);
-    top->addWidget(buttonWidget);
+    MainWindow mainWindow;
 
     // showtime!
     window.show();*/
+    // No longer required should be moved to map_page
+    //Map *m = new Map();
+    //m->show();
 
-    Map *m = new Map();
-    m->show();
 
-    // wait for the app to terminate
     return app.exec();
 }

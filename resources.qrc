@@ -1,2 +1,11 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/">
+        <file alias="albumsIcon">resources/albums.png</file>
+        <file alias="favouritesIcon">resources/favourites.png</file>
+        <file alias="filterIcon">resources/filter.png</file>
+        <file alias="libraryIcon">resources/library.png</file>
+        <file alias="mapIcon">resources/map.png</file>
+        <file alias="settingsIcon">resources/settings.png</file>
+        <file alias="tomeoStyleSheet">resources/tomeoStyleSheet.qss</file>
+    </qresource>
+</RCC>
