@@ -12,6 +12,9 @@ SOURCES += \
         favourite_page.cpp \
         filter_page.cpp \
         library_page.cpp \
+        mainPage/navigation_button.cpp \
+        mainPage/title_label.cpp \
+        main_window.cpp \
         map_page.cpp \
         player.cpp \
         thumbnail_button.cpp \
@@ -22,6 +25,9 @@ HEADERS += \
     favourite_page.h \
     filter_page.h \
     library_page.h \
+    mainPage/navigation_button.h \
+    mainPage/title_label.h \
+    main_window.h \
     map_page.h \
     player.h \
     thumbnail_button.h \

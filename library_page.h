@@ -4,6 +4,7 @@
 #include <QWidget>
 
 class LibraryPage : public QWidget {
+    Q_OBJECT
 
 public:
     LibraryPage() : QWidget() {}

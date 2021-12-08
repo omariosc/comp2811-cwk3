@@ -4,6 +4,7 @@
 #include <QWidget>
 
 class MapPage : public QWidget {
+    Q_OBJECT
 
 public:
     MapPage() : QWidget() {}

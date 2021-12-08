@@ -4,6 +4,7 @@
 #include <QWidget>
 
 class FilterPage : public QWidget {
+    Q_OBJECT
 
 public:
     FilterPage() : QWidget() {}

@@ -4,6 +4,7 @@
 #include <QWidget>
 
 class FavouritePage : public QWidget {
+    Q_OBJECT
 
 public:
     FavouritePage() : QWidget() {}
