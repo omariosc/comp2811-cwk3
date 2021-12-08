@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/map">
-        <file>world.svg</file>
-    </qresource>
-</RCC>
