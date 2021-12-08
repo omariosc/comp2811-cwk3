@@ -4,6 +4,8 @@
 #include <QScrollArea>
 #include <QLabel>
 #include <QtNetwork/QNetworkReply>
+#include <QVBoxLayout>
+#include <QGridLayout>
 
 // Class containing the results from the map
 
@@ -16,6 +18,9 @@ public:
 
 public slots:
     void getCountry(QString country);
+
+private:
+    QWidget* resultWidget(QString country);
 };
 
 #endif // RESULTS_H

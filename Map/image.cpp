@@ -30,11 +30,13 @@ void Image::sendRequest(double lat, double lon) {
 
     QString url = QString("https://nominatim.openstreetmap.org/reverse?lat=%1&lon=%2&format=json&zoom=3").arg(QString::number(lat), QString::number(lon));
 
+    // If you click too quickly it causes a problem with the code waiting for the resposne.
     manager->get(QNetworkRequest(QUrl(url)));
 }
 
 void Image::processRequest(QNetworkReply *reply) {
     QString answer = reply->readAll();
+    qDebug() << answer;
 
     if (!answer.contains("error") && !answer.isEmpty()) {
         int keyPos = answer.indexOf("country");
