@@ -11,7 +11,7 @@
 #include <iostream>
 #include <QApplication>
 #include <QtMultimediaWidgets/QVideoWidget>
-#include <QMediaPlaylist>
+#include <QMediaPlayer>
 #include <string>
 #include <vector>
 #include <QtWidgets/QPushButton>
@@ -25,6 +25,8 @@
 #include <QtCore/QDirIterator>
 #include "player.h"
 #include "thumbnailButton.h"
+
+#include "Map/map.h"
 
 // read in videos and thumbnails to this directory
 std::vector<VideoFile> getInfoIn (std::string loc) {
@@ -55,10 +57,10 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
                         out . push_back(VideoFile( url , ico  ) ); // add to the output list
                     }
                     else
-                        qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb << endl;
+                        qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb;
             }
             else
-                qDebug() << "warning: skipping video because I couldn't find thumbnail " << thumb << endl;
+                qDebug() << "warning: skipping video because I couldn't find thumbnail " << thumb;
         }
     }
 
@@ -69,13 +71,13 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
 int main(int argc, char *argv[]) {
 
     // let's just check that Qt is operational first
-    qDebug() << "Qt version: " << QT_VERSION_STR << endl;
+    qDebug() << "Qt version: " << QT_VERSION_STR;
 
     // create the Qt Application
     QApplication app(argc, argv);
 
     // collect all the videos in the folder
-    std::vector<VideoFile> videos;
+    /*std::vector<VideoFile> videos;
 
     if (argc == 2)
         videos = getInfoIn( std::string(argv[1]) );
@@ -139,7 +141,10 @@ int main(int argc, char *argv[]) {
     top->addWidget(buttonWidget);
 
     // showtime!
-    window.show();
+    window.show();*/
+
+    Map *m = new Map();
+    m->show();
 
     // wait for the app to terminate
     return app.exec();

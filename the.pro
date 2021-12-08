@@ -14,8 +14,12 @@ SOURCES += \
         library_page.cpp \
         map_page.cpp \
         player.cpp \
-        thumbnail_button.cpp \
-        tomeo.cpp
+        thumbnailButton.cpp \
+        tomeo.cpp \
+        # Map Files
+        Map/map.cpp \
+        Map/image.cpp \
+        Map/results.cpp
 
 HEADERS += \
     album_page.h \
@@ -24,8 +28,15 @@ HEADERS += \
     library_page.h \
     map_page.h \
     player.h \
-    thumbnail_button.h \
-    video_file.h
+    thumbnailButton.h \
+    videoFile.h \
+    # Map Files
+    Map/map.h \
+    Map/image.h \
+    Map/results.h
+
+RESOURCES += \
+    map.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
