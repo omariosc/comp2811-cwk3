@@ -92,6 +92,8 @@ int main(int argc, char *argv[]) {
     // collect all the videos in the folder
     std::vector<VideoFile> videos;
 
+
+
     if (argc == 2)
         videos = getInfoIn( std::string(argv[1]) );
 
@@ -116,38 +118,7 @@ int main(int argc, char *argv[]) {
     }
 
 
-//    // the widget that will show the video
-//    QVideoWidget *videoWidget = new QVideoWidget;
-
-//    // the QMediaPlayer which controls the playback
-//    Player *player = new Player;
-//    player->setVideoOutput(videoWidget);
-
-//    // a row of buttons
-//    QWidget *buttonWidget = new QWidget();
-//    // a list of the buttons
-//    std::vector<ThumbnailButton*> buttons;
-//    // the buttons are arranged horizontally
-//    QHBoxLayout *layout = new QHBoxLayout();
-//    buttonWidget->setLayout(layout);
-
-
-//    // create the four buttons
-//    for ( int i = 0; i < 4; i++ ) {
-//        ThumbnailButton *button = new ThumbnailButton(buttonWidget, &videos.at(i));
-//        button->connect(button, SIGNAL(jumpTo(VideoFile* )), player, SLOT (jumpTo(VideoFile*))); // when clicked, tell the player to play.
-//        buttons.push_back(button);
-//        layout->addWidget(button);
-//    }
-
-//    // tell the player what buttons and videos are available
-//    player->setContent(&buttons, &videos);
-
-
-
-    // create the main window and layout
-
-    MainWindow mainWindow;
+    MainWindow mainWindow(videos);
 
 
     return app.exec();

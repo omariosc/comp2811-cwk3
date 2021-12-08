@@ -14,8 +14,13 @@ class ThumbnailButton : public QPushButton {
 
 public:
     VideoFile* info;
-    ThumbnailButton(QWidget *parent, VideoFile* i);
-    void setFile(VideoFile* i);
+
+     ThumbnailButton(QWidget *parent) :  QPushButton(parent) {
+         setIconSize(QSize(200,110));
+         connect(this, SIGNAL(released()), this, SLOT (clicked() )); // if QPushButton clicked...then run clicked() below
+    }
+
+    void init(VideoFile* i);
 
 private slots:
     void clicked();
@@ -25,5 +30,5 @@ signals:
 
 };
 
-#endif // THE_THUMBNAIL_BUTTON_H
+#endif //THE_THUMBNAIL_BUTTON_H
 

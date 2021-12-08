@@ -2,12 +2,13 @@
 #define THE_FAVOURITE_PAGE_H
 
 #include <QWidget>
+#include "video_file.h"
 
 class FavouritePage : public QWidget {
     Q_OBJECT
 
 public:
-    FavouritePage() : QWidget() {}
+    FavouritePage(std::vector<VideoFile> &videos) : QWidget() {}
 
 };
 

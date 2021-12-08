@@ -4,13 +4,7 @@
 
 #include "thumbnail_button.h"
 
-ThumbnailButton::ThumbnailButton(QWidget *parent, VideoFile* i) :  QPushButton(parent) {
-    setFile(i);
-    setIconSize(QSize(200,110));
-    connect(this, SIGNAL(released()), this, SLOT (clicked() ));
-}
-
-void ThumbnailButton::setFile(VideoFile* i) {
+void ThumbnailButton::init(VideoFile* i) {
     setIcon( *(i->icon) );
     info =  i;
 }

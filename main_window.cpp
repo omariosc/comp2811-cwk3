@@ -20,7 +20,7 @@
 #include "album_page.h"
 #include "filter_page.h"
 
-MainWindow::MainWindow() : QWidget(){
+MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
     NavigationButton *libraryPageButton = new NavigationButton("Library");
     libraryPageButton->setIcon(QIcon(":/libraryIcon"));
     libraryPageButton->setPageNum(0);
@@ -42,11 +42,11 @@ MainWindow::MainWindow() : QWidget(){
     headerLayout->addWidget(currentPageLabel, 0, 1, 1, 2);
     headerLayout->addWidget(settingsButton, 0, 3);
 
-    LibraryPage *libraryPage = new LibraryPage();
-    FavouritePage *favouritesPage = new FavouritePage();
-    MapPage *mapPage = new MapPage();
-    AlbumPage *albumsPage = new AlbumPage();
-    FilterPage *filterPage = new FilterPage();
+    LibraryPage *libraryPage = new LibraryPage(videos);
+    FavouritePage *favouritesPage = new FavouritePage(videos);
+    MapPage *mapPage = new MapPage(videos);
+    AlbumPage *albumsPage = new AlbumPage(videos);
+    FilterPage *filterPage = new FilterPage(videos);
 
     QStackedWidget *stackedPage = new QStackedWidget();
     stackedPage->addWidget(libraryPage);
@@ -56,8 +56,6 @@ MainWindow::MainWindow() : QWidget(){
     stackedPage->addWidget(filterPage);
 
     connect(this, &MainWindow::changedFocus, stackedPage, &QStackedWidget::setCurrentIndex);
-
-    stackedPage->setStyleSheet("background:#000000;");
 
     NavigationButton *favouritesPageButton = new NavigationButton("Favourites");
     favouritesPageButton->setIcon(QIcon(":/favouritesIcon"));
