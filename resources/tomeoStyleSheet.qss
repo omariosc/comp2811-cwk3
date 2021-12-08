@@ -1,0 +1,42 @@
+QWidget[type="menuBackground"]{
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #191919, stop: 0.4 #2D2D2D,
+                                 stop: 0.5 #2D2D2D, stop: 1.0 #191919);
+}
+NavigationButton[type="Selected"]{
+	background: rgba(100,100,100,127);
+	border: 0px;
+	color: #ffffff;
+	margin: 0px;
+	font-size: 32px;
+	font-family: Arial;
+}
+
+NavigationButton{
+	border: 0px;
+	color: #ffffff;
+	margin: 0px;
+	font-size: 32px;
+	font-family: Arial;
+}
+
+NavigationButton:pressed{
+	background: rgba(100,100,100,127);
+	border: 0px;
+	color: #ffffff;
+	margin: 0px;
+	font-size: 32px;
+	font-family: Arial;
+}
+
+
+
+
+TitleLabel{
+	border: 0px;
+	color: #ffffff;
+	margin: 5px;
+	font-size: 64px;
+	font-family: Arial;
+}
+
