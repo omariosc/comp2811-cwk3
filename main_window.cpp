@@ -5,6 +5,7 @@
 
 #include <QApplication>
 #include <QFile>
+#include <QStyle>
 
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QPushButton>

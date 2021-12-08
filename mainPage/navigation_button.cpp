@@ -1,6 +1,7 @@
 #include "navigation_button.h"
 #include <QVariant>
 #include <QDebug>
+#include <QStyle>
 
 
 NavigationButton::NavigationButton(QString newName) : QToolButton()
@@ -34,10 +35,10 @@ void NavigationButton::dataClicked(){
 void NavigationButton::setActive(bool newState){
     if (newState) {
         setProperty("type", "Selected");
-        qDebug() << "Selected";
     } else {
         setProperty("type", "Unselected");
-        qDebug() << "Unselected";
     }
+    this->style()->unpolish(this);
+    this->style()->polish(this);
 
 }
