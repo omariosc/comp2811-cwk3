@@ -8,10 +8,14 @@
 // Class containing the results from the map
 
 class Results : public QScrollArea {
+    Q_OBJECT
 public:
     Results();
 
-    void ProcessRequest(QNetworkReply *reply);
+    virtual ~Results() {};
+
+public slots:
+    void getCountry(QString country);
 };
 
 #endif // RESULTS_H

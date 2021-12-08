@@ -7,6 +7,8 @@ Map::Map() {
     auto i = new Image();
     auto r = new Results();
 
+    QObject::connect(i, &Image::sendCountry, r, &Results::getCountry);
+
     QVBoxLayout *l = new QVBoxLayout();
     l->addWidget(i);
     l->addWidget(r);

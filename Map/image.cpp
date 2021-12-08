@@ -13,16 +13,10 @@ void Image::mousePressEvent(QMouseEvent *event) {
     double th = pixmap()->size().height();
     double tw = pixmap()->size().width();
 
-    qDebug() << h;
-    qDebug() << th;
-
-    qDebug() << w;
-    qDebug() << tw;
-
     double lat = 90.0-((h/th)*180.0);
-    double lon = ((w/tw)*360.0)-170.0;
+    double lon = ((w/tw)*360.0)-170.0;  // Should find a more accurate formula later
 
-    SendRequest(lat, lon);
+    sendRequest(lat, lon);
 }
 
 void Image::resizeEvent(QResizeEvent *e) {
@@ -31,17 +25,23 @@ void Image::resizeEvent(QResizeEvent *e) {
     setPixmap(img.scaledToHeight(h, Qt::TransformationMode::SmoothTransformation));
 }
 
-void Image::SendRequest(double lat, double lon) {
-    qDebug() << lat;
-    qDebug() << lon;
-    auto status = connect(manager, &QNetworkAccessManager::finished, this, &Image::ProcessRequest);
+void Image::sendRequest(double lat, double lon) {
+    auto status = connect(manager, &QNetworkAccessManager::finished, this, &Image::processRequest);
 
     QString url = QString("https://nominatim.openstreetmap.org/reverse?lat=%1&lon=%2&format=json&zoom=3").arg(QString::number(lat), QString::number(lon));
 
     manager->get(QNetworkRequest(QUrl(url)));
 }
 
-void Image::ProcessRequest(QNetworkReply *reply) {
+void Image::processRequest(QNetworkReply *reply) {
     QString answer = reply->readAll();
-    qDebug() << answer;
+
+    if (!answer.contains("error") && !answer.isEmpty()) {
+        int keyPos = answer.indexOf("country");
+
+        int qPosOne = answer.indexOf("\"", keyPos+9);
+        int qPosTwo = answer.indexOf("\"", qPosOne+1);
+
+        emit sendCountry(answer.mid(qPosOne+1, qPosTwo - (qPosOne+1)));
+    }
 }

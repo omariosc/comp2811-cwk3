@@ -5,3 +5,7 @@ Results::Results() {
 
     setWidget(new QLabel("Hello"));
 }
+
+void Results::getCountry(QString country) {
+    qDebug() << country;
+}
