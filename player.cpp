@@ -1,9 +1,10 @@
 #include "player.h"
 #include "QLabel"
 
-static const int buttonWidth = 30;
+//static const int buttonWidth = 30;
+static const int butMaxWidth = 50;
 
-Player::Player(std::vector<VideoFile> videos)
+Player::Player(std::vector<VideoFile> videos,QStackedWidget* toggler): toggler(toggler)
 {
     this->setMinimumSize(320,320);
 
@@ -15,7 +16,8 @@ Player::Player(std::vector<VideoFile> videos)
     player->setVideoOutput(videoWidget);
 
     // tell the player what buttons and videos are available
-    player->setContent(&videos[0]);
+    currentVideo = &videos[0];
+    player->setContent(currentVideo);
     //player->setContent(NULL);
 
     // create the main window and layout
@@ -30,27 +32,48 @@ Player::Player(std::vector<VideoFile> videos)
     //Create the button layout
     QHBoxLayout *bot = new QHBoxLayout();
 
+    //Create and add the back button
+    QPushButton *back = new QPushButton();
+    back->setText("Back");
+    back->setMaximumWidth(butMaxWidth);
+    bot->addWidget(back);
+
+    //Connect it to QStackedWidget
+    connect(back,&QPushButton::clicked,this,&Player::quitPlayer);
+
+
     //Create the play/pause stacked widget
     QPushButton *play = new QPushButton();
     QPushButton *pause = new QPushButton();
+    play->setText("&Play");
+    pause->setText("&Pause");
     playPause = new QStackedWidget();
-    playPause->setMaximumWidth(buttonWidth);
+    playPause->setMaximumWidth(butMaxWidth);
     playPause->addWidget(pause);
     playPause->addWidget(play);
-    playPause->setCurrentIndex(0);
+    playPause->setCurrentIndex(1);
     bot->addWidget(playPause);
 
-    //Connect the buttons
+    //Connect the play/pause buttons
     connect(play,SIGNAL(clicked()),this,SLOT(toggleVideo()));
     connect(pause,SIGNAL(clicked()),this,SLOT(toggleVideo()));
+
+    //Create the "favorite" button
+    QPushButton *favorite = new QPushButton();
+    favorite->setText("Fav");
+    favorite->setMaximumWidth(butMaxWidth);
+    bot->addWidget(favorite);
+
+    //And connect it
+    connect(favorite,&QPushButton::clicked,this,&Player::toggleFavorite);
 
     //Make the scroll and add it
     videoSlider = new QSlider(Qt::Horizontal,this);
     qDebug() << "Video duration: " << player->duration();
     videoSlider->setRange(0, player->duration());
-    //connect(player,SIGNAL(positionChanged(qint64)),videoSlider,)
     videoSlider->setMinimumWidth(200);
-    bot->addWidget(new QLabel("Test"));
+
+    bot->addWidget(new QLabel("Seeker:"));
     bot->addWidget(videoSlider);
 
     //Connect scroll to VideoPlayer
@@ -60,8 +83,6 @@ Player::Player(std::vector<VideoFile> videos)
     connect(videoSlider,&QSlider::sliderPressed,player,&QMediaPlayer::pause);
     connect(videoSlider,&QSlider::sliderReleased,player,&QMediaPlayer::play);
 
-//    bot->addWidget(play);
-//    bot->addWidget(pause);
     top->addLayout(bot);
     top->addStretch(1);
 
@@ -69,8 +90,13 @@ Player::Player(std::vector<VideoFile> videos)
     show();
 }
 
-void Player::playVideo(){
-    //working on it
+void Player::playVideo(VideoFile* newVideo){
+    player->stop();
+    if(toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
+    playPause->setCurrentIndex(0);
+    player->setContent(newVideo);
+    currentVideo = newVideo;
+    player->pause();
 }
 
 void Player::toggleVideo(){
@@ -99,4 +125,20 @@ void Player::modifySlider(qint64 duration){
 void Player::updateSlider(qint64 position){
     if (!videoSlider->isSliderDown())
         videoSlider->setValue(position / 1000);
+}
+
+void Player::toggleFavorite(){
+    if(currentVideo->favorite == true){
+        currentVideo->favorite = false;
+        qDebug() << "Video removed from favorites";
+    }
+    else{
+        currentVideo->favorite = true;
+        qDebug() << "Video added to favorites";
+    }
+}
+
+void Player::quitPlayer(){
+    player->stop();
+    toggler->setCurrentIndex(0);
 }
