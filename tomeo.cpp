@@ -41,8 +41,6 @@
 #include "main_window.h"
 
 
-#include "Map/map.h"
-
 // read in videos and thumbnails to this directory
 std::vector<VideoFile> getInfoIn (std::string loc) {
 
@@ -92,7 +90,7 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     // collect all the videos in the folder
-    /*std::vector<VideoFile> videos;
+    std::vector<VideoFile> videos;
 
 
 
@@ -121,13 +119,6 @@ int main(int argc, char *argv[]) {
 
 
     MainWindow mainWindow(videos);
-
-    // showtime!
-    window.show();*/
-    // No longer required should be moved to map_page
-    //Map *m = new Map();
-    //m->show();
-
 
     return app.exec();
 }
