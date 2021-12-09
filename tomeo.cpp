@@ -40,9 +40,6 @@
 
 #include "main_window.h"
 
-
-#include "Map/map.h"
-
 // read in videos and thumbnails to this directory
 std::vector<VideoFile> getInfoIn (std::string loc) {
 
@@ -91,32 +88,31 @@ int main(int argc, char *argv[]) {
     // create the Qt Application
     QApplication app(argc, argv);
 
-    // collect all the videos in the folder
-    /*std::vector<VideoFile> videos;
+//    // collect all the videos in the folder
+//    std::vector<VideoFile> videos;
 
-    if (argc == 2)
-        videos = getInfoIn( std::string(argv[1]) );
+//    if (argc == 2)
+//        videos = getInfoIn( std::string(argv[1]) );
 
-    if (videos.size() == 0) {
+//    if (videos.size() == 0) {
 
-        const int result = QMessageBox::question(
-                    NULL,
-                    QString("Tomeo"),
-                    QString("no videos found! download, unzip, and add command line argument to \"quoted\" file location. Download videos from Tom's OneDrive?"),
-                    QMessageBox::Yes |
-                    QMessageBox::No );
+//        const int result = QMessageBox::question(
+//                    NULL,
+//                    QString("Tomeo"),
+//                    QString("no videos found! download, unzip, and add command line argument to \"quoted\" file location. Download videos from Tom's OneDrive?"),
+//                    QMessageBox::Yes |
+//                    QMessageBox::No );
 
-        switch( result )
-        {
-        case QMessageBox::Yes:
-          QDesktopServices::openUrl(QUrl("https://leeds365-my.sharepoint.com/:u:/g/personal/scstke_leeds_ac_uk/EcGntcL-K3JOiaZF4T_uaA4BHn6USbq2E55kF_BTfdpPag?e=n1qfuN"));
-          break;
-        default:
-            break;
-        }
-        exit(-1);
-    }
-
+//        switch( result )
+//        {
+//        case QMessageBox::Yes:
+//          QDesktopServices::openUrl(QUrl("https://leeds365-my.sharepoint.com/:u:/g/personal/scstke_leeds_ac_uk/EcGntcL-K3JOiaZF4T_uaA4BHn6USbq2E55kF_BTfdpPag?e=n1qfuN"));
+//          break;
+//        default:
+//            break;
+//        }
+//        exit(-1);
+//    }
 
 //    // the widget that will show the video
 //    QVideoWidget *videoWidget = new QVideoWidget;
@@ -150,12 +146,6 @@ int main(int argc, char *argv[]) {
     // create the main window and layout
 
     MainWindow mainWindow;
-
-    // showtime!
-    window.show();*/
-    // No longer required should be moved to map_page
-    //Map *m = new Map();
-    //m->show();
 
 
     return app.exec();

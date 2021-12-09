@@ -18,6 +18,7 @@ QWidget* Results::resultWidget(QString country) {
 
         QWidget *results = new QWidget();
         QLabel *header = new QLabel("Results from " + country + ":");
+        header->setStyleSheet("color: #FFFFFF; font: 20px;");
 
         // Add actual results in when possible
         results->setLayout(resultsLayout);

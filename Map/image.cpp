@@ -1,7 +1,7 @@
 #include "image.h"
 
 Image::Image() {
-    img = QPixmap(":/world.jpg");
+    img = QPixmap(":/resources/world.jpg");
     setPixmap(img);
 
     manager = new QNetworkAccessManager();
@@ -36,7 +36,6 @@ void Image::sendRequest(double lat, double lon) {
 
 void Image::processRequest(QNetworkReply *reply) {
     QString answer = reply->readAll();
-    qDebug() << answer;
 
     if (!answer.contains("error") && !answer.isEmpty()) {
         int keyPos = answer.indexOf("country");
