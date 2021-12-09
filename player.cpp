@@ -85,7 +85,7 @@ Player::Player(std::vector<VideoFile> videos,QStackedWidget* toggler): toggler(t
 
     top->addLayout(bot);
     top->addStretch(1);
-
+    player->pause();
     // showtime!
     show();
 }
@@ -93,7 +93,7 @@ Player::Player(std::vector<VideoFile> videos,QStackedWidget* toggler): toggler(t
 void Player::playVideo(VideoFile* newVideo){
     player->stop();
     if(toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
-    playPause->setCurrentIndex(0);
+    playPause->setCurrentIndex(1);
     player->setContent(newVideo);
     currentVideo = newVideo;
     player->pause();
@@ -141,4 +141,5 @@ void Player::toggleFavorite(){
 void Player::quitPlayer(){
     player->stop();
     toggler->setCurrentIndex(0);
+    currentVideo = NULL;
 }
