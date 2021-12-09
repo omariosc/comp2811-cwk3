@@ -30,6 +30,25 @@ NavigationButton:pressed{
 }
 
 
+QStackedWidget{
+	background: #000000;
+}
+
+ThumbnailButton{
+	border-color: #FFFFFF;
+	border-width: 5px;
+	border-radius: 5px;
+	border-style: solid;
+	background: #00FF00;
+}
+
+QVideoWidget{
+	border-color: #FFFFFF;
+	border-width: 5px;
+	border-radius: 5px;
+	border-style: solid;
+	background: #00FF00;
+}
 
 
 TitleLabel{
