@@ -140,7 +140,7 @@ void MainWindow::navButtonClicked(int pageNumber, QString pageName){
 
 
 void MainWindow::settingsButtonClicked(){
-    qDebug() << "boop";
-    SettingsPage settings;
+    SettingsPage settings(this);
+    settings.exec();
 }
 

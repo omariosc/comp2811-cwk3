@@ -6,7 +6,10 @@
 class SettingsPage : public QDialog {
     Q_OBJECT
 public:
-    SettingsPage() : QDialog() {}
+    SettingsPage(QWidget *parent = nullptr);
+
+private slots:
+    void returnBack();
 };
 
 #endif // SETTINGSPAGE_H
