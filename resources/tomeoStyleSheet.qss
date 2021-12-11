@@ -3,6 +3,12 @@ QWidget[type="menuBackground"]{
                                  stop: 0 #191919, stop: 0.4 #2D2D2D,
                                  stop: 0.5 #2D2D2D, stop: 1.0 #191919);
 }
+
+QWidget[type="content"]{
+     background: #000000;
+}
+
+
 NavigationButton[type="Selected"]{
 	background: rgba(100,100,100,127);
 	border: 0px;
@@ -54,6 +60,13 @@ QScrollArea{
 	background: #FFFF00;
 }
 
+QLabel{
+	border: 0px;
+	color: #ffffff;
+	margin: 5px;
+	font-size: 16px;
+}
+
 TitleLabel{
 	border: 0px;
 	color: #ffffff;
@@ -61,4 +74,5 @@ TitleLabel{
 	font-size: 64px;
 	font-family: Arial;
 }
+
 
