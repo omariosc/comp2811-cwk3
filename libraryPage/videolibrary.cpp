@@ -9,10 +9,13 @@ VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player &player) : QScro
     videos = vids;
 
     QWidget *buttonScrollArea = new QWidget();
+    buttonScrollArea->setProperty("type", "content");
 
     QGridLayout *layout = new QGridLayout();
     QSizePolicy buttonScrollAreaSizePolicy =  QSizePolicy();
     buttonScrollAreaSizePolicy.setHorizontalPolicy(QSizePolicy::Ignored);
+    layout->setMargin(0);
+    layout->setSpacing(0);
     buttonScrollArea->setLayout(layout);
 
 
@@ -29,17 +32,6 @@ VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player &player) : QScro
     buttonScrollArea->setSizePolicy(buttonScrollAreaSizePolicy);
 
 }
-
-//VideoLibrary::VideoLibrary() : QScrollArea(){
-//    setWidgetResizable(1);
-//    QWidget *buttonScrollArea = new QWidget();
-//    QGridLayout *layout = new QGridLayout();
-//    for (int i = 0; i < 10; i++) {
-//        QPushButton *button = new QPushButton(buttonScrollArea);
-//        layout->addWidget(button, i / 4, i % 4);
-//    }
-//    setWidget(buttonScrollArea);
-//}
 
 
 std::vector<ThumbnailButton*>* VideoLibrary::getButtons(){

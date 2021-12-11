@@ -112,7 +112,7 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
     setLayout(baseLayout);
     setWindowTitle("tomeo");
     setMinimumSize(320, 568);
-
+    resize(320, 568);
 
     QFile File(":/tomeoStyleSheet");
     File.open(QFile::ReadOnly);
@@ -121,7 +121,6 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
 
     //setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
-    // showtime!
     show();
 }
 

@@ -119,6 +119,5 @@ int main(int argc, char *argv[]) {
 
 
     MainWindow mainWindow(videos);
-
     return app.exec();
 }

@@ -41,11 +41,18 @@ QStackedWidget{
 }
 
 ThumbnailButton{
+	background-color: #2D2D2D;
 	border-color: #FFFFFF;
-	border-width: 5px;
-	border-radius: 5px;
-	border-style: solid;
-	background: #00FF00;
+}
+
+ThumbnailButton:pressed{
+	background-color: #191919;
+	border-color: #2A2A2A;
+}
+
+ThumbnailButton:hover{
+	background-color: #191919;
+	border-color: #2A2A2A;
 }
 
 QVideoWidget{
@@ -53,18 +60,16 @@ QVideoWidget{
 	border-width: 5px;
 	border-radius: 5px;
 	border-style: solid;
-	background: #00FF00;
 }
 
-QScrollArea{
-	background: #FFFF00;
+VideoLibrary{
+	background: #000000;
+	border-radius: 0px;
 }
 
 QLabel[type="setting"]{
      color: #FFFFFF;
 }
-
-
 
 QComboBox {
 	background-color: #2D2D2D;
@@ -87,5 +92,8 @@ SettingsPage{
 	background: #000000;
 }
 
+QScrollBar:vertical {
+    width: 0px;
+}
 
 

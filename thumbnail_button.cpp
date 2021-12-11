@@ -11,14 +11,13 @@ ThumbnailButton::ThumbnailButton(QWidget *parent) :  QToolButton(parent) {
     buttonSizePolicy.setHorizontalPolicy(QSizePolicy::Ignored);
     buttonSizePolicy.setWidthForHeight(1);
     setSizePolicy(buttonSizePolicy);
-    iconWidth = parent->width()-10;
-    setMinimumHeight(400);
+    setMinimumHeight(45);
     connect(this, SIGNAL(released()), this, SLOT (clicked() )); // if QPushButton clicked...then run clicked() below
 }
 
 void ThumbnailButton::init(VideoFile* i) {
     setIcon( *i->icon );
-    setIconSize(QSize(width(),height()));
+    setIconSize(QSize(48,40));
     info =  i;
 }
 

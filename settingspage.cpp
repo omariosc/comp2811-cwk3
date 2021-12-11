@@ -10,6 +10,7 @@
 
 SettingsPage::SettingsPage(QWidget *parent) : QDialog(parent) {
     setModal(1);
+    // setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     if (parent) {
         resize(parent->width(), parent->height());
     }

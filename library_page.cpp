@@ -19,6 +19,8 @@ LibraryPage::LibraryPage(std::vector<VideoFile> &videos) : QWidget() {
 
 
         QGridLayout *libraryLayout = new QGridLayout();
+        libraryLayout->setRowStretch(0, 1);
+        libraryLayout->setRowStretch(1, 1);
         libraryLayout->addWidget(videoWidget, 0, 0);
         libraryLayout->addWidget(library, 1, 0);
         setLayout(libraryLayout);
