@@ -1,42 +1,32 @@
 #include "player.h"
 #include "QLabel"
+#include "QStyle"
+#include "QFile"
 
 //static const int buttonWidth = 30;
 static const int butMaxWidth = 50;
 
-Player::Player(std::vector<VideoFile> videos,QStackedWidget* toggler): toggler(toggler)
+Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), toggler(toggler), isLandscape(true)
 {
-    this->setMinimumSize(320,320);
+    this->setMinimumSize(100,100);
+    setWindowTitle("Video Player");
 
-    QVideoWidget *videoWidget = new QVideoWidget();
-    videoWidget->setMinimumSize(300,300);
+    QFile File(":/tomeoStyleSheet");
+    File.open(QFile::ReadOnly);
+    QString StyleSheet = QLatin1String(File.readAll());
+    setStyleSheet(StyleSheet);
+
+    videoWidget = new QVideoWidget();
+    videoWidget->setMinimumSize(100,100);
 
     // the QMediaPlayer which controls the playback
     player = new VideoPlayer();
     player->setVideoOutput(videoWidget);
 
-    // tell the player what buttons and videos are available
-    currentVideo = &videos[0];
-    player->setContent(currentVideo);
-    //player->setContent(NULL);
-
-    // create the main window and layout
-    QVBoxLayout *top = new QVBoxLayout();
-    setLayout(top);
-    setWindowTitle("Video Player");
-
-    // add the video and the buttons
-    top->addWidget(videoWidget);
-
-
-    //Create the button layout
-    QHBoxLayout *bot = new QHBoxLayout();
-
-    //Create and add the back button
-    QPushButton *back = new QPushButton();
+    //Create the back button
+    back = new QPushButton();
     back->setText("Back");
     back->setMaximumWidth(butMaxWidth);
-    bot->addWidget(back);
 
     //Connect it to QStackedWidget
     connect(back,&QPushButton::clicked,this,&Player::quitPlayer);
@@ -48,21 +38,21 @@ Player::Player(std::vector<VideoFile> videos,QStackedWidget* toggler): toggler(t
     play->setText("&Play");
     pause->setText("&Pause");
     playPause = new QStackedWidget();
+    playPause->setMaximumHeight(back->sizeHint().height());
     playPause->setMaximumWidth(butMaxWidth);
     playPause->addWidget(pause);
     playPause->addWidget(play);
     playPause->setCurrentIndex(1);
-    bot->addWidget(playPause);
+//    playPause->setMinimumHeight(30);
 
     //Connect the play/pause buttons
     connect(play,SIGNAL(clicked()),this,SLOT(toggleVideo()));
     connect(pause,SIGNAL(clicked()),this,SLOT(toggleVideo()));
 
     //Create the "favorite" button
-    QPushButton *favorite = new QPushButton();
+    favorite = new QPushButton();
     favorite->setText("Fav");
     favorite->setMaximumWidth(butMaxWidth);
-    bot->addWidget(favorite);
 
     //And connect it
     connect(favorite,&QPushButton::clicked,this,&Player::toggleFavorite);
@@ -71,32 +61,66 @@ Player::Player(std::vector<VideoFile> videos,QStackedWidget* toggler): toggler(t
     videoSlider = new QSlider(Qt::Horizontal,this);
     qDebug() << "Video duration: " << player->duration();
     videoSlider->setRange(0, player->duration());
-    videoSlider->setMinimumWidth(200);
-
-    bot->addWidget(new QLabel("Seeker:"));
-    bot->addWidget(videoSlider);
+    videoSlider->setMinimumWidth(20);
 
     //Connect scroll to VideoPlayer
     connect(videoSlider, &QSlider::sliderMoved, this, &Player::seek);
     connect(player,&QMediaPlayer::durationChanged,this,&Player::modifySlider);
     connect(player,&QMediaPlayer::positionChanged,this,&Player::updateSlider);
     connect(videoSlider,&QSlider::sliderPressed,player,&QMediaPlayer::pause);
-    connect(videoSlider,&QSlider::sliderReleased,player,&QMediaPlayer::play);
+    connect(videoSlider,&QSlider::sliderReleased,this,&Player::conditionalPlay);
+
+    //Create rotation toggle button
+    toggleRotation = new QPushButton();
+    connect(toggleRotation,&QPushButton::clicked,this,&Player::rotateScreen);
+    toggleRotation->setMaximumWidth(butMaxWidth);
+    toggleRotation->setText("Rotate");
+
+    //setup the layout
+    top = new QVBoxLayout();
+    top->addWidget(videoWidget);
+
+    bot = new QHBoxLayout();
+    bot->addWidget(back);
+    bot->addWidget(playPause);
+    bot->addWidget(favorite);
+    bot->addWidget(toggleRotation);
+    //bot->addWidget(new QLabel("Seeker:"));
+    bot->addWidget(videoSlider);
 
     top->addLayout(bot);
-    top->addStretch(1);
-    player->pause();
-    // showtime!
+    top->setContentsMargins(0,0,0,0);
+    isLandscape = true;
+    setLayout(top);
+    //layout()->update();
     show();
+
+    playVideo(video);
+    player->pause();
+}
+
+void Player::rotateScreen(){
+
+    if(isLandscape == true){
+        isLandscape = false;
+        bot->removeWidget(videoSlider);
+        top->insertWidget(1,videoSlider);
+    }
+    else{
+        isLandscape = true;
+        top->removeWidget(videoSlider);
+        bot->addWidget(videoSlider);
+    }
 }
 
 void Player::playVideo(VideoFile* newVideo){
-    player->stop();
+    player->pause();
     if(toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
     playPause->setCurrentIndex(1);
     player->setContent(newVideo);
     currentVideo = newVideo;
     player->pause();
+    show();
 }
 
 void Player::toggleVideo(){
@@ -142,4 +166,8 @@ void Player::quitPlayer(){
     player->stop();
     toggler->setCurrentIndex(0);
     currentVideo = NULL;
+}
+
+void Player::conditionalPlay(){
+    if(playPause->currentIndex() == 0) player->play();
 }

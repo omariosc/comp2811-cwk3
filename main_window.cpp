@@ -113,7 +113,7 @@ MainWindow::MainWindow() : QWidget(){
 
     setLayout(baseLayout);
     setWindowTitle("tomeo");
-    setMinimumSize(800, 680);
+    setMinimumSize(320,320);
 
     QFile File(":/tomeoStyleSheet");
     File.open(QFile::ReadOnly);

@@ -21,7 +21,8 @@ SOURCES += \
         # Map Files
         Map/map.cpp \
         Map/image.cpp \
-        Map/results.cpp
+        Map/results.cpp \
+        video_player.cpp
 
 HEADERS += \
     mainPage/navigation_button.h \
@@ -38,10 +39,10 @@ HEADERS += \
     # Map Files
     Map/map.h \
     Map/image.h \
-    Map/results.h
+    Map/results.h \
+    video_player.h
 
-RESOURCES += \
-    map.qrc
+RESOURCES +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

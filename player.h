@@ -13,12 +13,14 @@
 class Player: public QWidget{
     Q_OBJECT
 public:
-    Player(std::vector<VideoFile> videos,QStackedWidget* toggler);
+    Player(VideoFile* video,QStackedWidget* toggler);
     void playVideo();
+    void setScreen();
 
 public slots:
     void playVideo(VideoFile* newVideo);
     void quitPlayer();
+    void rotateScreen();
 
 private slots:
     void toggleVideo();
@@ -26,6 +28,7 @@ private slots:
     void modifySlider(qint64 duration);
     void updateSlider(qint64 position);
     void toggleFavorite();
+    void conditionalPlay();
 
 private:
     VideoFile* currentVideo;
@@ -33,6 +36,13 @@ private:
     VideoPlayer *player;
     QSlider *videoSlider;
     QStackedWidget* toggler;
+    QVideoWidget* videoWidget;
+    QPushButton* favorite;
+    QPushButton* toggleRotation;
+    QPushButton* back;
+    QHBoxLayout* bot;
+    QVBoxLayout* top;
+    bool isLandscape;
 };
 
 #endif // PLAYER_H
