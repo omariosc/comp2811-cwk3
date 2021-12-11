@@ -8,6 +8,7 @@ CONFIG += c++11
 
 SOURCES += \
     libraryPage/videolibrary.cpp \
+    mainPage/menulayout.cpp \
         mainPage/navigation_button.cpp \
         mainPage/title_label.cpp \
         main_window.cpp \
@@ -17,12 +18,13 @@ SOURCES += \
         library_page.cpp \
         map_page.cpp \
         player.cpp \
-    settingspage.cpp \
+        settingspage.cpp \
         thumbnail_button.cpp \
         tomeo.cpp \
 
 HEADERS += \
     libraryPage/videolibrary.h \
+    mainPage/menulayout.h \
     mainPage/navigation_button.h \
     mainPage/title_label.h \
     main_window.h \

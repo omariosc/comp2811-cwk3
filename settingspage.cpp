@@ -3,13 +3,13 @@
 #include <QLabel>
 #include "mainPage/title_label.h"
 #include "mainPage/navigation_button.h"
+#include "mainPage/menulayout.h"
+#include <QComboBox>
 #include <QVariant>
 #include <QLineEdit>
 
 SettingsPage::SettingsPage(QWidget *parent) : QDialog(parent) {
-    //setStyleSheet("background: #000000;");
     setModal(1);
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     if (parent) {
         resize(parent->width(), parent->height());
     }
@@ -24,13 +24,7 @@ SettingsPage::SettingsPage(QWidget *parent) : QDialog(parent) {
 
 
 
-    QGridLayout *headerLayout = new QGridLayout();
-    headerLayout->setColumnStretch(0, 1);
-    headerLayout->setColumnStretch(1, 1);
-    headerLayout->setColumnStretch(2, 1);
-    headerLayout->setColumnStretch(3, 1);
-    headerLayout->setMargin(0);
-    headerLayout->setSpacing(0);
+    MenuLayout *headerLayout = new MenuLayout();
     headerLayout->addWidget(title, 0, 1, 1, 2);
     headerLayout->addWidget(returnButton, 0, 3);
 
@@ -38,33 +32,42 @@ SettingsPage::SettingsPage(QWidget *parent) : QDialog(parent) {
     header->setProperty("type", "menuBackground");
     header->setLayout(headerLayout);
 
+    QGridLayout* settingsLayout = new QGridLayout();
+
     QLabel *textColor = new QLabel("Text Colour: ");
-    textColor->setAlignment(Qt::AlignRight);
-    QLineEdit * textColorLE = new QLineEdit();
+    textColor->setProperty("type", "setting");
+    textColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    QComboBox *textColorCB = new QComboBox();
+    QStringList textColors = {"White", "Black", "Red", "Green", "Blue"};
+    textColorCB->insertItems(0, textColors);
+    textColorCB->setInsertPolicy(QComboBox::InsertAlphabetically);
+    settingsLayout->addWidget(textColor, 0, 0);
+    settingsLayout->addWidget(textColorCB, 0, 1);
 
     QLabel *backgroundColor = new QLabel("Background Colour: ");
-    backgroundColor->setAlignment(Qt::AlignRight);
-    QLineEdit * backgroundColorLE = new QLineEdit();
+    backgroundColor->setProperty("type", "setting");
+    backgroundColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    QComboBox *backgroundColorCB = new QComboBox();
+    QStringList backgroundColors = {"White", "Red", "Green", "Blue"};
+    backgroundColorCB->insertItems(0, backgroundColors);
+    backgroundColorCB->setInsertPolicy(QComboBox::InsertAlphabetically);
+    settingsLayout->addWidget(backgroundColor, 1, 0);
+    settingsLayout->addWidget(backgroundColorCB, 1, 1);
+    backgroundColorCB->setItemText(0, "Black");
 
     QLabel *language = new QLabel("Language: ");
-    language->setAlignment(Qt::AlignRight);
-    QLineEdit * languageLE = new QLineEdit();
-
-    QGridLayout* settingsLayout = new QGridLayout();
-    settingsLayout->addWidget(textColor, 0,0);
-    settingsLayout->addWidget(textColorLE, 0,1);
-    settingsLayout->addWidget(backgroundColor, 1,0);
-    settingsLayout->addWidget(backgroundColorLE, 1,1);
-    settingsLayout->addWidget(language, 2,0);
-    settingsLayout->addWidget(languageLE, 2,1);
+    language->setProperty("type", "setting");
+    language->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    QComboBox *languageCB = new QComboBox();
+    QStringList languages = {"English", "Scotish"};
+    languageCB->insertItems(0, languages);
+    languageCB->setInsertPolicy(QComboBox::InsertAlphabetically);
+    settingsLayout->addWidget(language, 2, 0);
+    settingsLayout->addWidget(languageCB, 2, 1);
 
     QWidget *settings = new QWidget();
     settings->setProperty("type", "content");
     settings->setLayout(settingsLayout);
-
-
-
-
 
     QVBoxLayout* layout = new QVBoxLayout();
     layout->setMargin(0);

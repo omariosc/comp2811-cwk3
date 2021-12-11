@@ -2,6 +2,7 @@
 
 #include "mainPage/navigation_button.h"
 #include "mainPage/title_label.h"
+#include "mainPage/menulayout.h"
 
 #include <QApplication>
 #include <QFile>
@@ -39,12 +40,13 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
     connect(settingsButton, &NavigationButton::clicked, this, &MainWindow::settingsButtonClicked);
 
 
-    QGridLayout *headerLayout = new QGridLayout();
-    headerLayout->setMargin(0);
-    headerLayout->setSpacing(0);
+    MenuLayout *headerLayout = new MenuLayout();
     headerLayout->addWidget(libraryPageButton, 0, 0);
     headerLayout->addWidget(currentPageLabel, 0, 1, 1, 2);
     headerLayout->addWidget(settingsButton, 0, 3);
+    QWidget * header = new QWidget();
+    header->setLayout(headerLayout);
+    header->setProperty("type", "menuBackground");
 
     LibraryPage *libraryPage = new LibraryPage(videos);
     FavouritePage *favouritesPage = new FavouritePage(videos);
@@ -87,25 +89,19 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
 
 
 
-    QHBoxLayout *navTabsLayout = new QHBoxLayout();
-    navTabsLayout->setMargin(0);
-    navTabsLayout->setSpacing(0);
+    MenuLayout *navTabsLayout = new MenuLayout();
     navTabsLayout->addWidget(favouritesPageButton);
     navTabsLayout->addWidget(mapPageButton);
     navTabsLayout->addWidget(albumsPageButton);
     navTabsLayout->addWidget(filterPageButton);
 
-
-    QVBoxLayout *baseLayout = new QVBoxLayout();
-    baseLayout->setMargin(0);
-    baseLayout->setSpacing(0);
-    QWidget * header = new QWidget();
-    header->setProperty("type", "menuBackground");
-    header->setLayout(headerLayout);
     QWidget * navTabs = new QWidget();
     navTabs->setLayout(navTabsLayout);
     navTabs->setProperty("type", "menuBackground");
 
+    QVBoxLayout *baseLayout = new QVBoxLayout();
+    baseLayout->setMargin(0);
+    baseLayout->setSpacing(0);
     baseLayout->addWidget(header);
     baseLayout->addWidget(stackedPage);
     baseLayout->addWidget(navTabs);
