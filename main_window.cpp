@@ -21,18 +21,19 @@
 #include "filter_page.h"
 
 MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
-    NavigationButton *libraryPageButton = new NavigationButton("Library");
+    NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
     libraryPageButton->setIcon(QIcon(":/libraryIcon"));
     libraryPageButton->setPageNum(0);
     navButtons.push_back(libraryPageButton);
     connect(libraryPageButton, &NavigationButton::clicked, this, &MainWindow::navButtonClicked);
 
     TitleLabel *currentPageLabel = new TitleLabel();
-    currentPageLabel->setText("Favourites");
+    currentPageLabel->setText("LIBRARY");
     connect(this, &MainWindow::changedName, currentPageLabel, &TitleLabel::setText);
 
-    NavigationButton *settingsButton = new NavigationButton("Settings");
+    NavigationButton *settingsButton = new NavigationButton("SETTINGS");
     settingsButton->setIcon(QIcon(":/settingsIcon"));
+    connect(settingsButton, &NavigationButton::clicked, this, &MainWindow::settingsButtonClicked);
 
 
     QGridLayout *headerLayout = new QGridLayout();
@@ -57,25 +58,25 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
 
     connect(this, &MainWindow::changedFocus, stackedPage, &QStackedWidget::setCurrentIndex);
 
-    NavigationButton *favouritesPageButton = new NavigationButton("Favourites");
+    NavigationButton *favouritesPageButton = new NavigationButton("FAVOURITES");
     favouritesPageButton->setIcon(QIcon(":/favouritesIcon"));
     favouritesPageButton->setPageNum(1);
     navButtons.push_back(favouritesPageButton);
     connect(favouritesPageButton, &NavigationButton::clicked, this, &MainWindow::navButtonClicked);
 
-    NavigationButton *mapPageButton = new NavigationButton("Map");
+    NavigationButton *mapPageButton = new NavigationButton("MAP");
     mapPageButton->setIcon(QIcon(":/mapIcon"));
     mapPageButton->setPageNum(2);
     navButtons.push_back(mapPageButton);
     connect(mapPageButton, &NavigationButton::clicked, this, &MainWindow::navButtonClicked);
 
-    NavigationButton *albumsPageButton = new NavigationButton("Albums");
+    NavigationButton *albumsPageButton = new NavigationButton("ALBUMS");
     albumsPageButton->setIcon(QIcon(":/albumsIcon"));
     albumsPageButton->setPageNum(3);
     navButtons.push_back(albumsPageButton);
     connect(albumsPageButton, &NavigationButton::clicked, this, &MainWindow::navButtonClicked);
 
-    NavigationButton *filterPageButton = new NavigationButton("Filter");
+    NavigationButton *filterPageButton = new NavigationButton("FILTER");
     filterPageButton->setIcon(QIcon(":/filterIcon"));
     filterPageButton->setPageNum(4);
     navButtons.push_back(filterPageButton);
@@ -133,5 +134,7 @@ void MainWindow::navButtonClicked(int pageNumber, QString pageName){
     }
     navButtons.at(pageNumber)->setActive(true);
 }
+
+
 
 
