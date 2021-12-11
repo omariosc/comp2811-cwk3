@@ -2,35 +2,25 @@
 #include <QVideoWidget>
 #include "player.h"
 #include <QGridLayout>
-#include <QVBoxLayout>
-#include <QScrollArea>
+#include "libraryPage/videolibrary.h"
+#include <QSize>
 
 LibraryPage::LibraryPage(std::vector<VideoFile> &videos) : QWidget() {
 
 
         QVideoWidget *videoWidget = new QVideoWidget();
+        videoWidget->setStyleSheet("background: #FF00FF;");
+
         Player *player = new Player;
         player->setVideoOutput(videoWidget);
 
-        QWidget *buttonScrollArea = new QWidget();
+        VideoLibrary *library = new VideoLibrary(videos, *player);
+        player->setContent(library->getButtons(), &videos);
 
-        std::vector<ThumbnailButton*> buttons;
 
-        QGridLayout *layout = new QGridLayout();
-        buttonScrollArea->setLayout(layout);
-
-        for (int i = 0; i < videos.size(); i++) {
-            ThumbnailButton *button = new ThumbnailButton(buttonScrollArea);
-            button->connect(button, SIGNAL(jumpTo(VideoFile*)), player, SLOT(jumpTo(VideoFile*))); // when clicked, tell the player to play.
-            buttons.push_back(button);
-            layout->addWidget(button, i / 4, i % 4);
-            button->init(&videos.at(i));
-        }
-        // tell the player what buttons and videos are available
-        player->setContent(&buttons, &videos);
-
-        QVBoxLayout *libraryLayout = new QVBoxLayout();
-        libraryLayout->addWidget(videoWidget);
-        libraryLayout->addWidget(buttonScrollArea);
+        QGridLayout *libraryLayout = new QGridLayout();
+        libraryLayout->addWidget(videoWidget, 0, 0);
+        libraryLayout->addWidget(library, 1, 0);
         setLayout(libraryLayout);
+
 }

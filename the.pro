@@ -7,6 +7,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    libraryPage/videolibrary.cpp \
         mainPage/navigation_button.cpp \
         mainPage/title_label.cpp \
         main_window.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
         tomeo.cpp \
 
 HEADERS += \
+    libraryPage/videolibrary.h \
     mainPage/navigation_button.h \
     mainPage/title_label.h \
     main_window.h \

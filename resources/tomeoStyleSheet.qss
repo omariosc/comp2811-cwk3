@@ -50,6 +50,9 @@ QVideoWidget{
 	background: #00FF00;
 }
 
+QScrollArea{
+	background: #FFFF00;
+}
 
 TitleLabel{
 	border: 0px;
