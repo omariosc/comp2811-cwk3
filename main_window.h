@@ -18,6 +18,7 @@ signals:
 
 private slots:
     void navButtonClicked(int pageNumber, QString pageName);
+    void settingsButtonClicked();
 
 private:
     std::vector<NavigationButton*> navButtons;

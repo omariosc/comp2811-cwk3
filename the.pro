@@ -17,6 +17,7 @@ SOURCES += \
         library_page.cpp \
         map_page.cpp \
         player.cpp \
+    settingspage.cpp \
         thumbnail_button.cpp \
         tomeo.cpp \
 
@@ -31,6 +32,7 @@ HEADERS += \
     library_page.h \
     map_page.h \
     player.h \
+    settingspage.h \
     thumbnail_button.h \
     video_file.h \
 

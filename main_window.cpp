@@ -19,6 +19,9 @@
 #include "map_page.h"
 #include "album_page.h"
 #include "filter_page.h"
+#include "settingspage.h"
+
+#include <QDebug>
 
 MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
     NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
@@ -136,5 +139,8 @@ void MainWindow::navButtonClicked(int pageNumber, QString pageName){
 }
 
 
-
+void MainWindow::settingsButtonClicked(){
+    qDebug() << "boop";
+    SettingsPage settings;
+}
 
