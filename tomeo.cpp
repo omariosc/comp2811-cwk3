@@ -33,10 +33,11 @@
 #include "map_page.h"
 #include "album_page.h"
 #include "filter_page.h"
-#include "player.h"
+#include "video_player.h"
 #include "thumbnail_button.h"
 #include "mainPage/navigation_button.h"
 #include "mainPage/title_label.h"
+#include "player.h"
 
 #include "main_window.h"
 
@@ -92,7 +93,7 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     // collect all the videos in the folder
-    /*std::vector<VideoFile> videos;
+    std::vector<VideoFile> videos;
 
     if (argc == 2)
         videos = getInfoIn( std::string(argv[1]) );
@@ -148,15 +149,12 @@ int main(int argc, char *argv[]) {
 
 
     // create the main window and layout
-
-    MainWindow mainWindow;
-
-    // showtime!
-    window.show();*/
-    // No longer required should be moved to map_page
-    //Map *m = new Map();
-    //m->show();
-
-
+    QStackedWidget *menu = new QStackedWidget;
+    Player* player = new Player(&videos[1],menu);
+    menu->addWidget(new MainWindow);
+    menu->addWidget(player);
+    menu->setCurrentIndex(1);
+    menu->show();
+    player->playVideo(&videos[0]);
     return app.exec();
 }

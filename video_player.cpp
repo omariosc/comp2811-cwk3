@@ -6,18 +6,13 @@
 #include "QUrl"
 
 VideoPlayer:: VideoPlayer() : QMediaPlayer(NULL) {
-    setVolume(50); // be slightly less annoying
-    //connect (this, SIGNAL (stateChanged(QMediaPlayer::State)), this, SLOT (playStateChanged(QMediaPlayer::State)) );
-//    setMedia(*target.url);
-//    play();
+    setVolume(0); // be slightly less annoying
 }
 
 // change Media being played
 void VideoPlayer::setContent(VideoFile* i) {
-    if(i != NULL) setMedia(*i->url);
-    else{
-        printf("We got here");
-        setMedia(QUrl::fromLocalFile("P:/Coursework/videos/200IQ.mp4"));
+    if(i != NULL){
+        setMedia(*i->url);
+        play();
     }
-    play();
 }

@@ -4,6 +4,13 @@ QWidget[type="menuBackground"]{
                                  stop: 0.5 #2D2D2D, stop: 1.0 #191919);
 }
 
+Player[type="menuBackground"]{
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                            stop: 0 #191919, stop: 0.4 #2D2D2D,
+                            stop: 0.5 #2D2D2D, stop: 1.0 #191919);
+}
+
+
 QSlider::groove:horizontal{
         background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
 }

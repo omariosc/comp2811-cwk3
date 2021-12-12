@@ -9,6 +9,7 @@
 #include <QtMultimediaWidgets/QVideoWidget>
 #include <QStackedWidget>
 #include <QSlider>
+#include <QToolButton>
 
 class Player: public QWidget{
     Q_OBJECT
@@ -29,20 +30,23 @@ private slots:
     void updateSlider(qint64 position);
     void toggleFavorite();
     void conditionalPlay();
+    void playbackSpeed();
 
 private:
     VideoFile* currentVideo;
-    QStackedWidget *playPause;
-    VideoPlayer *player;
-    QSlider *videoSlider;
+    QStackedWidget* playPause;
+    VideoPlayer* player;
+    QSlider* videoSlider;
     QStackedWidget* toggler;
     QVideoWidget* videoWidget;
-    QPushButton* favorite;
-    QPushButton* toggleRotation;
-    QPushButton* back;
+    QStackedWidget* favoriteToggle;
+    QToolButton* toggleRotation;
+    QToolButton* playbackSpeedButton;
+    QToolButton* back;
     QHBoxLayout* bot;
     QVBoxLayout* top;
     bool isLandscape;
+    qreal playback;
 };
 
 #endif // PLAYER_H
