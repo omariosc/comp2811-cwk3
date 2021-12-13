@@ -21,11 +21,6 @@ SOURCES += \
         settingspage.cpp \
         thumbnail_button.cpp \
         tomeo.cpp \
-        # Map Files
-        Map/map.cpp \
-        Map/image.cpp \
-        Map/results.cpp \
-        video_player.cpp
 
 HEADERS += \
     libraryPage/videolibrary.h \
@@ -45,11 +40,6 @@ HEADERS += \
 
 RESOURCES += \
     resources.qrc
-    # Map Files
-    Map/map.h \
-    Map/image.h \
-    Map/results.h \
-    video_player.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
