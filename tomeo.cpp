@@ -33,10 +33,11 @@
 #include "map_page.h"
 #include "album_page.h"
 #include "filter_page.h"
-#include "player.h"
+#include "video_player.h"
 #include "thumbnail_button.h"
 #include "mainPage/navigation_button.h"
 #include "mainPage/title_label.h"
+#include "player.h"
 
 #include "main_window.h"
 
@@ -92,8 +93,6 @@ int main(int argc, char *argv[]) {
     // collect all the videos in the folder
     std::vector<VideoFile> videos;
 
-
-
     if (argc == 2)
         videos = getInfoIn( std::string(argv[1]) );
 
@@ -117,7 +116,43 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
+//    // the widget that will show the video
+//    QVideoWidget *videoWidget = new QVideoWidget;
 
-    MainWindow mainWindow(videos);
+//    // the QMediaPlayer which controls the playback
+//    Player *player = new Player;
+//    player->setVideoOutput(videoWidget);
+
+//    // a row of buttons
+//    QWidget *buttonWidget = new QWidget();
+//    // a list of the buttons
+//    std::vector<ThumbnailButton*> buttons;
+//    // the buttons are arranged horizontally
+//    QHBoxLayout *layout = new QHBoxLayout();
+//    buttonWidget->setLayout(layout);
+
+
+//    // create the four buttons
+//    for ( int i = 0; i < 4; i++ ) {
+//        ThumbnailButton *button = new ThumbnailButton(buttonWidget, &videos.at(i));
+//        button->connect(button, SIGNAL(jumpTo(VideoFile* )), player, SLOT (jumpTo(VideoFile*))); // when clicked, tell the player to play.
+//        buttons.push_back(button);
+//        layout->addWidget(button);
+//    }
+
+//    // tell the player what buttons and videos are available
+//    player->setContent(&buttons, &videos);
+
+
+
+    // create the main window and layout
+    QStackedWidget *menu = new QStackedWidget;
+    Player* player = new Player(&videos[1],menu);
+    menu->addWidget(new MainWindow);
+    menu->addWidget(player);
+    menu->setCurrentIndex(1);
+    menu->show();
+    player->playVideo(&videos[0]);
+
     return app.exec();
 }

@@ -111,6 +111,7 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
 
     setLayout(baseLayout);
     setWindowTitle("tomeo");
+  
     setMinimumSize(320, 568);
     resize(320, 568);
 
