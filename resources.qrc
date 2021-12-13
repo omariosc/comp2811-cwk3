@@ -17,5 +17,9 @@
         <file alias="rotate-v1-icon">resources/rotate-v1-icon.png</file>
         <file alias="rotate-v2-icon">resources/rotate-v2-icon.png</file>
         <file alias="volume-icon">resources/volume-icon.png</file>
+        <file alias="back-white">resources/goback-icon-white.png</file>
+        <file alias="pause-white">resources/pause-icon-white.png</file>
+        <file alias="play-white">resources/playbutton-icon-white.png</file>
+        <file alias="rotate-white">resources/rotate-v2-icon-white.png</file>
     </qresource>
 </RCC>

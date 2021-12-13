@@ -43,8 +43,9 @@ private:
     QToolButton* toggleRotation;
     QToolButton* playbackSpeedButton;
     QToolButton* back;
-    QHBoxLayout* bot;
+    QHBoxLayout* botlayout;
     QVBoxLayout* top;
+    QVBoxLayout* bottoplayout;
     bool isLandscape;
     qreal playback;
 };
