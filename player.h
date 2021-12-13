@@ -1,3 +1,7 @@
+//
+// Created by twak on 11/11/2019.
+//
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -17,6 +21,10 @@ public:
     Player(VideoFile* video,QStackedWidget* toggler);
     void playVideo();
     void setScreen();
+
+private slots:
+
+    void playStateChanged (QMediaPlayer::State ms);
 
 public slots:
     void playVideo(VideoFile* newVideo);

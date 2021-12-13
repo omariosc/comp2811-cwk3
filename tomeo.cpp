@@ -42,8 +42,6 @@
 #include "main_window.h"
 
 
-#include "Map/map.h"
-
 // read in videos and thumbnails to this directory
 std::vector<VideoFile> getInfoIn (std::string loc) {
 
@@ -68,9 +66,9 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
                 QImageReader *imageReader = new QImageReader(thumb);
                     QImage sprite = imageReader->read(); // read the thumbnail
                     if (!sprite.isNull()) {
-                        QIcon* ico = new QIcon(QPixmap::fromImage(sprite)); // voodoo to create an icon for the button
+                        QIcon* icon = new QIcon(QPixmap::fromImage(sprite));// voodoo to create an icon for the button
                         QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
-                        out . push_back(VideoFile( url , ico  ) ); // add to the output list
+                        out . push_back(VideoFile( url , icon  ) ); // add to the output list
                     }
                     else
                         qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb;
@@ -118,7 +116,6 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
-
 //    // the widget that will show the video
 //    QVideoWidget *videoWidget = new QVideoWidget;
 
@@ -156,5 +153,6 @@ int main(int argc, char *argv[]) {
     menu->setCurrentIndex(1);
     menu->show();
     player->playVideo(&videos[0]);
+
     return app.exec();
 }

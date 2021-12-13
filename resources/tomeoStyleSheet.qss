@@ -4,6 +4,9 @@ QWidget[type="menuBackground"]{
                                  stop: 0.5 #2D2D2D, stop: 1.0 #191919);
 }
 
+QWidget[type="content"]{
+     background: #000000;
+}
 
 QSlider::groove:horizontal{
         background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #A1A1A1, stop:1 #c4c4c4);
@@ -22,7 +25,7 @@ NavigationButton[type="Selected"]{
 	border: 0px;
 	color: #ffffff;
 	margin: 0px;
-	font-size: 32px;
+	font-size: 12px;
 	font-family: Arial;
 }
 
@@ -30,7 +33,7 @@ NavigationButton{
 	border: 0px;
 	color: #ffffff;
 	margin: 0px;
-	font-size: 32px;
+	font-size: 12px;
 	font-family: Arial;
 }
 
@@ -39,17 +42,67 @@ NavigationButton:pressed{
 	border: 0px;
 	color: #ffffff;
 	margin: 0px;
-	font-size: 32px;
+	font-size: 12px;
 	font-family: Arial;
 }
 
 
+QStackedWidget{
+	background: #000000;
+}
 
+ThumbnailButton{
+	background-color: #2D2D2D;
+	border-color: #FFFFFF;
+}
+
+ThumbnailButton:pressed{
+	background-color: #191919;
+	border-color: #2A2A2A;
+}
+
+ThumbnailButton:hover{
+	background-color: #191919;
+	border-color: #2A2A2A;
+}
+
+QVideoWidget{
+	border-color: #FFFFFF;
+	border-width: 5px;
+	border-radius: 5px;
+	border-style: solid;
+}
+
+VideoLibrary{
+	background: #000000;
+	border-radius: 0px;
+}
+
+QLabel[type="setting"]{
+     color: #FFFFFF;
+}
+
+QComboBox {
+	background-color: #2D2D2D;
+	color: #FFFFFF;
+    padding: 1px 18px 1px 3px;
+    min-width: 6em;
+	selection-background-color: #A0A0A0;
+	selection-color: #000000;
+}
 
 TitleLabel{
 	border: 0px;
 	color: #ffffff;
 	margin: 5px;
-	font-size: 64px;
+	font-size: 24px;
 	font-family: Arial;
+}
+
+SettingsPage{
+	background: #000000;
+}
+
+QScrollBar:vertical {
+    width: 0px;
 }
