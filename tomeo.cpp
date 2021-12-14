@@ -136,8 +136,8 @@ int main(int argc, char *argv[]) {
     //changing window information
 
     menu->setWindowTitle("tomeo");
-    menu->setMinimumSize(320, 568);
     menu->resize(320, 568);
+
 
     menu->show();
 

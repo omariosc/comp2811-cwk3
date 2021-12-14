@@ -111,17 +111,6 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Pl
     libraryPageButton->setActive(true);
 
     setLayout(baseLayout);
-    setWindowTitle("tomeo");
-  
-    setMinimumSize(320, 568);
-    resize(320, 568);
-
-    QFile File(":/tomeoStyleSheet");
-    File.open(QFile::ReadOnly);
-    QString StyleSheet = QLatin1String(File.readAll());
-    setStyleSheet(StyleSheet);
-
-    //setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
     show();
 }
