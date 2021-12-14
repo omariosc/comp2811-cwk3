@@ -49,11 +49,11 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Pl
     header->setLayout(headerLayout);
     header->setProperty("type", "menuBackground");
 
-    LibraryPage *libraryPage = new LibraryPage(videos,player);
+    LibraryPage *libraryPage = new LibraryPage(videos, player);
     FavouritePage *favouritesPage = new FavouritePage(videos);
     MapPage *mapPage = new MapPage(videos);
     AlbumPage *albumsPage = new AlbumPage(videos);
-    FilterPage *filterPage = new FilterPage(videos);
+    FilterPage *filterPage = new FilterPage(videos, player);
 
     QStackedWidget *stackedPage = new QStackedWidget();
     stackedPage->addWidget(libraryPage);
