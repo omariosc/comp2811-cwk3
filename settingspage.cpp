@@ -58,7 +58,7 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
     language->setProperty("type", "setting");
     language->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     QComboBox *languageCB = new QComboBox();
-    QStringList languages = {"English", "Scotish"};
+    QStringList languages = {"English", "Romanian"};
     languageCB->insertItems(0, languages);
     languageCB->setInsertPolicy(QComboBox::InsertAlphabetically);
     settingsLayout->addWidget(language, 2, 0);
