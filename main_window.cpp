@@ -24,7 +24,8 @@
 
 #include <QDebug>
 
-MainWindow::MainWindow(std::vector<VideoFile> &videos,Player* player) : QWidget(){
+MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Player* player) : QWidget(){
+    stackedParent = parent;
     NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
     libraryPageButton->setIcon(QIcon(":/libraryIcon"));
     libraryPageButton->setPageNum(0);
@@ -136,7 +137,6 @@ void MainWindow::navButtonClicked(int pageNumber, QString pageName){
 
 
 void MainWindow::settingsButtonClicked(){
-    SettingsPage settings(this);
-    settings.exec();
+    stackedParent->setCurrentIndex(2);
 }
 

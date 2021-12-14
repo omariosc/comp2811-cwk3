@@ -38,6 +38,7 @@
 #include "mainPage/navigation_button.h"
 #include "mainPage/title_label.h"
 #include "player.h"
+#include "settingspage.h"
 
 #include "main_window.h"
 
@@ -148,8 +149,9 @@ int main(int argc, char *argv[]) {
     // create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
     Player* player = new Player(&videos[1],menu);
-    menu->addWidget(new MainWindow(videos,player));
+    menu->addWidget(new MainWindow(videos,menu,player));
     menu->addWidget(player);
+    menu->addWidget(new SettingsPage(menu));
     menu->setCurrentIndex(0);
     menu->show();
     //player->playVideo(&videos[0]);
