@@ -40,7 +40,6 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Pl
     settingsButton->setIcon(QIcon(":/settingsIcon"));
     connect(settingsButton, &NavigationButton::clicked, this, &MainWindow::settingsButtonClicked);
 
-
     MenuLayout *headerLayout = new MenuLayout();
     headerLayout->addWidget(libraryPageButton, 0, 0);
     headerLayout->addWidget(currentPageLabel, 0, 1, 1, 2);
@@ -88,8 +87,6 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Pl
     navButtons.push_back(filterPageButton);
     connect(filterPageButton, &NavigationButton::clicked, this, &MainWindow::navButtonClicked);
 
-
-
     MenuLayout *navTabsLayout = new MenuLayout();
     navTabsLayout->addWidget(favouritesPageButton);
     navTabsLayout->addWidget(mapPageButton);
@@ -124,8 +121,6 @@ void MainWindow::navButtonClicked(int pageNumber, QString pageName){
     navButtons.at(pageNumber)->setActive(true);
 }
 
-
 void MainWindow::settingsButtonClicked(){
     stackedParent->setCurrentIndex(2);
 }
-

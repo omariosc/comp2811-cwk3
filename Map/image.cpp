@@ -20,7 +20,7 @@ void Image::mousePressEvent(QMouseEvent *event) {
 }
 
 void Image::resizeEvent(QResizeEvent *e) {
-    int h = e->size().height();
+    double h = e->size().height();
 
     setPixmap(img.scaledToHeight(h, Qt::TransformationMode::SmoothTransformation));
 }

@@ -3,16 +3,18 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QResizeEvent>
+#include <vector>
 
+#include "video_file.h"
 #include "Map/image.h"
 #include "Map/results.h"
 
 // Class containing everything for the "Map" page/widget
-
 class MapPage : public QWidget {
     Q_OBJECT
 public:
-    MapPage();
+    MapPage(std::vector<VideoFile> &videos);
 
     void resizeEvent(QResizeEvent *e);
 

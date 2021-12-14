@@ -122,8 +122,6 @@ int main(int argc, char *argv[]) {
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
 
-
-
     // create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
     Player* player = new Player(&videos[1],menu);
@@ -134,12 +132,12 @@ int main(int argc, char *argv[]) {
     menu->setStyleSheet(StyleSheet);
 
     //changing window information
-
     menu->setWindowTitle("tomeo");
-    menu->resize(320, 568);
 
+    menu->setMinimumSize(320, 320);
 
     menu->show();
+    menu->resize(320, 560);
 
     return app.exec();
 }

@@ -1,17 +1,17 @@
 #include "map_page.h"
 
-MapPage::MapPage() {
+MapPage::MapPage(std::vector<VideoFile> &videos) {
     i = new Image();
     r = new Results();
 
     QObject::connect(i, &Image::sendCountry, r, &Results::getCountry);
 
     QVBoxLayout *l = new QVBoxLayout();
-    l->addWidget(i);
-    l->addWidget(r);
+    l->addWidget(i, 50);
+    l->addWidget(r, 50);
 
     l->setAlignment(i, Qt::AlignHCenter);
-    l->setStretch(1, 0);
+    //l->setStretch(1, 0);
 
     setLayout(l);
 }

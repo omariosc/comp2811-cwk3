@@ -22,8 +22,12 @@ SOURCES += \
         thumbnail_button.cpp \
         tomeo.cpp \
         video_player.cpp \
+        # Map Files
+        Map/image.cpp \
+        Map/results.cpp \
 
 HEADERS += \
+    Map/image.h \
     libraryPage/videolibrary.h \
     mainPage/menulayout.h \
     mainPage/navigation_button.h \
@@ -38,7 +42,10 @@ HEADERS += \
     settingspage.h \
     thumbnail_button.h \
     video_file.h \
-    video_player.h\
+    video_player.h \
+    # Map Files
+    Map/image.h \
+    Map/results.h \
 
 RESOURCES += \
     resources.qrc
