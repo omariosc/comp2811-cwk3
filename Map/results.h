@@ -6,6 +6,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QVBoxLayout>
 #include <QGridLayout>
+#include <random>
 
 #include "../video_file.h"
 #include "../libraryPage/videolibrary.h"

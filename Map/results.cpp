@@ -11,8 +11,7 @@ Results::Results(const std::vector<VideoFile> &videos, Player* player) {
 
     header->setStyleSheet("color: #FFFFFF; font: 20px;");
 
-    // Add results later
-    results = new VideoLibrary(v, p);
+    results = new QWidget();
 
     QVBoxLayout *l = new QVBoxLayout();
 
@@ -31,6 +30,7 @@ void Results::updateWidget(QString country) {
         header->setText("Results from " + country + ":");
     }
 
-    // Update results here
+    this->layout()->removeWidget(results);
     results = new VideoLibrary(v, p);
+    this->layout()->addWidget(results);
 }
