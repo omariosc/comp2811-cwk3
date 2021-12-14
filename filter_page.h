@@ -2,12 +2,13 @@
 #define THE_FILTER_PAGE_H
 
 #include <QWidget>
+#include "video_file.h"
 
 class FilterPage : public QWidget {
     Q_OBJECT
 
 public:
-    FilterPage() : QWidget() {}
+    FilterPage(std::vector<VideoFile> &videos) : QWidget() {}
 
 };
 

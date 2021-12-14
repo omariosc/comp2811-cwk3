@@ -16,7 +16,7 @@ NavigationButton::NavigationButton(QString newName) : QToolButton()
     myPolicy.setVerticalPolicy(QSizePolicy::Minimum);
     setSizePolicy(myPolicy);
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    setIconSize(QSize(128,128));
+    setIconSize(QSize(48, 48));
     connect(this, SIGNAL(clicked()), this, SLOT(dataClicked()));
 }
 

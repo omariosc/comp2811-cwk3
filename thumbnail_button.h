@@ -5,17 +5,19 @@
 #ifndef THE_THUMBNAIL_BUTTON_H
 #define THE_THUMBNAIL_BUTTON_H
 
-#include <QPushButton>
+#include <QToolButton>
 #include <QUrl>
 #include "video_file.h"
 
-class ThumbnailButton : public QPushButton {
+class ThumbnailButton : public QToolButton {
     Q_OBJECT
 
 public:
     VideoFile* info;
-    ThumbnailButton(QWidget *parent, VideoFile* i);
-    void setFile(VideoFile* i);
+
+    ThumbnailButton(QWidget *parent);
+
+    void init(VideoFile* i);
 
 private slots:
     void clicked();
@@ -23,7 +25,10 @@ private slots:
 signals:
     void jumpTo(VideoFile*);
 
+private:
+    int iconWidth;
+
 };
 
-#endif // THE_THUMBNAIL_BUTTON_H
+#endif //THE_THUMBNAIL_BUTTON_H
 

@@ -39,9 +39,8 @@
 #include "mainPage/title_label.h"
 
 #include "main_window.h"
+#include "settingspage.h"
 
-
-#include "Map/map.h"
 
 // read in videos and thumbnails to this directory
 std::vector<VideoFile> getInfoIn (std::string loc) {
@@ -67,9 +66,9 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
                 QImageReader *imageReader = new QImageReader(thumb);
                     QImage sprite = imageReader->read(); // read the thumbnail
                     if (!sprite.isNull()) {
-                        QIcon* ico = new QIcon(QPixmap::fromImage(sprite)); // voodoo to create an icon for the button
+                        QIcon* icon = new QIcon(QPixmap::fromImage(sprite));// voodoo to create an icon for the button
                         QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
-                        out . push_back(VideoFile( url , ico  ) ); // add to the output list
+                        out . push_back(VideoFile( url , icon  ) ); // add to the output list
                     }
                     else
                         qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb;
@@ -92,7 +91,9 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     // collect all the videos in the folder
-    /*std::vector<VideoFile> videos;
+    std::vector<VideoFile> videos;
+
+
 
     if (argc == 2)
         videos = getInfoIn( std::string(argv[1]) );
@@ -117,46 +118,19 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
-
-//    // the widget that will show the video
-//    QVideoWidget *videoWidget = new QVideoWidget;
-
-//    // the QMediaPlayer which controls the playback
-//    Player *player = new Player;
-//    player->setVideoOutput(videoWidget);
-
-//    // a row of buttons
-//    QWidget *buttonWidget = new QWidget();
-//    // a list of the buttons
-//    std::vector<ThumbnailButton*> buttons;
-//    // the buttons are arranged horizontally
-//    QHBoxLayout *layout = new QHBoxLayout();
-//    buttonWidget->setLayout(layout);
+    QFile File(":/tomeoStyleSheet");
+    File.open(QFile::ReadOnly);
+    QString StyleSheet = QLatin1String(File.readAll());
 
 
-//    // create the four buttons
-//    for ( int i = 0; i < 4; i++ ) {
-//        ThumbnailButton *button = new ThumbnailButton(buttonWidget, &videos.at(i));
-//        button->connect(button, SIGNAL(jumpTo(VideoFile* )), player, SLOT (jumpTo(VideoFile*))); // when clicked, tell the player to play.
-//        buttons.push_back(button);
-//        layout->addWidget(button);
-//    }
-
-//    // tell the player what buttons and videos are available
-//    player->setContent(&buttons, &videos);
-
-
-
-    // create the main window and layout
-
-    MainWindow mainWindow;
-
-    // showtime!
-    window.show();*/
-    // No longer required should be moved to map_page
-    //Map *m = new Map();
-    //m->show();
-
-
+    QStackedWidget *menu = new QStackedWidget;
+    menu->addWidget(new MainWindow(videos, menu));
+    menu->addWidget(new SettingsPage(menu));
+    menu->setCurrentIndex(0);
+    menu->setWindowTitle("tomeo");
+    menu->setMinimumSize(320, 568);
+    menu->resize(320, 568);
+    menu->setStyleSheet(StyleSheet);
+    menu->show();
     return app.exec();
 }
