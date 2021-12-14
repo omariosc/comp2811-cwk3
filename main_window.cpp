@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-MainWindow::MainWindow(std::vector<VideoFile> &videos, QStackedWidget* parent) : QWidget(){
+MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Player* player) : QWidget(){
     stackedParent = parent;
     NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
     libraryPageButton->setIcon(QIcon(":/libraryIcon"));
@@ -49,7 +49,7 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos, QStackedWidget* parent) :
     header->setLayout(headerLayout);
     header->setProperty("type", "menuBackground");
 
-    LibraryPage *libraryPage = new LibraryPage(videos);
+    LibraryPage *libraryPage = new LibraryPage(videos,player);
     FavouritePage *favouritesPage = new FavouritePage(videos);
     MapPage *mapPage = new MapPage(videos);
     AlbumPage *albumsPage = new AlbumPage(videos);
@@ -112,8 +112,7 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos, QStackedWidget* parent) :
 
     setLayout(baseLayout);
 
-    //setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-
+    show();
 }
 
 void MainWindow::navButtonClicked(int pageNumber, QString pageName){
@@ -127,6 +126,6 @@ void MainWindow::navButtonClicked(int pageNumber, QString pageName){
 
 
 void MainWindow::settingsButtonClicked(){
-    stackedParent->setCurrentIndex(1);
+    stackedParent->setCurrentIndex(2);
 }
 

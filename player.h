@@ -2,41 +2,60 @@
 // Created by twak on 11/11/2019.
 //
 
-#ifndef THE_PLAYER_H
-#define THE_PLAYER_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
+#include <QWidget>
+#include "video_player.h"
+#include "QHBoxLayout"
+#include "QVBoxLayout"
+#include "video_file.h"
+#include <QtMultimediaWidgets/QVideoWidget>
+#include <QStackedWidget>
+#include <QSlider>
+#include <QToolButton>
 
-#include <QApplication>
-#include <QMediaPlayer>
-#include "thumbnail_button.h"
-#include <vector>
-#include <QTimer>
-
-class Player : public QMediaPlayer {
-
-Q_OBJECT
-
-private:
-    std::vector<VideoFile>* infos;
-    std::vector<ThumbnailButton*>* buttons;
-
+class Player: public QWidget{
+    Q_OBJECT
 public:
-    Player() : QMediaPlayer(NULL) {
-        setVolume(0); // be slightly less annoying
-        connect (this, SIGNAL (stateChanged(QMediaPlayer::State)), this, SLOT (playStateChanged(QMediaPlayer::State)) );
-    }
-
-    // all buttons have been setup, store pointers here
-    void setContent(std::vector<ThumbnailButton*>* b, std::vector<VideoFile>* i);
+    Player(VideoFile* video,QStackedWidget* toggler);
+    void playVideo();
+    void setScreen();
 
 private slots:
 
-    void playStateChanged (QMediaPlayer::State ms);
+    //void playStateChanged (QMediaPlayer::State ms);
 
 public slots:
+    void playVideo(VideoFile* newVideo);
+    void quitPlayer();
+    void rotateScreen();
 
-    // start playing this ButtonInfo
-    void jumpTo (VideoFile* button);
+private slots:
+    void toggleVideo();
+    void seek(int seconds);
+    void modifySlider(qint64 duration);
+    void updateSlider(qint64 position);
+    void toggleFavorite();
+    void conditionalPlay();
+    void playbackSpeed();
+
+private:
+    VideoFile* currentVideo;
+    QStackedWidget* playPause;
+    VideoPlayer* videoPlayer;
+    QSlider* videoSlider;
+    QStackedWidget* toggler;
+    QVideoWidget* videoWidget;
+    QStackedWidget* favoriteToggle;
+    QToolButton* toggleRotation;
+    QToolButton* playbackSpeedButton;
+    QToolButton* back;
+    QHBoxLayout* botlayout;
+    QVBoxLayout* top;
+    QVBoxLayout* bottoplayout;
+    bool isLandscape;
+    qreal playback;
 };
 
-#endif //THE_PLAYER_H
+#endif // PLAYER_H

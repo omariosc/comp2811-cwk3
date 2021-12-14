@@ -3,15 +3,16 @@
 
 #include <QWidget>
 #include <vector>
-#include <QStackedWidget>
 #include "video_file.h"
 #include "mainPage/navigation_button.h"
+#include <player.h>
+#include <QStackedWidget>
 
 class MainWindow : public QWidget {
     Q_OBJECT
 
 public:
-    MainWindow(std::vector<VideoFile> &videos, QStackedWidget* parent);
+    MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent,Player* player);
 
 signals:
     void changedFocus(int pageNumber);

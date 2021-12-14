@@ -10,7 +10,7 @@ class VideoLibrary : public QScrollArea {
     Q_OBJECT
 
 public:
-    VideoLibrary(std::vector<VideoFile> &vids, Player &player);
+    VideoLibrary(std::vector<VideoFile> &vids,Player* player);
     std::vector<ThumbnailButton*>* getButtons();
 
 private:

@@ -33,13 +33,14 @@
 #include "map_page.h"
 #include "album_page.h"
 #include "filter_page.h"
-#include "player.h"
+#include "video_player.h"
 #include "thumbnail_button.h"
 #include "mainPage/navigation_button.h"
 #include "mainPage/title_label.h"
+#include "player.h"
+#include "settingspage.h"
 
 #include "main_window.h"
-#include "settingspage.h"
 
 
 // read in videos and thumbnails to this directory
@@ -93,8 +94,6 @@ int main(int argc, char *argv[]) {
     // collect all the videos in the folder
     std::vector<VideoFile> videos;
 
-
-
     if (argc == 2)
         videos = getInfoIn( std::string(argv[1]) );
 
@@ -118,19 +117,29 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
+    // Retrieving stylesheet
     QFile File(":/tomeoStyleSheet");
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
 
 
+
+    // create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
-    menu->addWidget(new MainWindow(videos, menu));
+    Player* player = new Player(&videos[1],menu);
+    menu->addWidget(new MainWindow(videos,menu,player));
+    menu->addWidget(player);
     menu->addWidget(new SettingsPage(menu));
     menu->setCurrentIndex(0);
-    menu->setWindowTitle("tomeo");
-    menu->setMinimumSize(320, 568);
-    menu->resize(320, 568);
     menu->setStyleSheet(StyleSheet);
+
+    //changing window information
+
+    menu->setWindowTitle("tomeo");
+    menu->resize(320, 568);
+
+
     menu->show();
+
     return app.exec();
 }

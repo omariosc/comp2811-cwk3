@@ -21,6 +21,7 @@ SOURCES += \
         settingspage.cpp \
         thumbnail_button.cpp \
         tomeo.cpp \
+        video_player.cpp \
 
 HEADERS += \
     libraryPage/videolibrary.h \
@@ -37,6 +38,7 @@ HEADERS += \
     settingspage.h \
     thumbnail_button.h \
     video_file.h \
+    video_player.h\
 
 RESOURCES += \
     resources.qrc
@@ -47,6 +49,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS +=
-
-RESOURCES += \
-    resources.qrc

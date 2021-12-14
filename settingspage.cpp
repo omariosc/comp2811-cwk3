@@ -16,7 +16,7 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
     title->setText("SETTINGS");
 
     NavigationButton *returnButton = new NavigationButton("BACK");
-    returnButton->setIcon(QIcon(":/returnIcon"));
+    returnButton->setIcon(QIcon(":/goback-white-icon"));
     connect(returnButton, &NavigationButton::clicked, this, &SettingsPage::returnBack);
 
 
@@ -80,4 +80,3 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
 void SettingsPage::returnBack(){
     stackedParent->setCurrentIndex(0);
 }
-
