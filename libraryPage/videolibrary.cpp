@@ -23,7 +23,7 @@ VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids,Player* player) : QScrol
         ThumbnailButton *button = new ThumbnailButton(buttonScrollArea);
         button->connect(button, SIGNAL(jumpTo(VideoFile*)), player, SLOT(playVideo(VideoFile*)));
         buttons.push_back(button);
-        layout->addWidget(button, i / 4, i % 4);
+        layout->addWidget(button, i / 3, i % 3);
         button->init(&videos.at(i));
     }
 

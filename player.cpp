@@ -42,7 +42,7 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     //playbackSpeedButton->sizeHint().setHeight(back->sizeHint().height());
     playPause->addWidget(pause);
     playPause->addWidget(play);
-    playPause->setCurrentIndex(1);
+    playPause->setCurrentIndex(0);
 
     //Connect the play/pause buttons
     connect(play,SIGNAL(clicked()),this,SLOT(toggleVideo()));
@@ -57,9 +57,6 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     favoriteToggle->addWidget(favorite);
     favoriteToggle->addWidget(unfavorite);
     favoriteToggle->setCurrentIndex(0);
-
-//    favorite->setText("Fav");
-//    unfavorite->setText("Unfav");
 
     //And connect them
     connect(favorite,&QToolButton::clicked,this,&Player::toggleFavorite);
@@ -81,14 +78,15 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     toggleRotation = new QToolButton();
     toggleRotation->setIcon(QIcon(":/rotate-white"));
     connect(toggleRotation,&QToolButton::clicked,this,&Player::rotateScreen);
-    //toggleRotation->setText("Rotate");
 
-//    //Create the playback speed button
-//    playbackSpeedButton = new QToolButton();
-//    connect(playbackSpeedButton, &QToolButton::clicked,this,&Player::playbackSpeed);
-//    playbackSpeedButton->setMaximumWidth(butMaxWidth);
-//    //playbackSpeedButton->sizeHint().setHeight(back->sizeHint().height());
-//    playbackSpeedButton->setText("Speed");
+    /* Code here kept in case we decide to add the "playback" button back
+    //Create the playback speed button
+    playbackSpeedButton = new QToolButton();
+    connect(playbackSpeedButton, &QToolButton::clicked,this,&Player::playbackSpeed);
+    playbackSpeedButton->setMaximumWidth(butMaxWidth);
+    //playbackSpeedButton->sizeHint().setHeight(back->sizeHint().height());
+    playbackSpeedButton->setText("Speed");
+    */
 
     //Setting MAXIMUM widths
     //These are the non-stacked buttons
@@ -161,10 +159,12 @@ void Player::rotateScreen(){
 void Player::playVideo(VideoFile* newVideo){
     videoPlayer->pause();
     if(toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
-    playPause->setCurrentIndex(1);
+    if(newVideo->favorite == true) favoriteToggle->setCurrentIndex(1);
+    else favoriteToggle->setCurrentIndex(0);
+    playPause->setCurrentIndex(0);
     videoPlayer->setContent(newVideo);
     currentVideo = newVideo;
-    videoPlayer->pause();
+    videoPlayer->play();
     show();
 }
 
