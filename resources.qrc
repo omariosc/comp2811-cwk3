@@ -7,6 +7,20 @@
         <file alias="mapIcon">resources/map.png</file>
         <file alias="settingsIcon">resources/settings.png</file>
         <file alias="tomeoStyleSheet">resources/tomeoStyleSheet.qss</file>
-        <file>resources/world.jpg</file>
+        <file alias="2x-icon">resources/2x-icon.png</file>
+        <file alias="goback-icon">resources/goback-icon.png</file>
+        <file alias="pause-icon">resources/pause-icon.png</file>
+        <file alias="playButton-icon">resources/playbutton-icon.png</file>
+        <file alias="goback-white-icon">resources/goback-white-icon.png</file>
+        <file alias="hollow-favourite">resources/hollow favourite.png</file>
+        <file alias="returnbutton-icon">resources/returnbutton-icon.png</file>
+        <file alias="rotate-v1-icon">resources/rotate-v1-icon.png</file>
+        <file alias="rotate-v2-icon">resources/rotate-v2-icon.png</file>
+        <file alias="volume-icon">resources/volume-icon.png</file>
+        <file alias="back-white">resources/goback-icon-white.png</file>
+        <file alias="pause-white">resources/pause-icon-white.png</file>
+        <file alias="play-white">resources/playbutton-icon-white.png</file>
+        <file alias="rotate-white">resources/rotate-v2-icon-white.png</file>
+        <file alias="2x-white">resources/2x-icon-white.png</file>
     </qresource>
 </RCC>

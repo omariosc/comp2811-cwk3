@@ -2,48 +2,60 @@
 // Created by twak on 11/11/2019.
 //
 
-#ifndef THE_PLAYER_H
-#define THE_PLAYER_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
+#include <QWidget>
+#include "video_player.h"
+#include "QHBoxLayout"
+#include "QVBoxLayout"
+#include "video_file.h"
+#include <QtMultimediaWidgets/QVideoWidget>
+#include <QStackedWidget>
+#include <QSlider>
+#include <QToolButton>
 
-#include <QApplication>
-#include <QMediaPlayer>
-#include "thumbnail_button.h"
-#include <vector>
-#include <QTimer>
-
-class Player : public QMediaPlayer {
-
-Q_OBJECT
-
+class Player: public QWidget{
+    Q_OBJECT
 public:
-    Player() : QMediaPlayer(NULL) {
-        setVolume(0); // be slightly less annoying
-        connect (this, SIGNAL (stateChanged(QMediaPlayer::State)), this, SLOT (playStateChanged(QMediaPlayer::State)) );
-
-        mTimer = new QTimer(NULL);
-        mTimer->setInterval(1000); // 1000ms is one second between ...
-        mTimer->start();
-        connect( mTimer, SIGNAL (timeout()), SLOT ( shuffle() ) ); // ...running shuffle method
-    }
-
-    // all buttons have been setup, store pointers here
-    void setContent(std::vector<ThumbnailButton*>* b, std::vector<VideoFile>* i);
-
-public slots:
-    // start playing this ButtonInfo
-    void jumpTo (VideoFile* button);
+    Player(VideoFile* video,QStackedWidget* toggler);
+    void playVideo();
+    void setScreen();
 
 private slots:
-    // change the image and video for one button every one second
-    void shuffle();
-    void playStateChanged(QMediaPlayer::State ms);
+
+    //void playStateChanged (QMediaPlayer::State ms);
+
+public slots:
+    void playVideo(VideoFile* newVideo);
+    void quitPlayer();
+    void rotateScreen();
+
+private slots:
+    void toggleVideo();
+    void seek(int seconds);
+    void modifySlider(qint64 duration);
+    void updateSlider(qint64 position);
+    void toggleFavorite();
+    void conditionalPlay();
+    void playbackSpeed();
 
 private:
-    std::vector<VideoFile>* infos;
-    std::vector<ThumbnailButton*>* buttons;
-    QTimer* mTimer;
-    long updateCount = 0;
+    VideoFile* currentVideo;
+    QStackedWidget* playPause;
+    VideoPlayer* videoPlayer;
+    QSlider* videoSlider;
+    QStackedWidget* toggler;
+    QVideoWidget* videoWidget;
+    QStackedWidget* favoriteToggle;
+    QToolButton* toggleRotation;
+    QToolButton* playbackSpeedButton;
+    QToolButton* back;
+    QHBoxLayout* botlayout;
+    QVBoxLayout* top;
+    QVBoxLayout* bottoplayout;
+    bool isLandscape;
+    qreal playback;
 };
 
-#endif //THE_PLAYER_H
+#endif // PLAYER_H

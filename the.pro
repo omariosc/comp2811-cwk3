@@ -7,6 +7,8 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    libraryPage/videolibrary.cpp \
+    mainPage/menulayout.cpp \
         mainPage/navigation_button.cpp \
         mainPage/title_label.cpp \
         main_window.cpp \
@@ -16,13 +18,14 @@ SOURCES += \
         library_page.cpp \
         map_page.cpp \
         player.cpp \
+        settingspage.cpp \
         thumbnail_button.cpp \
         tomeo.cpp \
-        # Map Files
-        Map/image.cpp \
-        Map/results.cpp
+        video_player.cpp \
 
 HEADERS += \
+    libraryPage/videolibrary.h \
+    mainPage/menulayout.h \
     mainPage/navigation_button.h \
     mainPage/title_label.h \
     main_window.h \
@@ -32,11 +35,13 @@ HEADERS += \
     library_page.h \
     map_page.h \
     player.h \
+    settingspage.h \
     thumbnail_button.h \
     video_file.h \
-    # Map Files
-    Map/image.h \
-    Map/results.h
+    video_player.h\
+
+RESOURCES += \
+    resources.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -44,6 +49,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS +=
-
-RESOURCES += \
-    resources.qrc
