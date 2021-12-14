@@ -8,13 +8,9 @@
 #include <QVariant>
 #include <QLineEdit>
 
-SettingsPage::SettingsPage(QWidget *parent) : QDialog(parent) {
-    setModal(1);
-    // setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-    if (parent) {
-        resize(parent->width(), parent->height());
-    }
+SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
 
+    stackedParent = parent;
 
     TitleLabel* title = new TitleLabel();
     title->setText("SETTINGS");
@@ -34,6 +30,8 @@ SettingsPage::SettingsPage(QWidget *parent) : QDialog(parent) {
     header->setLayout(headerLayout);
 
     QGridLayout* settingsLayout = new QGridLayout();
+    settingsLayout->setMargin(10);
+    settingsLayout->setSpacing(0);
 
     QLabel *textColor = new QLabel("Text Colour: ");
     textColor->setProperty("type", "setting");
@@ -45,7 +43,7 @@ SettingsPage::SettingsPage(QWidget *parent) : QDialog(parent) {
     settingsLayout->addWidget(textColor, 0, 0);
     settingsLayout->addWidget(textColorCB, 0, 1);
 
-    QLabel *backgroundColor = new QLabel("Background Colour: ");
+    QLabel *backgroundColor = new QLabel("Background: ");
     backgroundColor->setProperty("type", "setting");
     backgroundColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     QComboBox *backgroundColorCB = new QComboBox();
@@ -77,10 +75,9 @@ SettingsPage::SettingsPage(QWidget *parent) : QDialog(parent) {
     layout->addWidget(settings);
     layout->addStretch();
     setLayout(layout);
-    show();
 }
 
 void SettingsPage::returnBack(){
-    close();
+    stackedParent->setCurrentIndex(0);
 }
 

@@ -24,7 +24,8 @@
 
 #include <QDebug>
 
-MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
+MainWindow::MainWindow(std::vector<VideoFile> &videos, QStackedWidget* parent) : QWidget(){
+    stackedParent = parent;
     NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
     libraryPageButton->setIcon(QIcon(":/libraryIcon"));
     libraryPageButton->setPageNum(0);
@@ -110,18 +111,9 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
     libraryPageButton->setActive(true);
 
     setLayout(baseLayout);
-    setWindowTitle("tomeo");
-    setMinimumSize(320, 568);
-    resize(320, 568);
-
-    QFile File(":/tomeoStyleSheet");
-    File.open(QFile::ReadOnly);
-    QString StyleSheet = QLatin1String(File.readAll());
-    setStyleSheet(StyleSheet);
 
     //setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
-    show();
 }
 
 void MainWindow::navButtonClicked(int pageNumber, QString pageName){
@@ -135,7 +127,6 @@ void MainWindow::navButtonClicked(int pageNumber, QString pageName){
 
 
 void MainWindow::settingsButtonClicked(){
-    SettingsPage settings(this);
-    settings.exec();
+    stackedParent->setCurrentIndex(1);
 }
 

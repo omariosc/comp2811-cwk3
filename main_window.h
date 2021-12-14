@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <vector>
+#include <QStackedWidget>
 #include "video_file.h"
 #include "mainPage/navigation_button.h"
 
@@ -10,7 +11,7 @@ class MainWindow : public QWidget {
     Q_OBJECT
 
 public:
-    MainWindow(std::vector<VideoFile> &videos);
+    MainWindow(std::vector<VideoFile> &videos, QStackedWidget* parent);
 
 signals:
     void changedFocus(int pageNumber);
@@ -22,6 +23,7 @@ private slots:
 
 private:
     std::vector<NavigationButton*> navButtons;
+    QStackedWidget* stackedParent;
 
 };
 

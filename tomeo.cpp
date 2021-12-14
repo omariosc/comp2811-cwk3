@@ -39,6 +39,7 @@
 #include "mainPage/title_label.h"
 
 #include "main_window.h"
+#include "settingspage.h"
 
 
 // read in videos and thumbnails to this directory
@@ -117,7 +118,19 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
+    QFile File(":/tomeoStyleSheet");
+    File.open(QFile::ReadOnly);
+    QString StyleSheet = QLatin1String(File.readAll());
 
-    MainWindow mainWindow(videos);
+
+    QStackedWidget *menu = new QStackedWidget;
+    menu->addWidget(new MainWindow(videos, menu));
+    menu->addWidget(new SettingsPage(menu));
+    menu->setCurrentIndex(0);
+    menu->setWindowTitle("tomeo");
+    menu->setMinimumSize(320, 568);
+    menu->resize(320, 568);
+    menu->setStyleSheet(StyleSheet);
+    menu->show();
     return app.exec();
 }
