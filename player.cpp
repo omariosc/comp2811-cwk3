@@ -17,8 +17,8 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     videoWidget->setMinimumSize(100,100);
 
     // the QMediaPlayer which controls the playback
-    player = new VideoPlayer();
-    player->setVideoOutput(videoWidget);
+    videoPlayer = new VideoPlayer();
+    videoPlayer->setVideoOutput(videoWidget);
 
     //Create the back button
     back = new QToolButton();
@@ -27,7 +27,7 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     back->setMaximumWidth(60);
 
     //Connect it to QStackedWidget
-    connect(back,&QPushButton::clicked,this,&Player::quitPlayer);
+    connect(back,&QToolButton::clicked,this,&Player::quitPlayer);
 
 
     //Create the play/pause stacked widget
@@ -62,25 +62,25 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
 //    unfavorite->setText("Unfav");
 
     //And connect them
-    connect(favorite,&QPushButton::clicked,this,&Player::toggleFavorite);
-    connect(unfavorite,&QPushButton::clicked,this,&Player::toggleFavorite);
+    connect(favorite,&QToolButton::clicked,this,&Player::toggleFavorite);
+    connect(unfavorite,&QToolButton::clicked,this,&Player::toggleFavorite);
 
     //Make the scroll and add it
     videoSlider = new QSlider(Qt::Horizontal,this);
-    videoSlider->setRange(0, player->duration());
+    videoSlider->setRange(0, videoPlayer->duration());
     videoSlider->setMinimumWidth(20);
 
     //Connect scroll to VideoPlayer
     connect(videoSlider, &QSlider::sliderMoved, this, &Player::seek);
-    connect(player,&QMediaPlayer::durationChanged,this,&Player::modifySlider);
-    connect(player,&QMediaPlayer::positionChanged,this,&Player::updateSlider);
-    connect(videoSlider,&QSlider::sliderPressed,player,&QMediaPlayer::pause);
+    connect(videoPlayer,&QMediaPlayer::durationChanged,this,&Player::modifySlider);
+    connect(videoPlayer,&QMediaPlayer::positionChanged,this,&Player::updateSlider);
+    connect(videoSlider,&QSlider::sliderPressed,videoPlayer,&QMediaPlayer::pause);
     connect(videoSlider,&QSlider::sliderReleased,this,&Player::conditionalPlay);
 
     //Create rotation toggle button
     toggleRotation = new QToolButton();
     toggleRotation->setIcon(QIcon(":/rotate-white"));
-    connect(toggleRotation,&QPushButton::clicked,this,&Player::rotateScreen);
+    connect(toggleRotation,&QToolButton::clicked,this,&Player::rotateScreen);
     //toggleRotation->setText("Rotate");
 
 //    //Create the playback speed button
@@ -137,7 +137,7 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
     setStyleSheet(StyleSheet);
-    player->pause();
+    videoPlayer->pause();
 }
 
 void Player::rotateScreen(){
@@ -159,12 +159,12 @@ void Player::rotateScreen(){
 }
 
 void Player::playVideo(VideoFile* newVideo){
-    player->pause();
+    videoPlayer->pause();
     if(toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
     playPause->setCurrentIndex(1);
-    player->setContent(newVideo);
+    videoPlayer->setContent(newVideo);
     currentVideo = newVideo;
-    player->pause();
+    videoPlayer->pause();
     show();
 }
 
@@ -172,25 +172,25 @@ void Player::toggleVideo(){
     int current = playPause->currentIndex();
     if(current == 1){
         qDebug() << "Playing Video";
-        player->play();
+        videoPlayer->play();
         playPause->setCurrentIndex(0);
     }
     else{
         qDebug() << "Pausing Video";
-        player->pause();
+        videoPlayer->pause();
         playPause->setCurrentIndex(1);
     }
 }
 
 void Player::seek(int seconds)
 {
-    player->setPosition(seconds * 1000);
+    videoPlayer->setPosition(seconds * 1000);
 }
 
 void Player::playbackSpeed(){
     playback += 0.5;
     if(playback > 2.0) playback = 0.5;
-    player->setPlaybackRate(playback);
+    videoPlayer->setPlaybackRate(playback);
 }
 
 void Player::modifySlider(qint64 duration){
@@ -216,11 +216,11 @@ void Player::toggleFavorite(){
 }
 
 void Player::quitPlayer(){
-    player->stop();
+    videoPlayer->stop();
     toggler->setCurrentIndex(0);
     currentVideo = NULL;
 }
 
 void Player::conditionalPlay(){
-    if(playPause->currentIndex() == 0) player->play();
+    if(playPause->currentIndex() == 0) videoPlayer->play();
 }

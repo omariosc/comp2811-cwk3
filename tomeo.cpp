@@ -148,11 +148,11 @@ int main(int argc, char *argv[]) {
     // create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
     Player* player = new Player(&videos[1],menu);
-    menu->addWidget(new MainWindow);
+    menu->addWidget(new MainWindow(videos,player));
     menu->addWidget(player);
-    menu->setCurrentIndex(1);
+    menu->setCurrentIndex(0);
     menu->show();
-    player->playVideo(&videos[0]);
+    //player->playVideo(&videos[0]);
 
     return app.exec();
 }

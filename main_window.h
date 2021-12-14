@@ -5,12 +5,13 @@
 #include <vector>
 #include "video_file.h"
 #include "mainPage/navigation_button.h"
+#include <player.h>
 
 class MainWindow : public QWidget {
     Q_OBJECT
 
 public:
-    MainWindow(std::vector<VideoFile> &videos);
+    MainWindow(std::vector<VideoFile> &videos,Player* player);
 
 signals:
     void changedFocus(int pageNumber);

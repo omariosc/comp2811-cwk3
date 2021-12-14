@@ -24,7 +24,7 @@ public:
 
 private slots:
 
-    void playStateChanged (QMediaPlayer::State ms);
+    //void playStateChanged (QMediaPlayer::State ms);
 
 public slots:
     void playVideo(VideoFile* newVideo);
@@ -43,7 +43,7 @@ private slots:
 private:
     VideoFile* currentVideo;
     QStackedWidget* playPause;
-    VideoPlayer* player;
+    VideoPlayer* videoPlayer;
     QSlider* videoSlider;
     QStackedWidget* toggler;
     QVideoWidget* videoWidget;

@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
+MainWindow::MainWindow(std::vector<VideoFile> &videos,Player* player) : QWidget(){
     NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
     libraryPageButton->setIcon(QIcon(":/libraryIcon"));
     libraryPageButton->setPageNum(0);
@@ -48,7 +48,7 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos) : QWidget(){
     header->setLayout(headerLayout);
     header->setProperty("type", "menuBackground");
 
-    LibraryPage *libraryPage = new LibraryPage(videos);
+    LibraryPage *libraryPage = new LibraryPage(videos,player);
     FavouritePage *favouritesPage = new FavouritePage(videos);
     MapPage *mapPage = new MapPage(videos);
     AlbumPage *albumsPage = new AlbumPage(videos);

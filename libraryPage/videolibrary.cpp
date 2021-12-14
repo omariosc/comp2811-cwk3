@@ -1,10 +1,10 @@
 #include "libraryPage/videolibrary.h"
 #include <QGridLayout>
+#include "player.h"
 
 #include <QPushButton>
 
-VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player &player) : QScrollArea()
-{
+VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids,Player* player) : QScrollArea(){
     setWidgetResizable(1);
     videos = vids;
 
@@ -21,7 +21,7 @@ VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player &player) : QScro
 
     for (int i = 0; i < videos.size(); i++) {
         ThumbnailButton *button = new ThumbnailButton(buttonScrollArea);
-        button->connect(button, SIGNAL(jumpTo(VideoFile*)), &player, SLOT(jumpTo(VideoFile*)));
+        button->connect(button, SIGNAL(jumpTo(VideoFile*)), player, SLOT(playVideo(VideoFile*)));
         buttons.push_back(button);
         layout->addWidget(button, i / 4, i % 4);
         button->init(&videos.at(i));

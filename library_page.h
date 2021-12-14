@@ -3,12 +3,13 @@
 
 #include <QWidget>
 #include "video_file.h"
+#include "player.h"
 
 class LibraryPage : public QWidget {
     Q_OBJECT
 
 public:
-    LibraryPage(std::vector<VideoFile> &videos);
+    LibraryPage(std::vector<VideoFile> &videos,Player* player);
 
 };
 
