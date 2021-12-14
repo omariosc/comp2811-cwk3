@@ -7,12 +7,15 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 
+#include "../video_file.h"
+#include "../libraryPage/videolibrary.h"
+
 // Class containing the results from the map
 
 class Results : public QWidget {
     Q_OBJECT
 public:
-    Results();
+    Results(const std::vector<VideoFile> &videos, Player* player);
 
     virtual ~Results() {};
 
@@ -24,6 +27,9 @@ private:
 
     QLabel *header;
     QWidget *results;
+
+    std::vector<VideoFile> v;
+    Player* p;
 };
 
 #endif // RESULTS_H

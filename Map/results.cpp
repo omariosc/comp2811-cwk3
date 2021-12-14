@@ -1,7 +1,10 @@
 #include "results.h"
 
-Results::Results() {
+Results::Results(const std::vector<VideoFile> &videos, Player* player) {
     QScrollArea();
+
+    v = videos;
+    p = player;
 
     header = new QLabel();
     header->setText("Select country");
@@ -9,7 +12,7 @@ Results::Results() {
     header->setStyleSheet("color: #FFFFFF; font: 20px;");
 
     // Add results later
-    results = new QWidget();
+    results = new VideoLibrary(v, p);
 
     QVBoxLayout *l = new QVBoxLayout();
 
@@ -29,4 +32,5 @@ void Results::updateWidget(QString country) {
     }
 
     // Update results here
+    results = new VideoLibrary(v, p);
 }

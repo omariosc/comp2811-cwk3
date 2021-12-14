@@ -50,7 +50,7 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Pl
 
     LibraryPage *libraryPage = new LibraryPage(videos,player);
     FavouritePage *favouritesPage = new FavouritePage(videos);
-    MapPage *mapPage = new MapPage(videos);
+    MapPage *mapPage = new MapPage(videos, player);
     AlbumPage *albumsPage = new AlbumPage(videos);
     FilterPage *filterPage = new FilterPage(videos);
 

@@ -1,8 +1,8 @@
 #include "map_page.h"
 
-MapPage::MapPage(std::vector<VideoFile> &videos) {
+MapPage::MapPage(const std::vector<VideoFile> &videos, Player* player) {
     i = new Image();
-    r = new Results();
+    r = new Results(videos, player);
 
     QObject::connect(i, &Image::sendCountry, r, &Results::getCountry);
 
