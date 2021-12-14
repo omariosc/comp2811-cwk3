@@ -9,7 +9,7 @@
 
 // Class containing the results from the map
 
-class Results : public QScrollArea {
+class Results : public QWidget {
     Q_OBJECT
 public:
     Results();
@@ -20,7 +20,10 @@ public slots:
     void getCountry(QString country);
 
 private:
-    QWidget* resultWidget(QString country);
+    void updateWidget(QString country);
+
+    QLabel *header;
+    QWidget *results;
 };
 
 #endif // RESULTS_H
