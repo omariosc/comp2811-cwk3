@@ -16,7 +16,7 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
     title->setText("SETTINGS");
 
     NavigationButton *returnButton = new NavigationButton("BACK");
-    returnButton->setIcon(QIcon(":/returnIcon"));
+    returnButton->setIcon(QIcon(":/goback-white-icon"));
     connect(returnButton, &NavigationButton::clicked, this, &SettingsPage::returnBack);
 
 
@@ -58,7 +58,7 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
     language->setProperty("type", "setting");
     language->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     QComboBox *languageCB = new QComboBox();
-    QStringList languages = {"English", "Scotish"};
+    QStringList languages = {"English", "Romanian"};
     languageCB->insertItems(0, languages);
     languageCB->setInsertPolicy(QComboBox::InsertAlphabetically);
     settingsLayout->addWidget(language, 2, 0);
@@ -80,4 +80,3 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
 void SettingsPage::returnBack(){
     stackedParent->setCurrentIndex(0);
 }
-
