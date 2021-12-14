@@ -30,7 +30,15 @@ void Results::updateWidget(QString country) {
         header->setText("Results from " + country + ":");
     }
 
+    // Randomize video vector
+    std::random_device rd;
+    auto rng = std::default_random_engine { rd() };
+    std::shuffle(std::begin(v), std::end(v), rng);
+
+    auto randomVideos = std::vector<VideoFile>(v.begin(), v.begin()+4);
+
+    // Remove the results widget, recreate it (with new videos) and re-add it
     this->layout()->removeWidget(results);
-    results = new VideoLibrary(v, p);
+    results = new VideoLibrary(randomVideos, p);
     this->layout()->addWidget(results);
 }
