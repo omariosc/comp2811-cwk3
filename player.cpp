@@ -4,7 +4,7 @@
 #include "QFile"
 #include <QToolButton>
 
-static int butMaxWidth = 100;
+static int butMaxWidth = 360/5;
 static int butMinWidth = 50;
 
 Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), toggler(toggler), isLandscape(true)
@@ -79,19 +79,18 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     toggleRotation->setIcon(QIcon(":/rotate-white"));
     connect(toggleRotation,&QToolButton::clicked,this,&Player::rotateScreen);
 
-    /* Code here kept in case we decide to add the "playback" button back
+    //Code here kept in case we decide to add the "playback" button back
     //Create the playback speed button
     playbackSpeedButton = new QToolButton();
     connect(playbackSpeedButton, &QToolButton::clicked,this,&Player::playbackSpeed);
-    playbackSpeedButton->setMaximumWidth(butMaxWidth);
-    //playbackSpeedButton->sizeHint().setHeight(back->sizeHint().height());
     playbackSpeedButton->setText("Speed");
-    */
+    playbackSpeedButton->setIcon(QIcon(":/2x-white"));
 
     //Setting MAXIMUM widths
     //These are the non-stacked buttons
     back->setMaximumWidth(butMaxWidth);
     toggleRotation->setMaximumWidth(butMaxWidth);
+    playbackSpeedButton->setMaximumWidth(butMaxWidth);
     //These are the QStackedWidgets
     playPause->setMaximumWidth(back->sizeHint().width());
     favoriteToggle->setMaximumWidth(back->sizeHint().width());
@@ -101,6 +100,7 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     toggleRotation->setMinimumWidth(butMinWidth);
     playPause->setMinimumWidth(butMinWidth);
     favoriteToggle->setMinimumWidth(butMinWidth);
+    playbackSpeedButton->setMinimumWidth(butMinWidth);
 
 
     //setup the layout
@@ -117,7 +117,7 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     botlayout->addWidget(playPause);
     botlayout->addWidget(favoriteToggle);
     botlayout->addWidget(toggleRotation);
-    //    bot->addWidget(playbackSpeedButton);
+    botlayout->addWidget(playbackSpeedButton);
     botlayout->addWidget(videoSlider);
     bottoplayout->addLayout(botlayout);
     bot->setLayout(bottoplayout);
@@ -139,6 +139,8 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
 }
 
 void Player::rotateScreen(){
+    int width = toggler->size().width();
+    int height = toggler->size().height();
 
     if(isLandscape == true){
         isLandscape = false;
@@ -154,6 +156,8 @@ void Player::rotateScreen(){
         playPause->setMaximumWidth(back->sizeHint().width());
         favoriteToggle->setMaximumWidth(back->sizeHint().width());
     }
+
+    toggler->resize(height,width);
 }
 
 void Player::playVideo(VideoFile* newVideo){
@@ -188,9 +192,10 @@ void Player::seek(int seconds)
 }
 
 void Player::playbackSpeed(){
-    playback += 0.5;
-    if(playback > 2.0) playback = 0.5;
-    videoPlayer->setPlaybackRate(playback);
+    /*
+    Function added if time allows for an implementation later on.
+    It will be removed if it can not be implemented by the final iteration
+    */
 }
 
 void Player::modifySlider(qint64 duration){
