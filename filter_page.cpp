@@ -7,7 +7,6 @@
 #include <QDateEdit>
 #include <QSpinBox>
 #include <QPushButton>
-#include <QDebug>
 
 
 FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget() {
@@ -110,11 +109,9 @@ void FilterPage::applyChanges() {
                video.getLen() > longerThanSB->value() * longerThanUnits   &&
                video.getLen() < shorterThanSB->value() * shorterThanUnits &&
                video.getLocation() == locationCB->currentText()             ){
-                        qDebug() << "boop?";
                         filteredVideos.push_back(video);
             }
         }
-        qDebug() << "sadge";
     }
     library->setVideos(filteredVideos);
 }
