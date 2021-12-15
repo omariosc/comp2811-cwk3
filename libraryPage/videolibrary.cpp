@@ -46,5 +46,5 @@ void VideoLibrary::changeVideos(std::vector<VideoFile> &vids) {
     delete buttonScrollArea;
     buttons.clear();
     videos.clear();
-
+    setVideos(vids);
 }

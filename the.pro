@@ -21,6 +21,7 @@ SOURCES += \
         settingspage.cpp \
         thumbnail_button.cpp \
         tomeo.cpp \
+    video_file.cpp \
         video_player.cpp \
 
 HEADERS += \

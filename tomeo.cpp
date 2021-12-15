@@ -70,6 +70,16 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
                         QIcon* icon = new QIcon(QPixmap::fromImage(sprite));// voodoo to create an icon for the button
                         QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
                         out . push_back(VideoFile( url , icon  ) ); // add to the output list
+                        QString meta = f.left( f .length() - 4) +".metaData";
+                        QFile metaFile(meta);
+                        if (metaFile.exists()) {
+                            if(metaFile.open(QFile::ReadOnly)) {
+                                QTextStream in(&metaFile);
+                                QString metaData = in.readAll();
+                                metaFile.close();
+                                out.back().setMeta(metaData);
+                            }
+                        }
                     }
                     else
                         qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb;
