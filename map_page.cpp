@@ -11,7 +11,7 @@ MapPage::MapPage(const std::vector<VideoFile> &videos, Player* player) {
     l->addWidget(r, 50);
 
     l->setAlignment(i, Qt::AlignHCenter);
-    //l->setStretch(1, 0);
+    l->setMargin(0);
 
     setLayout(l);
 }

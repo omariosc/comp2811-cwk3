@@ -18,7 +18,6 @@ VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids,Player* player) : QScrol
     layout->setSpacing(0);
     buttonScrollArea->setLayout(layout);
 
-
     for (int i = 0; i < videos.size(); i++) {
         ThumbnailButton *button = new ThumbnailButton(buttonScrollArea);
         button->connect(button, SIGNAL(jumpTo(VideoFile*)), player, SLOT(playVideo(VideoFile*)));
@@ -26,7 +25,6 @@ VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids,Player* player) : QScrol
         layout->addWidget(button, i / 3, i % 3);
         button->init(&videos.at(i));
     }
-
 
     setWidget(buttonScrollArea);
     buttonScrollArea->setSizePolicy(buttonScrollAreaSizePolicy);

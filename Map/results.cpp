@@ -6,10 +6,10 @@ Results::Results(const std::vector<VideoFile> &videos, Player* player) {
     v = videos;
     p = player;
 
-    header = new QLabel();
-    header->setText("Select country");
-
-    header->setStyleSheet("color: #FFFFFF; font: 20px;");
+    header = new QLabel("Select country");
+    header->setProperty("type", "resultsHeader");
+    header->setAlignment(Qt::AlignCenter);
+    header->setFixedHeight(30);
 
     results = new QWidget();
 
@@ -17,6 +17,8 @@ Results::Results(const std::vector<VideoFile> &videos, Player* player) {
 
     l->addWidget(header);
     l->addWidget(results);
+
+    l->setMargin(0);
 
     setLayout(l);
 }
