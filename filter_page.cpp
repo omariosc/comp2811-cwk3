@@ -29,6 +29,7 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
 
     longerThan = new QCheckBox("Longer than: ");
     longerThan->setProperty("type", "filter");
+    longerThan->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
     longerThanSB = new QSpinBox();
     longerThanSB->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     longerThanCB = new QComboBox();
@@ -37,6 +38,7 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
 
     shorterThan = new QCheckBox("Shorter than: ");
     shorterThan->setProperty("type", "filter");
+    shorterThan->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
     shorterThanSB = new QSpinBox();
     shorterThanSB->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     shorterThanCB = new QComboBox();
