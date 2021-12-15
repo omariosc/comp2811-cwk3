@@ -137,8 +137,7 @@ int main(int argc, char *argv[]) {
 
     menu->setWindowTitle("tomeo");
     menu->resize(320, 568);
-
-
+    //menu->setMinimumSize(320,320);
     menu->show();
 
     return app.exec();

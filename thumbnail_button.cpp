@@ -17,7 +17,7 @@ ThumbnailButton::ThumbnailButton(QWidget *parent) :  QToolButton(parent) {
 
 void ThumbnailButton::init(VideoFile* i) {
     setIcon( *i->icon );
-    setIconSize(QSize(48,40));
+    setIconSize(QSize(96, 80));
     info =  i;
 }
 

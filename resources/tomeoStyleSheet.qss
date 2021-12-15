@@ -56,12 +56,12 @@ ThumbnailButton{
 	border-color: #FFFFFF;
 }
 
-ThumbnailButton:pressed{
+ThumbnailButton:hover{
 	background-color: #191919;
 	border-color: #2A2A2A;
 }
 
-ThumbnailButton:hover{
+ThumbnailButton:pressed{
 	background-color: #191919;
 	border-color: #2A2A2A;
 }
@@ -82,13 +82,54 @@ QLabel[type="setting"]{
      color: #FFFFFF;
 }
 
+QLabel[type="filterLabel"]{
+	 background: #000000;
+	 color: #FFFFFF;
+}
+
 QComboBox {
 	background-color: #2D2D2D;
 	color: #FFFFFF;
     padding: 1px 18px 1px 3px;
-    min-width: 6em;
 	selection-background-color: #A0A0A0;
 	selection-color: #000000;
+}
+
+QComboBox QAbstractItemView {
+    border: 2px solid #000000;
+	background-color: #2D2D2D;
+    selection-background-color: #A0A0A0;
+	color: #FFFFFF;
+	selection-color: #000000;
+}
+
+
+QDateEdit {
+	background-color: #2D2D2D;
+	color: #FFFFFF;
+    padding: 1px 18px 1px 3px;
+	selection-background-color: #A0A0A0;
+	selection-color: #000000;
+	border-style: none;
+}
+
+QPushButton[type="filter"]{
+	background-color: #2D2D2D;
+	color: #ffffff;
+}
+
+QPushButton[type="filter"]:pressed{
+	background-color: #A0A0A0;
+	color: #ffffff;
+}
+
+QSpinBox{
+	background-color: #2D2D2D;
+	color: #FFFFFF;
+    padding: 1px 18px 1px 3px;
+	selection-background-color: #A0A0A0;
+	selection-color: #000000;
+	border-style: none;
 }
 
 TitleLabel{
@@ -106,3 +147,5 @@ SettingsPage{
 QScrollBar:vertical {
     width: 0px;
 }
+
+
