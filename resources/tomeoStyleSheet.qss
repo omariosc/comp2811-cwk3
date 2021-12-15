@@ -82,7 +82,7 @@ QLabel[type="setting"]{
      color: #FFFFFF;
 }
 
-QLabel[type="filterLabel"]{
+QCheckBox[type="filter"]{
 	 background: #000000;
 	 color: #FFFFFF;
 }

@@ -3,10 +3,11 @@
 #include "libraryPage/videolibrary.h"
 #include <QGridLayout>
 #include <QComboBox>
-#include <QLabel>
+#include <QCheckBox>
 #include <QDateEdit>
 #include <QSpinBox>
 #include <QPushButton>
+#include <QCheckBox>
 
 
 FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget() {
@@ -14,30 +15,30 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
     allVideos = videos;
     mediaPlayer = player;
 
-    QLabel*  afterDateLabel = new QLabel("After date: ");
-    afterDateLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    afterDateLabel->setProperty("type", "filterLabel");
-    afterDate = new QDateEdit();
+    afterDate = new QCheckBox("After date: ");
+    //afterDate->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    afterDate->setProperty("type", "filter");
+    afterDateDE = new QDateEdit();
 
-    QLabel* beforeDateLabel = new QLabel("Before date: ");
-    beforeDateLabel->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
-    beforeDateLabel->setProperty("type", "filterLabel");
-    beforeDate = new QDateEdit();
+    beforeDate = new QCheckBox("Before date: ");
+    //beforeDate->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
+    beforeDate->setProperty("type", "filter");
+    beforeDateDE = new QDateEdit();
 
     QStringList units = {"Seconds", "Minutes", "Hours"};
 
-    QLabel* longerThanLabel = new QLabel("Longer than: ");
-    longerThanLabel->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
-    longerThanLabel->setProperty("type", "filterLabel");
+    longerThan = new QCheckBox("Longer than: ");
+    //longerThan->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
+    longerThan->setProperty("type", "filter");
     longerThanSB = new QSpinBox();
     longerThanSB->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     longerThanCB = new QComboBox();
     longerThanCB->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     longerThanCB->addItems(units);
 
-    QLabel* shorterThanLabel = new QLabel("Shorter than: ");
-    shorterThanLabel->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
-    shorterThanLabel->setProperty("type", "filterLabel");
+    shorterThan = new QCheckBox("Shorter than: ");
+    //shorterThan->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
+    shorterThan->setProperty("type", "filter");
     shorterThanSB = new QSpinBox();
     shorterThanSB->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     shorterThanCB = new QComboBox();
@@ -45,10 +46,10 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
     shorterThanCB->addItems(units);
 
     QStringList locations = {"LEEDS, UK", "SNOWDON, UK", "PYONGYANG, NK"};
-    QLabel* locationLabel = new QLabel("Location: ");
-    locationLabel->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
-    locationLabel->setProperty("type", "filterLabel");
-    locationLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
+    location = new QCheckBox("Location: ");
+    //location->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
+    location->setProperty("type", "filter");
+    location->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
     locationCB = new QComboBox();
     locationCB->addItems(locations);
 
@@ -65,26 +66,26 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
     filterLayout->setColumnStretch(2, 1);
     filterLayout->setColumnStretch(3, 1);
 
-    filterLayout->addWidget(afterDateLabel,     0, 0, 1, 2);
-    filterLayout->addWidget(afterDate,          0, 2, 1, 2);
+    filterLayout->addWidget(afterDate,      0, 0, 1, 2);
+    filterLayout->addWidget(afterDateDE,    0, 2, 1, 2);
 
-    filterLayout->addWidget(beforeDateLabel,    1, 0, 1, 2);
-    filterLayout->addWidget(beforeDate,         1, 2, 1, 2);
+    filterLayout->addWidget(beforeDate,     1, 0, 1, 2);
+    filterLayout->addWidget(beforeDateDE,   1, 2, 1, 2);
 
-    filterLayout->addWidget(longerThanLabel,    2, 0, 1, 2);
-    filterLayout->addWidget(longerThanSB,       2, 2, 1, 1);
-    filterLayout->addWidget(longerThanCB,       2, 3, 1, 1);
+    filterLayout->addWidget(longerThan,     2, 0, 1, 2);
+    filterLayout->addWidget(longerThanSB,   2, 2, 1, 1);
+    filterLayout->addWidget(longerThanCB,   2, 3, 1, 1);
 
-    filterLayout->addWidget(shorterThanLabel,   3, 0, 1, 2);
-    filterLayout->addWidget(shorterThanSB,      3, 2, 1, 1);
-    filterLayout->addWidget(shorterThanCB,      3, 3, 1, 1);
+    filterLayout->addWidget(shorterThan,    3, 0, 1, 2);
+    filterLayout->addWidget(shorterThanSB,  3, 2, 1, 1);
+    filterLayout->addWidget(shorterThanCB,  3, 3, 1, 1);
 
-    filterLayout->addWidget(locationLabel,      4, 0, 1, 2);
-    filterLayout->addWidget(locationCB,         4, 2, 1, 2);
+    filterLayout->addWidget(location,       4, 0, 1, 2);
+    filterLayout->addWidget(locationCB,     4, 2, 1, 2);
 
-    filterLayout->addWidget(makeChanges,        5, 0, 2, 4);
+    filterLayout->addWidget(makeChanges,    5, 0, 2, 4);
 
-    filterLayout->addWidget(library,            7, 0, 1, 4);
+    filterLayout->addWidget(library,        7, 0, 1, 4);
     setLayout(filterLayout);
 }
 
@@ -104,12 +105,34 @@ void FilterPage::applyChanges() {
     }
     for (VideoFile video: allVideos) {
         if (video.hasMeta()) {
-            if(video.getDate() > afterDate->date()                        &&
-               video.getDate() < beforeDate->date()                       &&
-               video.getLen() > longerThanSB->value() * longerThanUnits   &&
-               video.getLen() < shorterThanSB->value() * shorterThanUnits &&
-               video.getLocation() == locationCB->currentText()             ){
-                        filteredVideos.push_back(video);
+            bool valid = true;
+            if (afterDate->isChecked()) {
+                if(video.getDate() <= afterDateDE->date()) {
+                    valid = false;
+                }
+            }
+            if (beforeDate->isChecked()) {
+                if(video.getDate() >= afterDateDE->date()) {
+                    valid = false;
+                }
+            }
+            if (longerThan->isChecked()) {
+                if(video.getLen() <= longerThanSB->value() * longerThanUnits) {
+                    valid = false;
+                }
+            }
+            if (shorterThan->isChecked()) {
+                if(video.getLen() >= shorterThanSB->value() * shorterThanUnits) {
+                    valid = false;
+                }
+            }
+            if (location->isChecked()) {
+                if(video.getLocation() != locationCB->currentText()) {
+                    valid = false;
+                }
+            }
+            if(valid) {
+                filteredVideos.push_back(video);
             }
         }
     }

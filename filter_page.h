@@ -5,6 +5,7 @@
 #include <QDateEdit>
 #include <QSpinBox>
 #include <QComboBox>
+#include <QCheckBox>
 #include "video_file.h"
 #include "player.h"
 #include "libraryPage/videolibrary.h"
@@ -21,17 +22,19 @@ private slots:
 private:
     std::vector<VideoFile> allVideos;
     Player* mediaPlayer;
-    QDateEdit* afterDate;
-    QDateEdit* beforeDate;
+    QCheckBox* afterDate;
+    QDateEdit* afterDateDE;
+    QCheckBox* beforeDate;
+    QDateEdit* beforeDateDE;
+    QCheckBox* longerThan;
     QSpinBox* longerThanSB;
     QComboBox* longerThanCB;
+    QCheckBox* shorterThan;
     QSpinBox* shorterThanSB;
     QComboBox* shorterThanCB;
+    QCheckBox* location;
     QComboBox* locationCB;
     VideoLibrary *library;
-
-
-
 };
 
 #endif // THE_FILTER_PAGE_H     
