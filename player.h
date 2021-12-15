@@ -21,6 +21,7 @@ public:
     Player(VideoFile* video,QStackedWidget* toggler);
     void playVideo();
     void setScreen();
+    QToolButton* returnBack();
 
 private slots:
 

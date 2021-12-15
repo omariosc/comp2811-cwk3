@@ -50,7 +50,7 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Pl
     header->setProperty("type", "menuBackground");
 
     LibraryPage *libraryPage = new LibraryPage(videos,player);
-    FavouritePage *favouritesPage = new FavouritePage(videos);
+    FavouritePage *favouritesPage = new FavouritePage(videos,player);
     MapPage *mapPage = new MapPage(videos);
     AlbumPage *albumsPage = new AlbumPage(videos);
     FilterPage *filterPage = new FilterPage(videos);

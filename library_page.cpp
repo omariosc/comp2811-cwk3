@@ -10,5 +10,5 @@ LibraryPage::LibraryPage(std::vector<VideoFile> &videos,Player *player) : QWidge
     QGridLayout *libraryLayout = new QGridLayout();
     libraryLayout->addWidget(library, 0, 0);
     setLayout(libraryLayout);
-
 }
+

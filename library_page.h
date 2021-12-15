@@ -10,7 +10,6 @@ class LibraryPage : public QWidget {
 
 public:
     LibraryPage(std::vector<VideoFile> &videos,Player* player);
-
 };
 
 #endif // THE_LIBRARY_PAGE_H

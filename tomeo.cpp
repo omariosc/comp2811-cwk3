@@ -122,8 +122,9 @@ int main(int argc, char *argv[]) {
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
 
-
-
+    //Add video "metadata"
+    videos[0].favorite = true;
+    videos[2].favorite = true;
     // create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
     Player* player = new Player(&videos[1],menu);

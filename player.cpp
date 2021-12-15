@@ -229,3 +229,7 @@ void Player::quitPlayer(){
 void Player::conditionalPlay(){
     if(playPause->currentIndex() == 0) videoPlayer->play();
 }
+
+QToolButton* Player::returnBack(){
+    return back;
+}
