@@ -7,14 +7,14 @@
 static int butMaxWidth = 360/5;
 static int butMinWidth = 50;
 
-Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), toggler(toggler), isLandscape(true)
+Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), toggler(toggler), isLandscape(false)
 {
-    this->setMinimumSize(100,100);
+    //this->setMinimumSize(100,100);
     setWindowTitle("Video Player");
     this->setProperty("type", "menuBackground");
     setStyleSheet("background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #191919, stop: 0.4 #2D2D2D, stop: 0.5 #2D2D2D, stop: 1.0 #191919);");
     videoWidget = new QVideoWidget();
-    videoWidget->setMinimumSize(100,100);
+    //videoWidget->setMinimumSize(100,100);
 
     // the QMediaPlayer which controls the playback
     videoPlayer = new VideoPlayer();
@@ -118,14 +118,14 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     botlayout->addWidget(favoriteToggle);
     botlayout->addWidget(toggleRotation);
     botlayout->addWidget(playbackSpeedButton);
-    botlayout->addWidget(videoSlider);
+    //botlayout->addWidget(videoSlider);
     bottoplayout->addLayout(botlayout);
     bot->setLayout(bottoplayout);
 
+    top->addWidget(videoSlider);
     top->addWidget(bot);
     top->setContentsMargins(0,0,0,0);
     top->setSpacing(0);
-    isLandscape = true;
     setLayout(top);
     //layout()->update();
     show();
