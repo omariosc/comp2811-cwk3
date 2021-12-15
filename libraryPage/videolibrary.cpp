@@ -17,6 +17,10 @@ void VideoLibrary::setVideos(std::vector<VideoFile> &vids){
     buttonScrollArea->setProperty("type", "content");
 
     QGridLayout *layout = new QGridLayout();
+    layout->setColumnStretch(0, 1);
+    layout->setColumnStretch(1, 1);
+    layout->setColumnStretch(2, 1);
+    layout->setColumnStretch(3, 1);
     QSizePolicy buttonScrollAreaSizePolicy =  QSizePolicy();
     buttonScrollAreaSizePolicy.setHorizontalPolicy(QSizePolicy::Ignored);
     layout->setMargin(0);

@@ -16,19 +16,18 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
     mediaPlayer = player;
 
     afterDate = new QCheckBox("After date: ");
-    //afterDate->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    afterDate->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
     afterDate->setProperty("type", "filter");
     afterDateDE = new QDateEdit();
 
     beforeDate = new QCheckBox("Before date: ");
-    //beforeDate->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
+    beforeDate->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
     beforeDate->setProperty("type", "filter");
     beforeDateDE = new QDateEdit();
 
     QStringList units = {"Seconds", "Minutes", "Hours"};
 
     longerThan = new QCheckBox("Longer than: ");
-    //longerThan->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
     longerThan->setProperty("type", "filter");
     longerThanSB = new QSpinBox();
     longerThanSB->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
@@ -37,7 +36,6 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
     longerThanCB->addItems(units);
 
     shorterThan = new QCheckBox("Shorter than: ");
-    //shorterThan->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
     shorterThan->setProperty("type", "filter");
     shorterThanSB = new QSpinBox();
     shorterThanSB->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
@@ -45,9 +43,8 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
     shorterThanCB->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     shorterThanCB->addItems(units);
 
-    QStringList locations = {"LEEDS, UK", "SNOWDON, UK", "PYONGYANG, NK"};
+    QStringList locations = {"LEEDS, UK", "SNOWDON, UK", "PYONGYANG, NK", "WASHINGTON, US"};
     location = new QCheckBox("Location: ");
-    //location->setAlignment(Qt::AlignRight| Qt::AlignVCenter);
     location->setProperty("type", "filter");
     location->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
     locationCB = new QComboBox();
@@ -61,6 +58,7 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
     library = new VideoLibrary(videos, mediaPlayer);
 
     QGridLayout *filterLayout = new QGridLayout();
+    filterLayout->setHorizontalSpacing(0);
     filterLayout->setColumnStretch(0, 1);
     filterLayout->setColumnStretch(1, 1);
     filterLayout->setColumnStretch(2, 1);

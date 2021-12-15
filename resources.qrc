@@ -22,5 +22,7 @@
         <file alias="play-white">resources/playbutton-icon-white.png</file>
         <file alias="rotate-white">resources/rotate-v2-icon-white.png</file>
         <file alias="2x-white">resources/2x-icon-white.png</file>
+        <file alias="whiteTick">resources/white_check_mark.png</file>
+        <file alias="whiteUnTick">resources/white_uncheck_mark.png</file>
     </qresource>
 </RCC>
