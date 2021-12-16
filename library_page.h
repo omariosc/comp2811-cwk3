@@ -9,8 +9,7 @@ class LibraryPage : public QWidget {
     Q_OBJECT
 
 public:
-    LibraryPage(std::vector<VideoFile> &videos,Player* player);
-
+    LibraryPage(std::vector<VideoFile*> &videos,Player* player);
 };
 
 #endif // THE_LIBRARY_PAGE_H

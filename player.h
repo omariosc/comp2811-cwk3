@@ -21,10 +21,10 @@ public:
     Player(VideoFile* video,QStackedWidget* toggler);
     void playVideo();
     void setScreen();
+    QToolButton* returnBack();
 
-private slots:
-
-    //void playStateChanged (QMediaPlayer::State ms);
+signals:
+    void playerQuit();
 
 public slots:
     void playVideo(VideoFile* newVideo);

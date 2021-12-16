@@ -12,11 +12,12 @@ class MainWindow : public QWidget {
     Q_OBJECT
 
 public:
-    MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent,Player* player);
+    MainWindow(std::vector<VideoFile*> &videos,QStackedWidget* parent,Player* player);
 
 signals:
     void changedFocus(int pageNumber);
     void changedName(QString name);
+    void refreshLibrary();
 
 private slots:
     void navButtonClicked(int pageNumber, QString pageName);

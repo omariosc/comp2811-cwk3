@@ -40,5 +40,4 @@ void NavigationButton::setActive(bool newState){
     }
     this->style()->unpolish(this);
     this->style()->polish(this);
-
 }

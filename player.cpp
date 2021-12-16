@@ -7,14 +7,14 @@
 static int butMaxWidth = 360/5;
 static int butMinWidth = 50;
 
-Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), toggler(toggler), isLandscape(true)
+Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), toggler(toggler), isLandscape(false)
 {
-    this->setMinimumSize(100,100);
+    //this->setMinimumSize(100,100);
     setWindowTitle("Video Player");
     this->setProperty("type", "menuBackground");
     setStyleSheet("background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #191919, stop: 0.4 #2D2D2D, stop: 0.5 #2D2D2D, stop: 1.0 #191919);");
     videoWidget = new QVideoWidget();
-    videoWidget->setMinimumSize(100,100);
+    //videoWidget->setMinimumSize(100,100);
 
     // the QMediaPlayer which controls the playback
     videoPlayer = new VideoPlayer();
@@ -27,7 +27,7 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     back->setMaximumWidth(60);
 
     //Connect it to QStackedWidget
-    connect(back,&QToolButton::clicked,this,&Player::quitPlayer);
+    connect(back, &QToolButton::clicked, this, &Player::quitPlayer);
 
 
     //Create the play/pause stacked widget
@@ -45,8 +45,8 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     playPause->setCurrentIndex(0);
 
     //Connect the play/pause buttons
-    connect(play,SIGNAL(clicked()),this,SLOT(toggleVideo()));
-    connect(pause,SIGNAL(clicked()),this,SLOT(toggleVideo()));
+    connect(play,  &QToolButton::clicked, this, &Player::toggleVideo);
+    connect(pause, &QToolButton::clicked, this, &Player::toggleVideo);
 
     //Create the favorite/unfavorite buttons
     favoriteToggle = new QStackedWidget();
@@ -59,8 +59,8 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     favoriteToggle->setCurrentIndex(0);
 
     //And connect them
-    connect(favorite,&QToolButton::clicked,this,&Player::toggleFavorite);
-    connect(unfavorite,&QToolButton::clicked,this,&Player::toggleFavorite);
+    connect(favorite,   &QToolButton::clicked, this, &Player::toggleFavorite);
+    connect(unfavorite, &QToolButton::clicked, this, &Player::toggleFavorite);
 
     //Make the scroll and add it
     videoSlider = new QSlider(Qt::Horizontal,this);
@@ -69,10 +69,10 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
 
     //Connect scroll to VideoPlayer
     connect(videoSlider, &QSlider::sliderMoved, this, &Player::seek);
-    connect(videoPlayer,&QMediaPlayer::durationChanged,this,&Player::modifySlider);
-    connect(videoPlayer,&QMediaPlayer::positionChanged,this,&Player::updateSlider);
-    connect(videoSlider,&QSlider::sliderPressed,videoPlayer,&QMediaPlayer::pause);
-    connect(videoSlider,&QSlider::sliderReleased,this,&Player::conditionalPlay);
+    connect(videoSlider, &QSlider::sliderPressed, videoPlayer, &QMediaPlayer::pause);
+    connect(videoSlider, &QSlider::sliderReleased, this, &Player::conditionalPlay);
+    connect(videoPlayer, &QMediaPlayer::durationChanged, this, &Player::modifySlider);
+    connect(videoPlayer, &QMediaPlayer::positionChanged, this, &Player::updateSlider);
 
     //Create rotation toggle button
     toggleRotation = new QToolButton();
@@ -118,14 +118,14 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     botlayout->addWidget(favoriteToggle);
     botlayout->addWidget(toggleRotation);
     botlayout->addWidget(playbackSpeedButton);
-    botlayout->addWidget(videoSlider);
+    //botlayout->addWidget(videoSlider);
     bottoplayout->addLayout(botlayout);
     bot->setLayout(bottoplayout);
 
+    top->addWidget(videoSlider);
     top->addWidget(bot);
     top->setContentsMargins(0,0,0,0);
     top->setSpacing(0);
-    isLandscape = true;
     setLayout(top);
     //layout()->update();
     show();
@@ -163,7 +163,7 @@ void Player::rotateScreen(){
 void Player::playVideo(VideoFile* newVideo){
     videoPlayer->pause();
     if(toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
-    if(newVideo->favorite == true) favoriteToggle->setCurrentIndex(1);
+    if(newVideo->getFavourite() == true) favoriteToggle->setCurrentIndex(1);
     else favoriteToggle->setCurrentIndex(0);
     playPause->setCurrentIndex(0);
     videoPlayer->setContent(newVideo);
@@ -208,13 +208,13 @@ void Player::updateSlider(qint64 position){
 }
 
 void Player::toggleFavorite(){
-    if(currentVideo->favorite == true){
-        currentVideo->favorite = false;
+    if(currentVideo->getFavourite() == true){
+        currentVideo->setFavourite(false);
         favoriteToggle->setCurrentIndex(0);
         qDebug() << "Video removed from favorites";
     }
     else{
-        currentVideo->favorite = true;
+        currentVideo->setFavourite(true);
         favoriteToggle->setCurrentIndex(1);
         qDebug() << "Video added to favorites";
     }
@@ -224,8 +224,13 @@ void Player::quitPlayer(){
     videoPlayer->stop();
     toggler->setCurrentIndex(0);
     currentVideo = NULL;
+    emit playerQuit();
 }
 
 void Player::conditionalPlay(){
     if(playPause->currentIndex() == 0) videoPlayer->play();
+}
+
+QToolButton* Player::returnBack(){
+    return back;
 }

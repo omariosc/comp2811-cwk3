@@ -7,6 +7,8 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    albumsPage/albumbutton.cpp \
+    albumsPage/albumlibrary.cpp \
     libraryPage/videolibrary.cpp \
     mainPage/menulayout.cpp \
         mainPage/navigation_button.cpp \
@@ -21,9 +23,12 @@ SOURCES += \
         settingspage.cpp \
         thumbnail_button.cpp \
         tomeo.cpp \
-        video_player.cpp \
+    video_file.cpp \
+        video_player.cpp
 
 HEADERS += \
+    albumsPage/albumbutton.h \
+    albumsPage/albumlibrary.h \
     libraryPage/videolibrary.h \
     mainPage/menulayout.h \
     mainPage/navigation_button.h \
