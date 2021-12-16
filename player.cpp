@@ -6,8 +6,9 @@
 #include "QLabel"
 #include "QStyle"
 
-static int butMaxWidth = 360 / 5;
-static int butMinWidth = 50;
+static const int butMaxWidth = 360 / 5;
+static const int butMinWidth = 50;
+static const int butMaxHeight = 25;
 
 Player::Player(VideoFile* video, QStackedWidget* toggler)
     : currentVideo(video), toggler(toggler), isLandscape(false) {
@@ -90,9 +91,11 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
 
   // Setting MAXIMUM widths
   // These are the non-stacked buttons
-  back->setMaximumWidth(butMaxWidth);
-  toggleRotation->setMaximumWidth(butMaxWidth);
-  playbackSpeedButton->setMaximumWidth(butMaxWidth);
+  back->setMaximumHeight(butMaxHeight);
+  toggleRotation->setMaximumHeight(butMaxHeight);
+  playPause->setMaximumHeight(butMaxHeight);
+  favoriteToggle->setMaximumHeight(butMaxHeight);
+  playbackSpeedButton->setMaximumHeight(butMaxHeight);
   // These are the QStackedWidgets
   playPause->setMaximumWidth(back->sizeHint().width());
   favoriteToggle->setMaximumWidth(back->sizeHint().width());
