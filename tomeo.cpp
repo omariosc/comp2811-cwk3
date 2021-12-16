@@ -70,6 +70,7 @@ std::vector<VideoFile> getInfoIn(std::string loc) {
                 f));  // convert the file location to a generic url
 
             out.push_back(VideoFile(url, icon));  // add to the output list
+            // Checks if file for meta data  exists and if so reads it and sets to file.
             QString meta = f.left(f.length() - 4) + ".metadata";
             QFile metaFile(meta);
             if (metaFile.exists()) {
