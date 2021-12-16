@@ -11,5 +11,7 @@ COMP2811 User Interfaces Coursework 3 - The Process. This project invloved creat
 3. Create a folder of video files called `videos` and place it in the repository folder
 4. Open `the.pro` in Qt Creator and configure the project
 5. Add the command line argument (to the run tab in Qt Creator) `"path/to/videos"`
-6. Run the project
-7. To run different iterations, open the folder in terminal and run `git checkout iteration-n`. Reload the project in QtCreator and run
+6. To add video metadata, create a file for the video called `videoname.metadata` where `videoname` is the exact name of the video in the `videos` directory containing the metadata
+7. The metadata should be in the following format: `Date,Length,City,CountryCode`. Where date is in the format `dd/MM/yyyy`, length in seconds, city in caps and country code in caps as a 2 letter code. For example: `15/12/2021,15,SNOWDON,UK`
+8. Run the project
+9. To run different iterations, open the folder in terminal and run `git checkout iteration-n`. Reload the project in QtCreator and run
