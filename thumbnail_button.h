@@ -24,10 +24,6 @@ private slots:
 
 signals:
     void jumpTo(VideoFile*);
-
-private:
-    int iconWidth;
-
 };
 
 #endif //THE_THUMBNAIL_BUTTON_H

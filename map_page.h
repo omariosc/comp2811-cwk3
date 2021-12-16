@@ -8,7 +8,7 @@ class MapPage : public QWidget {
     Q_OBJECT
 
 public:
-    MapPage(std::vector<VideoFile> &videos) : QWidget() {}
+    MapPage(std::vector<VideoFile*> &videos) : QWidget() {}
 
 };
 

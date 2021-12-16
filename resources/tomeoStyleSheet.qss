@@ -46,6 +46,42 @@ NavigationButton:pressed{
 	font-family: Arial;
 }
 
+QToolButton[type="albumButton"]{
+	background-color: #2D2D2D;
+	border-color: #FFFFFF;
+	color: #ffffff;
+}
+
+QToolButton[type="albumButton"]:pressed{
+	background-color: #191919;
+	border-color: #2A2A2A;
+}
+
+QToolButton[type="albumButton"]:hover{
+	background-color: #191919;
+	border-color: #2A2A2A;
+}
+
+AlbumLibrary{
+	background: #000000;
+	border-radius: 0px;
+}
+
+AlbumButton{
+	background-color: #2D2D2D;
+	border-color: #FFFFFF;
+	color: #ffffff;
+}
+
+AlbumButton:pressed{
+	background-color: #191919;
+	border-color: #2A2A2A;
+}
+
+AlbumButton:hover{
+	background-color: #191919;
+	border-color: #2A2A2A;
+}
 
 QStackedWidget{
 	background: #000000;

@@ -14,13 +14,13 @@ class FilterPage : public QWidget {
     Q_OBJECT
 
 public:
-    FilterPage(std::vector<VideoFile> &videos, Player* player);
+    FilterPage(std::vector<VideoFile*> &videos, Player *player);
 
 private slots:
     void applyChanges();
 
 private:
-    std::vector<VideoFile> allVideos;
+    std::vector<VideoFile*> allVideos;
     Player* mediaPlayer;
     QCheckBox* afterDate;
     QDateEdit* afterDateDE;

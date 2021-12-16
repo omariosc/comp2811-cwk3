@@ -1,7 +1,10 @@
 #include "video_file.h"
+#include "QPainter"
+#include "qdebug.h"
 #include <QDebug>
 
-VideoFile::VideoFile( QUrl* url, QIcon* icon, bool favorite) : url (url), icon (icon), favorite(favorite) {
+VideoFile::VideoFile( QUrl* url, QIcon* icon, bool favourite) : url (url), favourite(favourite), originalIcon(icon) {
+    updateIcon();
     hasMetaData = false;
 }
 
@@ -12,6 +15,41 @@ void VideoFile::setMeta(QString metadata){
     city = splitData[2];
     countryCode = splitData[3];
     hasMetaData = true;
+}
+
+void VideoFile::updateIcon(QIcon* newIcon){
+    if (newIcon) {
+        originalIcon = newIcon;
+    }
+    newIcon = originalIcon;
+    if (favourite) {
+        QPixmap base, overlay;
+        base = newIcon->pixmap(128,128);
+        overlay = QPixmap(":/favouritesOverlay");
+        QPixmap result(base.width(), base.height());
+        result.fill(Qt::transparent);
+        QPainter painter(&result);
+        painter.drawPixmap(0, 0, base);
+        painter.drawPixmap(0, 0, overlay);
+        icon = QIcon(result);
+    }
+    else {
+        icon = *newIcon;
+    }
+}
+
+void VideoFile::setFavourite(bool flag){
+    favourite = flag;
+    updateIcon();
+}
+
+void VideoFile::toggleFavourite(){
+    favourite = !favourite;
+    updateIcon();
+}
+
+bool VideoFile::getFavourite(){
+    return favourite;
 }
 
 bool VideoFile::hasMeta() {
@@ -28,6 +66,5 @@ int VideoFile::getLen(){
 }
 
 QString VideoFile::getLocation(){
-
     return city + ", " + countryCode;
 }

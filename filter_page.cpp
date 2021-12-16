@@ -10,8 +10,7 @@
 #include <QCheckBox>
 
 
-FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget() {
-
+FilterPage::FilterPage(std::vector<VideoFile*> &videos, Player *player) : QWidget() {
     allVideos = videos;
     mediaPlayer = player;
 
@@ -90,7 +89,7 @@ FilterPage::FilterPage(std::vector<VideoFile> &videos, Player *player) : QWidget
 }
 
 void FilterPage::applyChanges() {
-    std::vector<VideoFile> filteredVideos;
+    std::vector<VideoFile*> filteredVideos;
     int longerThanUnits = 1;
     int shorterThanUnits = 1;
     if(longerThanCB->currentIndex() == 1) {
@@ -103,31 +102,31 @@ void FilterPage::applyChanges() {
     } else if (shorterThanCB->currentIndex() == 2) {
         shorterThanUnits = 3600;
     }
-    for (VideoFile video: allVideos) {
-        if (video.hasMeta()) {
+    for (VideoFile *video: allVideos) {
+        if (video->hasMeta()) {
             bool valid = true;
             if (afterDate->isChecked()) {
-                if(video.getDate() <= afterDateDE->date()) {
+                if(video->getDate() <= afterDateDE->date()) {
                     valid = false;
                 }
             }
             if (beforeDate->isChecked()) {
-                if(video.getDate() >= afterDateDE->date()) {
+                if(video->getDate() >= afterDateDE->date()) {
                     valid = false;
                 }
             }
             if (longerThan->isChecked()) {
-                if(video.getLen() <= longerThanSB->value() * longerThanUnits) {
+                if(video->getLen() <= longerThanSB->value() * longerThanUnits) {
                     valid = false;
                 }
             }
             if (shorterThan->isChecked()) {
-                if(video.getLen() >= shorterThanSB->value() * shorterThanUnits) {
+                if(video->getLen() >= shorterThanSB->value() * shorterThanUnits) {
                     valid = false;
                 }
             }
             if (location->isChecked()) {
-                if(video.getLocation() != locationCB->currentText()) {
+                if(video->getLocation() != locationCB->currentText()) {
                     valid = false;
                 }
             }
