@@ -29,6 +29,7 @@ AlbumPage::AlbumPage(std::vector<VideoFile *> &videos, Player *videoPlayer)
   currentLibrary->addStretch(1);
   currentLibrary->addWidget(back);
   currentLibrary->setSpacing(0);
+  currentLibrary->setMargin(0);
 
   // Create the album library, for selecting an album
   AlbumLibrary *albumLibrary = new AlbumLibrary(videos, currentAlbum, toggler);
