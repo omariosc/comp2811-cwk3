@@ -136,5 +136,5 @@ void FilterPage::applyChanges() {
             }
         }
     }
-    library->setVideos(filteredVideos);
+    library->changeVideos(filteredVideos);
 }
