@@ -3,8 +3,9 @@
 #include "qdebug.h"
 
 
-VideoFile::VideoFile( QUrl* url, QIcon* icon, bool favorite) : url (url), originalIcon (icon), favorite(favorite) {
-    updateIcon();
+VideoFile::VideoFile( QUrl* url, QIcon* icon, bool favorite) : url (url), favorite(favorite) {
+    original = icon;
+    setIcon(icon);
 }
 
 void VideoFile::updateIcon(QIcon* newIcon){
