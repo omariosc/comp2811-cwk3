@@ -21,10 +21,10 @@ class ThumbnailButton : public QToolButton {
   void init(VideoFile* i);
 
  private slots:
-  void clicked();
+  void clicked(); // Slot to override what happens when clicked
 
  signals:
-  void jumpTo(VideoFile*);
+  void jumpTo(VideoFile*); // Signal to load video into player
 };
 
 #endif  // THE_THUMBNAIL_BUTTON_H

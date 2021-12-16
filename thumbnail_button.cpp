@@ -14,8 +14,8 @@ ThumbnailButton::ThumbnailButton(QWidget* parent) : QToolButton(parent) {
   setSizePolicy(buttonSizePolicy);
   setMinimumHeight(45);
   connect(
-      this, SIGNAL(released()), this,
-      SLOT(clicked()));  // if QPushButton clicked...then run clicked() below
+      this, &ThumbnailButton::released, this,
+      &ThumbnailButton::clicked);  // if QPushButton clicked...then run clicked() below
 }
 
 void ThumbnailButton::init(VideoFile* i) {
