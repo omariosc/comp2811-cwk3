@@ -7,9 +7,10 @@ MapPage::MapPage(const std::vector<VideoFile> &videos, Player* player) {
     QObject::connect(i, &Image::sendCountry, r, &Results::getCountry);
 
     QVBoxLayout *l = new QVBoxLayout();
-    l->addWidget(i, 50);
-    l->addWidget(r, 50);
+    l->addWidget(i);
+    l->addWidget(r);
 
+    l->setAlignment(i, Qt::AlignTop);
     l->setAlignment(i, Qt::AlignHCenter);
     l->setMargin(0);
 
@@ -18,7 +19,7 @@ MapPage::MapPage(const std::vector<VideoFile> &videos, Player* player) {
 
 void MapPage::resizeEvent(QResizeEvent *e) {
     int height = e->size().height();
+    int width = e->size().width();
 
-    i->setFixedHeight(height*0.5);
-    r->setFixedHeight(height*0.5);
+    i->setFixedSize(width, height*0.5);
 }

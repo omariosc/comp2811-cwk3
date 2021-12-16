@@ -14,15 +14,21 @@ void Image::mousePressEvent(QMouseEvent *event) {
     double tw = pixmap()->size().width();
 
     double lat = 90.0-((h/th)*180.0);
-    double lon = ((w/tw)*360.0)-170.0;  // Should find a more accurate formula later
+    double lon = ((w/tw)*360.0)-170.0;
 
     sendRequest(lat, lon);
 }
 
 void Image::resizeEvent(QResizeEvent *e) {
     double h = e->size().height();
+    double w = e->size().width();
 
-    setPixmap(img.scaledToHeight(h, Qt::TransformationMode::SmoothTransformation));
+    QPixmap scaledImage;
+
+    scaledImage = img.scaled(w, h, Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
+
+    setPixmap(scaledImage);
+    setFixedSize(scaledImage.size().width(), scaledImage.size().height());
 }
 
 void Image::sendRequest(double lat, double lon) {
@@ -30,7 +36,7 @@ void Image::sendRequest(double lat, double lon) {
 
     QString url = QString("https://nominatim.openstreetmap.org/reverse?lat=%1&lon=%2&format=json&zoom=3").arg(QString::number(lat), QString::number(lon));
 
-    // If you click too quickly it causes a problem with the code waiting for the resposne.
+    // If you click too quickly it causes a problem with the code waiting for the response - due to usage limits
     manager->get(QNetworkRequest(QUrl(url)));
 }
 
