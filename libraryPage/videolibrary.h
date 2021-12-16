@@ -17,11 +17,12 @@ public:
 public slots:
     void changeVideos(std::vector<VideoFile> &vids);
     void filterForFavourites();
-    void filterForAlbum();
+    void filterForAlbum(int album);
 
 private:
     std::vector<ThumbnailButton*> buttons;
     std::vector<VideoFile> videos;
+    std::vector<VideoFile> allVideos;
     QWidget *buttonScrollArea;
     Player* mediaPlayer;
 };

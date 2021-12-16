@@ -5,17 +5,24 @@
 #include "player.h"
 #include <QScrollArea>
 #include <albumsPage/albumbutton.h>
+#include <libraryPage/videolibrary.h>
 
 class AlbumLibrary: public QScrollArea
 {
+    Q_OBJECT
 public:
-    AlbumLibrary(std::vector<VideoFile> &vids, Player* player);
+    AlbumLibrary(std::vector<VideoFile> &vids, VideoLibrary* library,QStackedWidget* toggler);
     void setAlbums();
+
+public slots:
+    void switchToAlbum();
+    void switchBack();
 
 private:
     std::vector<AlbumButton*> buttons;
     std::vector<VideoFile> videos;
-    Player* player;
+    VideoLibrary* library;
+    QStackedWidget* toggler;
     QWidget *buttonScrollArea;
 };
 

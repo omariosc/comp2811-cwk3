@@ -9,7 +9,6 @@ CONFIG += c++11
 SOURCES += \
     albumsPage/albumbutton.cpp \
     albumsPage/albumlibrary.cpp \
-    albumslibrary.cpp \
     libraryPage/videolibrary.cpp \
     mainPage/menulayout.cpp \
         mainPage/navigation_button.cpp \
@@ -29,7 +28,6 @@ SOURCES += \
 HEADERS += \
     albumsPage/albumbutton.h \
     albumsPage/albumlibrary.h \
-    albumslibrary.h \
     libraryPage/videolibrary.h \
     mainPage/menulayout.h \
     mainPage/navigation_button.h \

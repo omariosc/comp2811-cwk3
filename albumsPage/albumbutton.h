@@ -13,6 +13,7 @@ public:
     AlbumButton(QWidget* parent);
 
     void init(int album);
+    void setAlbum(int album);
 
 private slots:
     void clicked();

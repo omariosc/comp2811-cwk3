@@ -4,7 +4,7 @@
 
 #include <QPushButton>
 
-VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player* player) : QScrollArea(),videos(vids){
+VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player* player) : QScrollArea(),videos(vids),allVideos(vids){
     setWidgetResizable(1);
     mediaPlayer = player;
     setVideos(vids);
@@ -64,9 +64,9 @@ void VideoLibrary::filterForFavourites(){
 
 void VideoLibrary::filterForAlbum(int album){
     std::vector<VideoFile> currentVideos;
-    for (unsigned int x = 0; x < videos.size();x++){
-        if(videos.at(x).favorite == true){
-            currentVideos.push_back(videos.at(x));
+    for (unsigned int x = 0; x < allVideos.size();x++){
+        if(allVideos.at(x).album == album){
+            currentVideos.push_back(allVideos.at(x));
         }
     }
     changeVideos(currentVideos);

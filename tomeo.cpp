@@ -121,6 +121,9 @@ int main(int argc, char *argv[]) {
     for(unsigned int x = 0;x < videos.size();x++){
         videos.at(x).album = rand() % 3 + 1;
     }
+    //Override some for testing
+    videos.at(0).album = 1;
+    videos.at(1).album = 1;
 
     // Retrieving stylesheet
     QFile File(":/tomeoStyleSheet");

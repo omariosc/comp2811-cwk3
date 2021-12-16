@@ -9,8 +9,26 @@
 
 AlbumPage::AlbumPage(std::vector<VideoFile> &videos,Player *videoPlayer) : QWidget(),player(videoPlayer),videos(videos) {
     toggler = new QStackedWidget;
+    //Create the layouts
     QGridLayout *albumsLayout = new QGridLayout();
-    toggler->addWidget(new AlbumLibrary(videos,player));
+    QVBoxLayout *currentLibrary = new QVBoxLayout();
+
+    //Create the current album browser. Which is a VideoLibrary + Back button
+    VideoLibrary *currentAlbum = new VideoLibrary(videos,player);
+    QToolButton *back = new QToolButton();
+    back->setIcon(QIcon("://goback-icon"));
+    currentLibrary->addWidget(currentAlbum);
+    currentLibrary->addWidget(back);
+
+    //Create the album library, for selecting an album
+    AlbumLibrary* albumlibrary = new AlbumLibrary(videos,currentAlbum,toggler);
+    toggler->addWidget(albumlibrary);
+    QWidget* libraryWidget = new QWidget();
+    libraryWidget->setLayout(currentLibrary);
+    toggler->addWidget(libraryWidget);
+
+    //Connect button and add to page
+    connect(back,&QToolButton::clicked,albumlibrary,&AlbumLibrary::switchBack);
     albumsLayout->addWidget(toggler, 0, 0);
     setLayout(albumsLayout);
     show();

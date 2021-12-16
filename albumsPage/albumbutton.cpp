@@ -3,6 +3,7 @@
 #include <QSizePolicy>
 #include <QDebug>
 AlbumButton::AlbumButton(QWidget* parent): QToolButton(parent) {
+    setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     QSizePolicy buttonSizePolicy;
     buttonSizePolicy.setHorizontalPolicy(QSizePolicy::Ignored);
     buttonSizePolicy.setWidthForHeight(1);
@@ -25,4 +26,8 @@ void AlbumButton::clicked() {
 
 void AlbumButton::changeAlbum(int album){
     qDebug() << "Boop?" << album;
+}
+
+void AlbumButton::setAlbum(int album){
+    albumNr = album;
 }
