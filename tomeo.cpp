@@ -103,6 +103,9 @@ int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
 
   // Collect all the videos in the folder
+  // "videos" is a vector of pointers to VideoFiles so that when a videofile is edited it will work globally
+  // "actualVideos" is a vecotr of VideoFiles so that the pointers do not fall out of scope
+  // If new VideoFiles would need to be added to/removed from actualVideos then the pointers in videos should be recalculated
   std::vector<VideoFile*> videos;
   std::vector<VideoFile> actualVideos;
 
