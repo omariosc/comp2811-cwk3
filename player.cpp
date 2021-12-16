@@ -14,9 +14,6 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
     : currentVideo(video), toggler(toggler), isLandscape(false) {
   setWindowTitle("Video Player");
   this->setProperty("type", "menuBackground");
-  setStyleSheet(
-      "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
-      "#191919, stop: 0.4 #2D2D2D, stop: 0.5 #2D2D2D, stop: 1.0 #191919);");
   videoWidget = new QVideoWidget();
 
   // The QMediaPlayer which controls the playback
