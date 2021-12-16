@@ -14,7 +14,6 @@
 #include "../libraryPage/videolibrary.h"
 
 // Class containing the results from the map
-
 class Results : public QWidget {
     Q_OBJECT
 public:

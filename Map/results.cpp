@@ -6,6 +6,7 @@ Results::Results(const std::vector<VideoFile*> &videos, Player* player) {
     v = videos;
     p = player;
 
+    // Create label with prompt and set properties for styling
     header = new QLabel("Select country");
     header->setProperty("type", "resultsHeader");
     header->setAlignment(Qt::AlignCenter);

@@ -10,9 +10,9 @@ MapPage::MapPage(const std::vector<VideoFile*> &videos, Player* player) {
     l->addWidget(i);
     l->addWidget(r);
 
+    // Set alignment of image
     l->setAlignment(i, Qt::AlignTop);
     l->setAlignment(i, Qt::AlignHCenter);
-    l->setMargin(0);
 
     setLayout(l);
 }
@@ -21,5 +21,6 @@ void MapPage::resizeEvent(QResizeEvent *e) {
     int height = e->size().height();
     int width = e->size().width();
 
-    i->setFixedSize(width, height*0.5);
+    // Maximum height image can take up half its the widget
+    i->setFixedSize(width-20, height*0.5);
 }
