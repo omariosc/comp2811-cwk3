@@ -18,6 +18,8 @@ public slots:
     void switchToAlbum();
     void switchBack();
 
+    void filterForAlbum(int album);
+
 private:
     std::vector<AlbumButton*> buttons;
     std::vector<VideoFile> videos;

@@ -32,7 +32,7 @@ void AlbumLibrary::setAlbums(){
         button->setAlbum(i+1);
         QString name = "ALBUM " + QString::number(i+1);
         button->setText(name);
-        button->connect(button, SIGNAL(changeAlbum(int)), library, SLOT(filterForAlbum(int)));
+        button->connect(button, SIGNAL(changeAlbum(int)), this, SLOT(filterForAlbum(int)));
         button->connect(button, &QToolButton::clicked, this, &AlbumLibrary::switchToAlbum);
         buttons.push_back(button);
         layout->addWidget(button, i / 2, i % 2);
@@ -53,4 +53,14 @@ void AlbumLibrary::switchToAlbum(){
 
 void AlbumLibrary::switchBack(){
     toggler->setCurrentIndex(0);
+}
+
+void AlbumLibrary::filterForAlbum(int album){
+    std::vector<VideoFile> currentVideos;
+    for (VideoFile video : videos) {
+        if (video.album == album) {
+            currentVideos.push_back(video);
+        }
+    }
+    library->changeVideos(currentVideos);
 }
