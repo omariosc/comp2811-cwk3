@@ -117,6 +117,11 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
+    //Add random album numbers to each video
+    for(unsigned int x = 0;x < videos.size();x++){
+        videos.at(x).album = rand() % 3 + 1;
+    }
+
     // Retrieving stylesheet
     QFile File(":/tomeoStyleSheet");
     File.open(QFile::ReadOnly);
@@ -125,9 +130,10 @@ int main(int argc, char *argv[]) {
     //Add video "metadata"
     videos[0].favorite = true;
     videos[2].favorite = true;
+    videos[3].favorite = true;
     // create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
-    Player* player = new Player(&videos[1],menu);
+    Player* player = new Player(&videos[0],menu);
     menu->addWidget(new MainWindow(videos,menu,player));
     menu->addWidget(player);
     menu->addWidget(new SettingsPage(menu));

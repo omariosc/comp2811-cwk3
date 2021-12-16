@@ -17,6 +17,7 @@ public:
 public slots:
     void changeVideos(std::vector<VideoFile> &vids);
     void filterForFavourites();
+    void filterForAlbum();
 
 private:
     std::vector<ThumbnailButton*> buttons;

@@ -7,11 +7,10 @@
 VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player* player) : QScrollArea(),videos(vids){
     setWidgetResizable(1);
     mediaPlayer = player;
-    setVideos(videos);
+    setVideos(vids);
 }
 
 void VideoLibrary::setVideos(std::vector<VideoFile> &vids){
-
     videos = vids;
     buttonScrollArea = new QWidget();
     buttonScrollArea->setProperty("type", "content");
@@ -28,12 +27,12 @@ void VideoLibrary::setVideos(std::vector<VideoFile> &vids){
     buttonScrollArea->setLayout(layout);
 
 
-    for (unsigned int i = 0; i < vids.size(); i++) {
+    for (unsigned int i = 0; i < videos.size(); i++) {
         ThumbnailButton *button = new ThumbnailButton(buttonScrollArea);
         button->connect(button, SIGNAL(jumpTo(VideoFile*)), mediaPlayer, SLOT(playVideo(VideoFile*)));
         buttons.push_back(button);
         layout->addWidget(button, i / 4, i % 4);
-        button->init(&vids.at(i));
+        button->init(&videos.at(i));
     }
 
 
@@ -54,12 +53,19 @@ void VideoLibrary::changeVideos(std::vector<VideoFile> &vids) {
 }
 
 void VideoLibrary::filterForFavourites(){
-    qDebug() << "Going ";
     std::vector<VideoFile> currentVideos;
     for (unsigned int x = 0; x < videos.size();x++){
-        qDebug() << "Going " << x;
         if(videos.at(x).favorite == true){
-            qDebug() << "Adding";
+            currentVideos.push_back(videos.at(x));
+        }
+    }
+    changeVideos(currentVideos);
+}
+
+void VideoLibrary::filterForAlbum(int album){
+    std::vector<VideoFile> currentVideos;
+    for (unsigned int x = 0; x < videos.size();x++){
+        if(videos.at(x).favorite == true){
             currentVideos.push_back(videos.at(x));
         }
     }
