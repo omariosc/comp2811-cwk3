@@ -24,3 +24,5 @@ void MapPage::resizeEvent(QResizeEvent *e) {
   // Maximum height image can take up half its the widget
   i->setFixedSize(width - 20, height * 0.5);
 }
+
+void MapPage::refresh() { r->refresh(); }

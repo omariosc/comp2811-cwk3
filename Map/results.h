@@ -20,6 +20,8 @@ class Results : public QWidget {
 
   virtual ~Results(){};
 
+  void refresh();
+
  public slots:
   void getCountry(QString country);
 

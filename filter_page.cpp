@@ -138,3 +138,5 @@ void FilterPage::applyChanges() {
   }
   library->changeVideos(filteredVideos);
 }
+
+void FilterPage::refresh() { library->refresh(); }

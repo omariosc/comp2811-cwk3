@@ -41,3 +41,5 @@ void Results::updateWidget(QString country) {
 
   result->changeVideos(randomVideos);
 }
+
+void Results::refresh() { result->refresh(); }

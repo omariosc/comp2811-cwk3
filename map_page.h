@@ -20,6 +20,9 @@ class MapPage : public QWidget {
 
   virtual ~MapPage(){};
 
+ public slots:
+  void refresh();
+
  private:
   Image *i;
   Results *r;

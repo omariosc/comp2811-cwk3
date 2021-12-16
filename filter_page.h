@@ -17,6 +17,9 @@ class FilterPage : public QWidget {
  public:
   FilterPage(std::vector<VideoFile*>& videos, Player* player);
 
+ public slots:
+  void refresh();
+
  private slots:
   void applyChanges();
 

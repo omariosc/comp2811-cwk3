@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+#include "libraryPage/videolibrary.h"
 #include "player.h"
 #include "video_file.h"
 
@@ -11,6 +12,12 @@ class LibraryPage : public QWidget {
 
  public:
   LibraryPage(std::vector<VideoFile*>& videos, Player* player);
+
+ public slots:
+  void refresh();
+
+ private:
+  VideoLibrary* library;
 };
 
 #endif  // THE_LIBRARY_PAGE_H

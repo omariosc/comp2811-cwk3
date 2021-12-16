@@ -65,8 +65,12 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
 
   connect(this, &MainWindow::changedFocus, stackedPage,
           &QStackedWidget::setCurrentIndex);
+  connect(this, &MainWindow::refreshLibrary, libraryPage,
+          &LibraryPage::refresh);
   connect(this, &MainWindow::refreshLibrary, favouritesPage,
           &FavouritePage::refresh);
+  connect(this, &MainWindow::refreshLibrary, mapPage, &MapPage::refresh);
+  connect(this, &MainWindow::refreshLibrary, filterPage, &FilterPage::refresh);
   connect(this, &MainWindow::refreshLibrary, albumsPage,
           &AlbumPage::refreshCurrent);
 
