@@ -27,7 +27,7 @@ class Results : public QWidget {
   void updateWidget(QString country);
 
   QLabel *header;
-  QWidget *results;
+  VideoLibrary *result;
 
   std::vector<VideoFile *> v;
   Player *p;

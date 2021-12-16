@@ -12,12 +12,13 @@ Results::Results(const std::vector<VideoFile *> &videos, Player *player) {
   header->setAlignment(Qt::AlignCenter);
   header->setFixedHeight(30);
 
-  results = new QWidget();
+  std::vector<VideoFile *> emptyVideos = std::vector<VideoFile *>();
+  result = new VideoLibrary(emptyVideos, p);
 
   QVBoxLayout *l = new QVBoxLayout();
 
   l->addWidget(header);
-  l->addWidget(results);
+  l->addWidget(result);
 
   l->setMargin(0);
 
@@ -38,8 +39,5 @@ void Results::updateWidget(QString country) {
 
   auto randomVideos = std::vector<VideoFile *>(v.begin(), v.begin() + 4);
 
-  // Remove the results widget, recreate it (with new videos) and re-add it
-  this->layout()->removeWidget(results);
-  results = new VideoLibrary(randomVideos, p);
-  this->layout()->addWidget(results);
+  result->changeVideos(randomVideos);
 }
