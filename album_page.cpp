@@ -11,7 +11,7 @@ AlbumPage::AlbumPage(std::vector<VideoFile> &videos,Player *videoPlayer) : QWidg
     toggler = new QStackedWidget;
     //Create the layouts
     QGridLayout *albumsLayout = new QGridLayout();
-    QGridLayout *currentLibrary = new QGridLayout();
+    QVBoxLayout *currentLibrary = new QVBoxLayout();
     QVBoxLayout *albumsPageLayout = new QVBoxLayout();
 
 
@@ -22,8 +22,9 @@ AlbumPage::AlbumPage(std::vector<VideoFile> &videos,Player *videoPlayer) : QWidg
     back->setProperty("type", "albumButton");
     back->setIcon(QIcon("://back-white"));
     back->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
-    currentLibrary->addWidget(currentAlbum, 0, 0, 3, 1);
-    currentLibrary->addWidget(back, 3, 0, 1, 1);
+    currentLibrary->addWidget(currentAlbum);
+    currentLibrary->addStretch(1);
+    currentLibrary->addWidget(back);
 
     //Create the album library, for selecting an album
     AlbumLibrary* albumLibrary = new AlbumLibrary(videos, currentAlbum, toggler);

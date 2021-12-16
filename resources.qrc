@@ -22,10 +22,7 @@
         <file alias="play-white">resources/playbutton-icon-white.png</file>
         <file alias="rotate-white">resources/rotate-v2-icon-white.png</file>
         <file alias="2x-white">resources/2x-icon-white.png</file>
-<<<<<<< HEAD
         <file alias="addLibraryIcon">resources/addLibrary-icon.png</file>
-=======
         <file alias="favouritesOverlay">resources/favouritesOverlay.png</file>
->>>>>>> 48252aa7c9ca053cb19fce18036c7e8869f7b4d3
     </qresource>
 </RCC>
