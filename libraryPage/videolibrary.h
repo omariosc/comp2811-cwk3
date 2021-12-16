@@ -16,6 +16,7 @@ public:
 
 public slots:
     void changeVideos(std::vector<VideoFile> &vids);
+    void refresh();
 
 private:
     std::vector<ThumbnailButton*> buttons;

@@ -18,7 +18,7 @@ FavouritePage::FavouritePage(std::vector<VideoFile> &videos,Player *player) : QW
 void FavouritePage::filterForFavourites(){
     std::vector<VideoFile> currentVideos;
     for (VideoFile video : videos) {
-        if (video.favorite) {
+        if (video.getFavourite()) {
             currentVideos.push_back(video);
         }
     }

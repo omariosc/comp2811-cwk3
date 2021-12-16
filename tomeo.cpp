@@ -69,7 +69,7 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
                     if (!sprite.isNull()) {
                         QIcon* icon = new QIcon(QPixmap::fromImage(sprite));// voodoo to create an icon for the button
                         QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
-                        out . push_back(VideoFile( url , icon  ) ); // add to the output list
+                        out . push_back(VideoFile( url , icon) ); // add to the output list
                     }
                     else
                         qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb;
@@ -131,9 +131,9 @@ int main(int argc, char *argv[]) {
     QString StyleSheet = QLatin1String(File.readAll());
 
     //Add video "metadata"
-    videos[0].favorite = true;
-    videos[2].favorite = true;
-    videos[3].favorite = true;
+    videos[0].setFavourite(true);
+    videos[2].setFavourite(true);
+    videos[3].setFavourite(true);
     // create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
     Player* player = new Player(&videos[0],menu);
