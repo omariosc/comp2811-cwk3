@@ -19,8 +19,6 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
     returnButton->setIcon(QIcon(":/goback-white-icon"));
     connect(returnButton, &NavigationButton::clicked, this, &SettingsPage::returnBack);
 
-
-
     MenuLayout *headerLayout = new MenuLayout();
     headerLayout->addWidget(title, 0, 1, 1, 2);
     headerLayout->addWidget(returnButton, 0, 3);

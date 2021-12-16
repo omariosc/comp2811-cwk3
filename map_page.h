@@ -2,14 +2,27 @@
 #define THE_MAP_PAGE_H
 
 #include <QWidget>
-#include "video_file.h"
+#include <QVBoxLayout>
+#include <QResizeEvent>
+#include <vector>
 
+#include "video_file.h"
+#include "Map/image.h"
+#include "Map/results.h"
+
+// Class containing everything for the "Map" page/widget
 class MapPage : public QWidget {
     Q_OBJECT
-
 public:
-    MapPage(std::vector<VideoFile*> &videos) : QWidget() {}
+    MapPage(const std::vector<VideoFile*> &videos, Player* player);
 
+    void resizeEvent(QResizeEvent *e);
+
+    virtual ~MapPage() {};
+
+private:
+    Image *i;
+    Results *r;
 };
 
 #endif // THE_MAP_PAGE_H

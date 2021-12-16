@@ -158,7 +158,6 @@ int main(int argc, char *argv[]) {
     menu->setStyleSheet(StyleSheet);
 
     // Changing window information
-
     menu->setWindowTitle("tomeo");
     menu->resize(320, 568);
     menu->setMinimumSize(320,320);
