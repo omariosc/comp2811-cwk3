@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Player* player) : QWidget(){
+MainWindow::MainWindow(std::vector<VideoFile*> &videos, QStackedWidget* parent, Player* player) : QWidget(){
     stackedParent = parent;
     NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
     libraryPageButton->setIcon(QIcon(":/libraryIcon"));
@@ -48,11 +48,11 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Pl
     header->setLayout(headerLayout);
     header->setProperty("type", "menuBackground");
 
-    LibraryPage *libraryPage = new LibraryPage(videos,player);
-    FavouritePage *favouritesPage = new FavouritePage(videos);
+    LibraryPage *libraryPage = new LibraryPage(videos, player);
+    FavouritePage *favouritesPage = new FavouritePage(videos, player);
     MapPage *mapPage = new MapPage(videos, player);
-    AlbumPage *albumsPage = new AlbumPage(videos);
-    FilterPage *filterPage = new FilterPage(videos);
+    AlbumPage *albumsPage = new AlbumPage(videos, player);
+    FilterPage *filterPage = new FilterPage(videos, player);
 
     QStackedWidget *stackedPage = new QStackedWidget();
     stackedPage->addWidget(libraryPage);
@@ -62,6 +62,8 @@ MainWindow::MainWindow(std::vector<VideoFile> &videos,QStackedWidget* parent, Pl
     stackedPage->addWidget(filterPage);
 
     connect(this, &MainWindow::changedFocus, stackedPage, &QStackedWidget::setCurrentIndex);
+    connect(this, &MainWindow::refreshLibrary, favouritesPage, &FavouritePage::refresh);
+    connect(this, &MainWindow::refreshLibrary, albumsPage, &AlbumPage::refreshCurrent);
 
     NavigationButton *favouritesPageButton = new NavigationButton("FAVOURITES");
     favouritesPageButton->setIcon(QIcon(":/favouritesIcon"));
@@ -119,6 +121,7 @@ void MainWindow::navButtonClicked(int pageNumber, QString pageName){
         button->setActive(false);
     }
     navButtons.at(pageNumber)->setActive(true);
+    emit refreshLibrary();
 }
 
 void MainWindow::settingsButtonClicked(){

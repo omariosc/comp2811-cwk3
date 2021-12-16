@@ -1,6 +1,6 @@
 #include "map_page.h"
 
-MapPage::MapPage(const std::vector<VideoFile> &videos, Player* player) {
+MapPage::MapPage(const std::vector<VideoFile*> &videos, Player* player) {
     i = new Image();
     r = new Results(videos, player);
 

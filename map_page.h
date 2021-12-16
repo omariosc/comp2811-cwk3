@@ -14,7 +14,7 @@
 class MapPage : public QWidget {
     Q_OBJECT
 public:
-    MapPage(const std::vector<VideoFile> &videos, Player* player);
+    MapPage(const std::vector<VideoFile*> &videos, Player* player);
 
     void resizeEvent(QResizeEvent *e);
 

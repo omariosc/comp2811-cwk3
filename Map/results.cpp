@@ -1,6 +1,6 @@
 #include "results.h"
 
-Results::Results(const std::vector<VideoFile> &videos, Player* player) {
+Results::Results(const std::vector<VideoFile*> &videos, Player* player) {
     QScrollArea();
 
     v = videos;
@@ -37,7 +37,7 @@ void Results::updateWidget(QString country) {
     auto rng = std::default_random_engine { rd() };
     std::shuffle(std::begin(v), std::end(v), rng);
 
-    auto randomVideos = std::vector<VideoFile>(v.begin(), v.begin()+4);
+    auto randomVideos = std::vector<VideoFile*>(v.begin(), v.begin()+4);
 
     // Remove the results widget, recreate it (with new videos) and re-add it
     this->layout()->removeWidget(results);

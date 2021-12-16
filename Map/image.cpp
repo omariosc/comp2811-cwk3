@@ -1,7 +1,7 @@
 #include "image.h"
 
 Image::Image() {
-    img = QPixmap(":/resources/world.jpg");
+    img = QPixmap(":world");
     setPixmap(img);
 
     manager = new QNetworkAccessManager();
