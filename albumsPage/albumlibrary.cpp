@@ -33,7 +33,6 @@ void AlbumLibrary::setAlbums(){
         QString name = "ALBUM " + QString::number(i+1);
         button->setText(name);
         button->connect(button, SIGNAL(changeAlbum(int)), this, SLOT(filterForAlbum(int)));
-        button->connect(button, &QToolButton::clicked, this, &AlbumLibrary::switchToAlbum);
         buttons.push_back(button);
         layout->addWidget(button, i / 2, i % 2);
     }
@@ -62,5 +61,6 @@ void AlbumLibrary::filterForAlbum(int album){
             currentVideos.push_back(video);
         }
     }
+    switchToAlbum();
     library->changeVideos(currentVideos);
 }

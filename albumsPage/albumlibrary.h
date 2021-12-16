@@ -22,7 +22,7 @@ public slots:
 
 private:
     std::vector<AlbumButton*> buttons;
-    std::vector<VideoFile> videos;
+    std::vector<VideoFile> &videos;
     VideoLibrary* library;
     QStackedWidget* toggler;
     QWidget *buttonScrollArea;

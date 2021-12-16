@@ -35,9 +35,9 @@ void VideoLibrary::setVideos(std::vector<VideoFile> &vids){
         button->init(&videos.at(i));
     }
 
-
     setWidget(buttonScrollArea);
     buttonScrollArea->setSizePolicy(buttonScrollAreaSizePolicy);
+    //buttonScrollArea->resize(buttonScrollArea->width(),buttonScrollArea->height());
 }
 
 
@@ -50,5 +50,7 @@ void VideoLibrary::changeVideos(std::vector<VideoFile> &vids) {
     buttons.clear();
     videos.clear();
     setVideos(vids);
+    update();
+    buttonScrollArea->update();
 }
 
