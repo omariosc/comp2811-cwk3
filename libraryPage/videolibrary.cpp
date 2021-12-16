@@ -63,6 +63,7 @@ void VideoLibrary::filterForFavourites(){
 }
 
 void VideoLibrary::filterForAlbum(int album){
+    qDebug() << "We got " <<album;
     std::vector<VideoFile> currentVideos;
     for (unsigned int x = 0; x < allVideos.size();x++){
         if(allVideos.at(x).album == album){

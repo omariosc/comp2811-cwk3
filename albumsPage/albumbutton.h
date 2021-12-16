@@ -8,12 +8,16 @@
 
 class AlbumButton: public QToolButton
 {
+    Q_OBJECT
+
 public:
 
     AlbumButton(QWidget* parent);
 
     void init(int album);
     void setAlbum(int album);
+
+    virtual ~AlbumButton() {};
 
 private slots:
     void clicked();

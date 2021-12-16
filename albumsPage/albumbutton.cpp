@@ -2,6 +2,7 @@
 #include <QIcon>
 #include <QSizePolicy>
 #include <QDebug>
+
 AlbumButton::AlbumButton(QWidget* parent): QToolButton(parent) {
     setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     QSizePolicy buttonSizePolicy;
@@ -22,10 +23,6 @@ void AlbumButton::init(int album){
 
 void AlbumButton::clicked() {
     emit changeAlbum(albumNr);
-}
-
-void AlbumButton::changeAlbum(int album){
-    qDebug() << "Boop?" << album;
 }
 
 void AlbumButton::setAlbum(int album){

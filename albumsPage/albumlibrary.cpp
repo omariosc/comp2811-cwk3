@@ -28,10 +28,10 @@ void AlbumLibrary::setAlbums(){
     unsigned int i = 0;
     for (i = 0; i < hardAlbumsNr; i++) {
         AlbumButton *button = new AlbumButton(buttonScrollArea);
-        button->setAlbum(i);
+        button->setAlbum(i+1);
         QString name = "ALBUM " + QString::number(i+1);
         button->setText(name);
-        button->connect(button, SIGNAL(changeAlbum(int)), library, SLOT(filterByAlbum(int)));
+        button->connect(button, SIGNAL(changeAlbum(int)), library, SLOT(filterForAlbum(int)));
         button->connect(button, &QToolButton::clicked, this, &AlbumLibrary::switchToAlbum);
         buttons.push_back(button);
         layout->addWidget(button, i / 2, i % 2);
@@ -47,7 +47,6 @@ void AlbumLibrary::setAlbums(){
 }
 
 void AlbumLibrary::switchToAlbum(){
-    library->filterForAlbum(2);
     toggler->setCurrentIndex(1);
 }
 
