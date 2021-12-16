@@ -45,7 +45,7 @@ std::vector<ThumbnailButton*>* VideoLibrary::getButtons(){
     return &(buttons);
 }
 
-void VideoLibrary::changeVideos(std::vector<VideoFile> &vids) {
+void VideoLibrary::changeVideos(std::vector<VideoFile*> &vids) {
     delete buttonScrollArea;
     buttons.clear();
     if (&vids != &videos) {
