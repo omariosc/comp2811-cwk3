@@ -69,7 +69,18 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
                     if (!sprite.isNull()) {
                         QIcon* icon = new QIcon(QPixmap::fromImage(sprite));// voodoo to create an icon for the button
                         QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
-                        out . push_back(VideoFile( url , icon) ); // add to the output list
+
+                        out.push_back(VideoFile(url, icon)); // add to the output list
+                        QString meta = f.left( f .length() - 4) +".metadata";
+                        QFile metaFile(meta);
+                        if (metaFile.exists()) {
+                            if(metaFile.open(QFile::ReadOnly)) {
+                                QTextStream in(&metaFile);
+                                QString metaData = in.readAll();
+                                metaFile.close();
+                                out.back().setMeta(metaData);
+                            }
+                        }
                     }
                     else
                         qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb;
@@ -84,14 +95,13 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
 
 
 int main(int argc, char *argv[]) {
-
-    // let's just check that Qt is operational first
+    // Let's just check that Qt is operational first
     qDebug() << "Qt version: " << QT_VERSION_STR;
 
-    // create the Qt Application
+    // Create the Qt Application
     QApplication app(argc, argv);
 
-    // collect all the videos in the folder
+    // Collect all the videos in the folder
     std::vector<VideoFile*> videos;
     std::vector<VideoFile> actualVideos;
 
@@ -102,34 +112,29 @@ int main(int argc, char *argv[]) {
         }
     }
 
-
-
-
     if (videos.size() == 0) {
-
-        const int result = QMessageBox::question(
+        const int result = QMessageBox::question (
                     NULL,
                     QString("Tomeo"),
                     QString("no videos found! download, unzip, and add command line argument to \"quoted\" file location. Download videos from Tom's OneDrive?"),
                     QMessageBox::Yes |
                     QMessageBox::No );
 
-        switch( result )
-        {
-        case QMessageBox::Yes:
-          QDesktopServices::openUrl(QUrl("https://leeds365-my.sharepoint.com/:u:/g/personal/scstke_leeds_ac_uk/EcGntcL-K3JOiaZF4T_uaA4BHn6USbq2E55kF_BTfdpPag?e=n1qfuN"));
-          break;
-        default:
-            break;
+        switch (result) {
+            case QMessageBox::Yes:
+              QDesktopServices::openUrl(QUrl("https://leeds365-my.sharepoint.com/:u:/g/personal/scstke_leeds_ac_uk/EcGntcL-K3JOiaZF4T_uaA4BHn6USbq2E55kF_BTfdpPag?e=n1qfuN"));
+              break;
+            default:
+                break;
         }
         exit(-1);
     }
 
-    //Add random album numbers to each video
-    for(unsigned int x = 0;x < videos.size();x++){
+    // Add random album numbers to each video
+    for (unsigned int x = 0; x < videos.size(); x++){
         videos.at(x)->album = rand() % 3 + 1;
     }
-    //Override some for testing
+    // Override some for testing
     videos.at(0)->album = 1;
     videos.at(1)->album = 2;
     videos.at(2)->album = 3;
@@ -139,11 +144,11 @@ int main(int argc, char *argv[]) {
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
 
-    //Add video "metadata"
+    // Add video "metadata"
     videos[0]->setFavourite(true);
     videos[2]->setFavourite(true);
     videos[3]->setFavourite(true);
-    // create the main window and layout
+    // Create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
     Player* player = new Player(videos[0], menu);
     menu->addWidget(new MainWindow(videos, menu, player));
@@ -152,12 +157,11 @@ int main(int argc, char *argv[]) {
     menu->setCurrentIndex(0);
     menu->setStyleSheet(StyleSheet);
 
-    //changing window information
+    // Changing window information
 
     menu->setWindowTitle("tomeo");
     menu->resize(320, 568);
-
-
+    menu->setMinimumSize(320,320);
     menu->show();
 
     return app.exec();

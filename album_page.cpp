@@ -14,7 +14,6 @@ AlbumPage::AlbumPage(std::vector<VideoFile*> &videos, Player *videoPlayer) : QWi
     QVBoxLayout *currentLibrary = new QVBoxLayout();
     QVBoxLayout *albumsPageLayout = new QVBoxLayout();
 
-
     //Create the current album browser. Which is a VideoLibrary + Back button
     currentAlbum = new VideoLibrary(videos, player);
 
@@ -25,11 +24,15 @@ AlbumPage::AlbumPage(std::vector<VideoFile*> &videos, Player *videoPlayer) : QWi
     currentLibrary->addWidget(currentAlbum);
     currentLibrary->addStretch(1);
     currentLibrary->addWidget(back);
+    currentLibrary->setSpacing(0);
 
     //Create the album library, for selecting an album
     AlbumLibrary* albumLibrary = new AlbumLibrary(videos, currentAlbum, toggler);
     toggler->addWidget(albumLibrary);
+    albumsPageLayout->setSpacing(0);
+    albumsPageLayout->setMargin(0);
     albumLibrary->setLayout(albumsPageLayout);
+
     QWidget* libraryWidget = new QWidget();
     libraryWidget->setLayout(currentLibrary);
     toggler->addWidget(libraryWidget);
@@ -37,6 +40,7 @@ AlbumPage::AlbumPage(std::vector<VideoFile*> &videos, Player *videoPlayer) : QWi
     //Connect button and add to page
     connect(back, &QToolButton::clicked, albumLibrary, &AlbumLibrary::switchBack);
     albumsLayout->addWidget(toggler, 0, 0);
+    albumsLayout->setSpacing(0);
     setLayout(albumsLayout);
     show();
 }

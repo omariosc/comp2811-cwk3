@@ -3,6 +3,7 @@
 
 #include <QIcon>
 #include <QUrl>
+#include <QDate>
 
 class VideoFile {
 
@@ -11,15 +12,27 @@ public:
     QIcon icon; // icon to display
     int album;
 
-    VideoFile ( QUrl* url, QIcon* icon, bool favorite = false);
+    VideoFile ( QUrl* url, QIcon* icon, bool favourite = false);
     void updateIcon(QIcon* icon=NULL);
     void setFavourite(bool flag);
     void toggleFavourite();
     bool getFavourite();
     QUrl getUrl() {return *url;}
 
+    void setMeta(QString metadata);
+    bool hasMeta();
+    QDate getDate();
+    int getLen();
+    QString getLocation();
+
 private:
-    bool favorite;
+    bool hasMetaData;
+    QDate creationDate;
+    int videoLength;
+    QString city;
+    QString countryCode;
+
+    bool favourite;
     QIcon* originalIcon;
 };
 
