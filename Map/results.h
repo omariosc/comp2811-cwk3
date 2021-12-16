@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QtNetwork/QNetworkReply>
 #include <algorithm>
+#include <chrono>
 #include <random>
 
 #include "../libraryPage/videolibrary.h"

@@ -33,8 +33,8 @@ void Results::updateWidget(QString country) {
   }
 
   // Randomize video vector
-  std::random_device rd;
-  auto rng = std::default_random_engine{rd()};
+  std::default_random_engine rng;
+  rng.seed(std::chrono::system_clock::now().time_since_epoch().count());
   std::shuffle(std::begin(v), std::end(v), rng);
 
   auto randomVideos = std::vector<VideoFile *>(v.begin(), v.begin() + 4);
