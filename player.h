@@ -26,8 +26,6 @@ public:
 signals:
     void playerQuit();
 
-    //void playStateChanged (QMediaPlayer::State ms);
-
 public slots:
     void playVideo(VideoFile* newVideo);
     void quitPlayer();

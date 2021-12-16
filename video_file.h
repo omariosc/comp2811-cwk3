@@ -8,15 +8,19 @@ class VideoFile {
 
 public:
     QUrl* url; // video file to play
-    QIcon* icon; // icon to display
+    QIcon icon; // icon to display
     int album;
 
     VideoFile ( QUrl* url, QIcon* icon, bool favorite = false);
-    void setIcon(QIcon* icon);
+    void updateIcon(QIcon* icon=NULL);
     void setFavourite(bool flag);
+    void toggleFavourite();
     bool getFavourite();
+    QUrl getUrl() {return *url;}
+
 private:
     bool favorite;
+    QIcon* originalIcon;
 };
 
 

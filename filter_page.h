@@ -8,7 +8,7 @@ class FilterPage : public QWidget {
     Q_OBJECT
 
 public:
-    FilterPage(std::vector<VideoFile> &videos) : QWidget() {}
+    FilterPage(std::vector<VideoFile*> &videos) : QWidget() {}
 
 };
 

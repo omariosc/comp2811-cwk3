@@ -92,10 +92,18 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     // collect all the videos in the folder
-    std::vector<VideoFile> videos;
+    std::vector<VideoFile*> videos;
+    std::vector<VideoFile> actualVideos;
 
-    if (argc == 2)
-        videos = getInfoIn( std::string(argv[1]) );
+    if (argc == 2) {
+        actualVideos = getInfoIn( std::string(argv[1]) );
+        for (unsigned int i = 0; i < actualVideos.size(); i++) {
+            videos.push_back(&actualVideos[i]);
+        }
+    }
+
+
+
 
     if (videos.size() == 0) {
 
@@ -119,11 +127,11 @@ int main(int argc, char *argv[]) {
 
     //Add random album numbers to each video
     for(unsigned int x = 0;x < videos.size();x++){
-        videos.at(x).album = rand() % 3 + 1;
+        videos.at(x)->album = rand() % 3 + 1;
     }
     //Override some for testing
-    videos.at(0).album = 1;
-    videos.at(1).album = 1;
+    videos.at(0)->album = 1;
+    videos.at(1)->album = 1;
 
     // Retrieving stylesheet
     QFile File(":/tomeoStyleSheet");
@@ -131,13 +139,13 @@ int main(int argc, char *argv[]) {
     QString StyleSheet = QLatin1String(File.readAll());
 
     //Add video "metadata"
-    videos[0].setFavourite(true);
-    videos[2].setFavourite(true);
-    videos[3].setFavourite(true);
+    videos[0]->setFavourite(true);
+    videos[2]->setFavourite(true);
+    videos[3]->setFavourite(true);
     // create the main window and layout
     QStackedWidget *menu = new QStackedWidget;
-    Player* player = new Player(&videos[0],menu);
-    menu->addWidget(new MainWindow(videos,menu,player));
+    Player* player = new Player(videos[0], menu);
+    menu->addWidget(new MainWindow(videos, menu, player));
     menu->addWidget(player);
     menu->addWidget(new SettingsPage(menu));
     menu->setCurrentIndex(0);

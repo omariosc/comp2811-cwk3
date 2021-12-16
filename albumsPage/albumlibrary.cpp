@@ -4,7 +4,7 @@
 
 static unsigned int hardAlbumsNr = 3;
 
-AlbumLibrary::AlbumLibrary(std::vector<VideoFile> &vids, VideoLibrary* library, QStackedWidget* toggler): videos(vids), library(library), toggler(toggler){
+AlbumLibrary::AlbumLibrary(std::vector<VideoFile*> &vids, VideoLibrary* library, QStackedWidget* toggler): videos(vids), library(library), toggler(toggler){
     setWidgetResizable(1);
     buttonScrollArea = new QScrollArea();
     setAlbums();
@@ -61,9 +61,9 @@ void AlbumLibrary::switchBack(){
 }
 
 void AlbumLibrary::filterForAlbum(int album){
-    std::vector<VideoFile> currentVideos;
-    for (VideoFile video : videos) {
-        if (video.album == album) {
+    std::vector<VideoFile*> currentVideos;
+    for (VideoFile* video : videos) {
+        if (video->album == album) {
             currentVideos.push_back(video);
         }
     }

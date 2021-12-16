@@ -7,7 +7,7 @@
 #include <QLabel>
 #include <albumsPage/albumlibrary.h>
 
-AlbumPage::AlbumPage(std::vector<VideoFile> &videos,Player *videoPlayer) : QWidget(), player(videoPlayer), videos(videos) {
+AlbumPage::AlbumPage(std::vector<VideoFile*> &videos, Player *videoPlayer) : QWidget(), player(videoPlayer), videos(videos) {
     toggler = new QStackedWidget;
     //Create the layouts
     QGridLayout *albumsLayout = new QGridLayout();
@@ -16,7 +16,7 @@ AlbumPage::AlbumPage(std::vector<VideoFile> &videos,Player *videoPlayer) : QWidg
 
 
     //Create the current album browser. Which is a VideoLibrary + Back button
-    VideoLibrary *currentAlbum = new VideoLibrary(videos, player);
+    currentAlbum = new VideoLibrary(videos, player);
 
     QToolButton *back = new QToolButton();
     back->setProperty("type", "albumButton");
@@ -42,6 +42,6 @@ AlbumPage::AlbumPage(std::vector<VideoFile> &videos,Player *videoPlayer) : QWidg
 }
 
 
-void AlbumPage::showAlbums(){
-
+void AlbumPage::refreshCurrent(){
+    currentAlbum->refresh();
 }

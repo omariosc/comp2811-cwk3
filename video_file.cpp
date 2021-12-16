@@ -3,31 +3,40 @@
 #include "qdebug.h"
 
 
-VideoFile::VideoFile( QUrl* url, QIcon* icon, bool favorite) : url (url), favorite(favorite) {
-    setIcon(icon);
+VideoFile::VideoFile( QUrl* url, QIcon* icon, bool favorite) : url (url), originalIcon (icon), favorite(favorite) {
+    updateIcon();
 }
 
-void VideoFile::setIcon(QIcon* newIcon){
+void VideoFile::updateIcon(QIcon* newIcon){
+    if(newIcon) {
+        originalIcon = newIcon;
+    }
+    newIcon = originalIcon;
     if(favorite) {
         qDebug() << "It's a favourite!";
-        QPixmap base, overlay; // come from your code
+        QPixmap base, overlay;
         base = newIcon->pixmap(128,128);
         overlay = QPixmap(":/favouritesOverlay");
         QPixmap result(base.width(), base.height());
-        result.fill(Qt::transparent); // force alpha channel
+        result.fill(Qt::transparent);
         QPainter painter(&result);
         painter.drawPixmap(0, 0, base);
         painter.drawPixmap(0, 0, overlay);
-        icon = new QIcon(result);
+        icon = QIcon(result);
     }
     else{
-        icon = newIcon;
+        icon = *newIcon;
     }
 }
 
 void VideoFile::setFavourite(bool flag){
     favorite = flag;
-    setIcon(icon);
+    updateIcon();
+}
+
+void VideoFile::toggleFavourite(){
+    favorite = !favorite;
+    updateIcon();
 }
 
 bool VideoFile::getFavourite(){

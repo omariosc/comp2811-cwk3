@@ -4,14 +4,14 @@
 
 #include <QPushButton>
 
-VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player* player) : QScrollArea(), videos(vids){
+VideoLibrary::VideoLibrary(std::vector<VideoFile*> &vids, Player* player) : QScrollArea(), videos(vids){
     setWidgetResizable(1);
     mediaPlayer = player;
     setVideos(vids);
-    connect(player,&Player::playerQuit,this,&VideoLibrary::refresh);
+    connect(player, &Player::playerQuit, this, &VideoLibrary::refresh);
 }
 
-void VideoLibrary::setVideos(std::vector<VideoFile> &vids){
+void VideoLibrary::setVideos(std::vector<VideoFile*> &vids){
     videos = vids;
     buttonScrollArea = new QWidget();
     buttonScrollArea->setProperty("type", "content");
@@ -33,12 +33,11 @@ void VideoLibrary::setVideos(std::vector<VideoFile> &vids){
         button->connect(button, SIGNAL(jumpTo(VideoFile*)), mediaPlayer, SLOT(playVideo(VideoFile*)));
         buttons.push_back(button);
         layout->addWidget(button, i / 4, i % 4);
-        button->init(&videos.at(i));
+        button->init(videos.at(i));
     }
 
     setWidget(buttonScrollArea);
     buttonScrollArea->setSizePolicy(buttonScrollAreaSizePolicy);
-    //buttonScrollArea->resize(buttonScrollArea->width(),buttonScrollArea->height());
 }
 
 
@@ -46,18 +45,16 @@ std::vector<ThumbnailButton*>* VideoLibrary::getButtons(){
     return &(buttons);
 }
 
-void VideoLibrary::changeVideos(std::vector<VideoFile> &vids) {
-    qDebug() << "changeVideos got" << videos.size();
+void VideoLibrary::changeVideos(std::vector<VideoFile*> &vids) {
     delete buttonScrollArea;
     buttons.clear();
-    videos.clear();
+    if (&vids != &videos) {
+        videos.clear();
+    }
     setVideos(vids);
-    update();
-    buttonScrollArea->update();
 }
 
 void VideoLibrary::refresh(){
-    qDebug() << "Refreshing" << videos.size();
     changeVideos(videos);
 }
 

@@ -11,7 +11,7 @@ class AlbumLibrary: public QScrollArea
 {
     Q_OBJECT
 public:
-    AlbumLibrary(std::vector<VideoFile> &vids, VideoLibrary* library,QStackedWidget* toggler);
+    AlbumLibrary(std::vector<VideoFile*> &vids, VideoLibrary* library,QStackedWidget* toggler);
     void setAlbums();
 
 public slots:
@@ -22,7 +22,7 @@ public slots:
 
 private:
     std::vector<AlbumButton*> buttons;
-    std::vector<VideoFile> &videos;
+    std::vector<VideoFile*> &videos;
     VideoLibrary* library;
     QStackedWidget* toggler;
     QWidget *buttonScrollArea;

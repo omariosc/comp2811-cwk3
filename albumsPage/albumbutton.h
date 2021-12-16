@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QWidget>
 #include <QToolButton>
-#include <albumsPage/albumbutton.h>
 
 class AlbumButton: public QToolButton
 {

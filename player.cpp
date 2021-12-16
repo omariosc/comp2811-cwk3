@@ -27,7 +27,7 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     back->setMaximumWidth(60);
 
     //Connect it to QStackedWidget
-    connect(back,&QToolButton::clicked,this,&Player::quitPlayer);
+    connect(back, &QToolButton::clicked, this, &Player::quitPlayer);
 
 
     //Create the play/pause stacked widget
@@ -45,8 +45,8 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     playPause->setCurrentIndex(0);
 
     //Connect the play/pause buttons
-    connect(play,SIGNAL(clicked()),this,SLOT(toggleVideo()));
-    connect(pause,SIGNAL(clicked()),this,SLOT(toggleVideo()));
+    connect(play,  &QToolButton::clicked, this, &Player::toggleVideo);
+    connect(pause, &QToolButton::clicked, this, &Player::toggleVideo);
 
     //Create the favorite/unfavorite buttons
     favoriteToggle = new QStackedWidget();
@@ -59,8 +59,8 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     favoriteToggle->setCurrentIndex(0);
 
     //And connect them
-    connect(favorite,&QToolButton::clicked,this,&Player::toggleFavorite);
-    connect(unfavorite,&QToolButton::clicked,this,&Player::toggleFavorite);
+    connect(favorite,   &QToolButton::clicked, this, &Player::toggleFavorite);
+    connect(unfavorite, &QToolButton::clicked, this, &Player::toggleFavorite);
 
     //Make the scroll and add it
     videoSlider = new QSlider(Qt::Horizontal,this);
@@ -69,10 +69,10 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
 
     //Connect scroll to VideoPlayer
     connect(videoSlider, &QSlider::sliderMoved, this, &Player::seek);
-    connect(videoPlayer,&QMediaPlayer::durationChanged,this,&Player::modifySlider);
-    connect(videoPlayer,&QMediaPlayer::positionChanged,this,&Player::updateSlider);
-    connect(videoSlider,&QSlider::sliderPressed,videoPlayer,&QMediaPlayer::pause);
-    connect(videoSlider,&QSlider::sliderReleased,this,&Player::conditionalPlay);
+    connect(videoSlider, &QSlider::sliderPressed, videoPlayer, &QMediaPlayer::pause);
+    connect(videoSlider, &QSlider::sliderReleased, this, &Player::conditionalPlay);
+    connect(videoPlayer, &QMediaPlayer::durationChanged, this, &Player::modifySlider);
+    connect(videoPlayer, &QMediaPlayer::positionChanged, this, &Player::updateSlider);
 
     //Create rotation toggle button
     toggleRotation = new QToolButton();
