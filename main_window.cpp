@@ -50,6 +50,7 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   header->setLayout(headerLayout);
   header->setProperty("type", "menuBackground");
 
+  // Add pages to stacked widget
   LibraryPage *libraryPage = new LibraryPage(videos, player);
   FavouritePage *favouritesPage = new FavouritePage(videos, player);
   MapPage *mapPage = new MapPage(videos, player);
@@ -63,8 +64,10 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   stackedPage->addWidget(albumsPage);
   stackedPage->addWidget(filterPage);
 
+  // Sets the current displayed page to be where the navigation button requires
   connect(this, &MainWindow::changedFocus, stackedPage,
           &QStackedWidget::setCurrentIndex);
+  // Calls relevant refresh function of all widgets when switching between pages
   connect(this, &MainWindow::refreshLibrary, libraryPage,
           &LibraryPage::refresh);
   connect(this, &MainWindow::refreshLibrary, favouritesPage,
@@ -123,17 +126,18 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   libraryPageButton->setActive(true);
 
   setLayout(baseLayout);
-
-  show();
 }
 
 void MainWindow::navButtonClicked(int pageNumber, QString pageName) {
+  // Emits relevant information to widgets within this class for visual updates
   emit changedFocus(pageNumber);
   emit changedName(pageName);
   for (NavigationButton *button : navButtons) {
     button->setActive(false);
   }
+  // Only the current navigation button should be active
   navButtons.at(pageNumber)->setActive(true);
+  // Must refresh after page has been switched so that sizeHints work correctly
   emit refreshLibrary();
 }
 
