@@ -1,20 +1,19 @@
 #ifndef SETTINGSPAGE_H
 #define SETTINGSPAGE_H
 
-#include <QWidget>
 #include <QStackedWidget>
+#include <QWidget>
 
 class SettingsPage : public QWidget {
-    Q_OBJECT
-public:
-    SettingsPage(QStackedWidget *parent);
+  Q_OBJECT
+ public:
+  SettingsPage(QStackedWidget* parent);
 
-private slots:
-    void returnBack();
+ private slots:
+  void returnBack();
 
-private:
-    QStackedWidget* stackedParent;
-
+ private:
+  QStackedWidget* stackedParent;
 };
 
-#endif // SETTINGSPAGE_H
+#endif  // SETTINGSPAGE_H

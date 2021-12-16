@@ -3,26 +3,26 @@
 //
 
 #include "thumbnail_button.h"
+
 #include <QIcon>
 #include <QSizePolicy>
 
-ThumbnailButton::ThumbnailButton(QWidget *parent) :  QToolButton(parent) {
-    QSizePolicy buttonSizePolicy;
-    buttonSizePolicy.setHorizontalPolicy(QSizePolicy::Ignored);
-    buttonSizePolicy.setWidthForHeight(1);
-    setSizePolicy(buttonSizePolicy);
-    setMinimumHeight(45);
-    connect(this, SIGNAL(released()), this, SLOT (clicked())); // if QPushButton clicked...then run clicked() below
+ThumbnailButton::ThumbnailButton(QWidget* parent) : QToolButton(parent) {
+  QSizePolicy buttonSizePolicy;
+  buttonSizePolicy.setHorizontalPolicy(QSizePolicy::Ignored);
+  buttonSizePolicy.setWidthForHeight(1);
+  setSizePolicy(buttonSizePolicy);
+  setMinimumHeight(45);
+  connect(
+      this, SIGNAL(released()), this,
+      SLOT(clicked()));  // if QPushButton clicked...then run clicked() below
 }
 
 void ThumbnailButton::init(VideoFile* i) {
-    setIcon(i->icon);
-    setIconSize(QSize(96, 80));
+  setIcon(i->icon);
+  setIconSize(QSize(96, 80));
 
-    info = i;
+  info = i;
 }
 
-
-void ThumbnailButton::clicked() {
-    emit jumpTo(info);
-}
+void ThumbnailButton::clicked() { emit jumpTo(info); }

@@ -7,24 +7,24 @@
 
 #include <QToolButton>
 #include <QUrl>
+
 #include "video_file.h"
 
 class ThumbnailButton : public QToolButton {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
-    VideoFile* info;
+ public:
+  VideoFile* info;
 
-    ThumbnailButton(QWidget *parent);
+  ThumbnailButton(QWidget* parent);
 
-    void init(VideoFile* i);
+  void init(VideoFile* i);
 
-private slots:
-    void clicked();
+ private slots:
+  void clicked();
 
-signals:
-    void jumpTo(VideoFile*);
+ signals:
+  void jumpTo(VideoFile*);
 };
 
-#endif //THE_THUMBNAIL_BUTTON_H
-
+#endif  // THE_THUMBNAIL_BUTTON_H

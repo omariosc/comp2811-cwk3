@@ -2,14 +2,15 @@
 #define THE_LIBRARY_PAGE_H
 
 #include <QWidget>
-#include "video_file.h"
+
 #include "player.h"
+#include "video_file.h"
 
 class LibraryPage : public QWidget {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
-    LibraryPage(std::vector<VideoFile*> &videos,Player* player);
+ public:
+  LibraryPage(std::vector<VideoFile*>& videos, Player* player);
 };
 
-#endif // THE_LIBRARY_PAGE_H
+#endif  // THE_LIBRARY_PAGE_H

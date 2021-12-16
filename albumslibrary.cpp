@@ -1,6 +1,3 @@
 #include "albumslibrary.h"
 
-albumslibrary::albumslibrary()
-{
-
-}
+albumslibrary::albumslibrary() {}

@@ -1,32 +1,34 @@
 #ifndef THE_MAIN_WINDOW_H
 #define THE_MAIN_WINDOW_H
 
+#include <player.h>
+
+#include <QStackedWidget>
 #include <QWidget>
 #include <vector>
-#include "video_file.h"
+
 #include "mainPage/navigation_button.h"
-#include <player.h>
-#include <QStackedWidget>
+#include "video_file.h"
 
 class MainWindow : public QWidget {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
-    MainWindow(std::vector<VideoFile*> &videos,QStackedWidget* parent,Player* player);
+ public:
+  MainWindow(std::vector<VideoFile*>& videos, QStackedWidget* parent,
+             Player* player);
 
-signals:
-    void changedFocus(int pageNumber);
-    void changedName(QString name);
-    void refreshLibrary();
+ signals:
+  void changedFocus(int pageNumber);
+  void changedName(QString name);
+  void refreshLibrary();
 
-private slots:
-    void navButtonClicked(int pageNumber, QString pageName);
-    void settingsButtonClicked();
+ private slots:
+  void navButtonClicked(int pageNumber, QString pageName);
+  void settingsButtonClicked();
 
-private:
-    std::vector<NavigationButton*> navButtons;
-    QStackedWidget* stackedParent;
-
+ private:
+  std::vector<NavigationButton*> navButtons;
+  QStackedWidget* stackedParent;
 };
 
-#endif // MAIN_WINDOW_H
+#endif  // MAIN_WINDOW_H

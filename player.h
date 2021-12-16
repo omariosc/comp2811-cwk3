@@ -5,57 +5,58 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <QSlider>
+#include <QStackedWidget>
+#include <QToolButton>
 #include <QWidget>
-#include "video_player.h"
+#include <QtMultimediaWidgets/QVideoWidget>
+
 #include "QHBoxLayout"
 #include "QVBoxLayout"
 #include "video_file.h"
-#include <QtMultimediaWidgets/QVideoWidget>
-#include <QStackedWidget>
-#include <QSlider>
-#include <QToolButton>
+#include "video_player.h"
 
-class Player: public QWidget{
-    Q_OBJECT
-public:
-    Player(VideoFile* video,QStackedWidget* toggler);
-    void playVideo();
-    void setScreen();
-    QToolButton* returnBack();
+class Player : public QWidget {
+  Q_OBJECT
+ public:
+  Player(VideoFile* video, QStackedWidget* toggler);
+  void playVideo();
+  void setScreen();
+  QToolButton* returnBack();
 
-signals:
-    void playerQuit();
+ signals:
+  void playerQuit();
 
-public slots:
-    void playVideo(VideoFile* newVideo);
-    void quitPlayer();
-    void rotateScreen();
+ public slots:
+  void playVideo(VideoFile* newVideo);
+  void quitPlayer();
+  void rotateScreen();
 
-private slots:
-    void toggleVideo();
-    void seek(int seconds);
-    void modifySlider(qint64 duration);
-    void updateSlider(qint64 position);
-    void toggleFavorite();
-    void conditionalPlay();
-    void playbackSpeed();
+ private slots:
+  void toggleVideo();
+  void seek(int seconds);
+  void modifySlider(qint64 duration);
+  void updateSlider(qint64 position);
+  void toggleFavorite();
+  void conditionalPlay();
+  void playbackSpeed();
 
-private:
-    VideoFile* currentVideo;
-    QStackedWidget* playPause;
-    VideoPlayer* videoPlayer;
-    QSlider* videoSlider;
-    QStackedWidget* toggler;
-    QVideoWidget* videoWidget;
-    QStackedWidget* favoriteToggle;
-    QToolButton* toggleRotation;
-    QToolButton* playbackSpeedButton;
-    QToolButton* back;
-    QHBoxLayout* botlayout;
-    QVBoxLayout* top;
-    QVBoxLayout* bottoplayout;
-    bool isLandscape;
-    qreal playback;
+ private:
+  VideoFile* currentVideo;
+  QStackedWidget* playPause;
+  VideoPlayer* videoPlayer;
+  QSlider* videoSlider;
+  QStackedWidget* toggler;
+  QVideoWidget* videoWidget;
+  QStackedWidget* favoriteToggle;
+  QToolButton* toggleRotation;
+  QToolButton* playbackSpeedButton;
+  QToolButton* back;
+  QHBoxLayout* botlayout;
+  QVBoxLayout* top;
+  QVBoxLayout* bottoplayout;
+  bool isLandscape;
+  qreal playback;
 };
 
-#endif // PLAYER_H
+#endif  // PLAYER_H

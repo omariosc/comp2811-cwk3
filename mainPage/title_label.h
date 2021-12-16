@@ -4,11 +4,10 @@
 #include <QLabel>
 
 class TitleLabel : public QLabel {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
-    TitleLabel();
-
+ public:
+  TitleLabel();
 };
 
-#endif // THE_TITLE_LABEL_H
+#endif  // THE_TITLE_LABEL_H
