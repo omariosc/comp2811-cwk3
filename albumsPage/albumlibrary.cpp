@@ -37,8 +37,14 @@ void AlbumLibrary::setAlbums(){
         layout->addWidget(button, i / 2, i % 2);
     }
 
-    QPushButton* add = new QPushButton();
+    QToolButton* add = new QToolButton();
+    add->setProperty("type", "albumButton");
+    add->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    add->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
+    add->setMinimumHeight(45);
     add->setText("New Album");
+    add->setIcon(QIcon(":/addLibraryIcon"));
+    add->setIconSize(QSize(50,60));
     layout->addWidget(add,i/2,i%2);
 
 

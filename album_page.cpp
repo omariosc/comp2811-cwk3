@@ -19,7 +19,9 @@ AlbumPage::AlbumPage(std::vector<VideoFile> &videos,Player *videoPlayer) : QWidg
     VideoLibrary *currentAlbum = new VideoLibrary(videos, player);
 
     QToolButton *back = new QToolButton();
-    back->setIcon(QIcon("://goback-icon"));
+    back->setProperty("type", "albumButton");
+    back->setIcon(QIcon("://back-white"));
+    back->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
     currentLibrary->addWidget(currentAlbum, 0, 0, 3, 1);
     currentLibrary->addWidget(back, 3, 0, 1, 1);
 
