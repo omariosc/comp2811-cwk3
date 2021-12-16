@@ -123,7 +123,8 @@ int main(int argc, char *argv[]) {
     }
     //Override some for testing
     videos.at(0).album = 1;
-    videos.at(1).album = 1;
+    videos.at(1).album = 2;
+    videos.at(2).album = 3;
 
     // Retrieving stylesheet
     QFile File(":/tomeoStyleSheet");

@@ -12,6 +12,7 @@ FavouritePage::FavouritePage(std::vector<VideoFile> &videos,Player *player) : QW
     libraryLayout->addWidget(library, 0, 0);
     setLayout(libraryLayout);
     filterForFavourites();
+    connect(player,&Player::playerQuit,this,&FavouritePage::filterForFavourites);
 }
 
 

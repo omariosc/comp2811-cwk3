@@ -4,6 +4,7 @@
 
 
 VideoFile::VideoFile( QUrl* url, QIcon* icon, bool favorite) : url (url), favorite(favorite) {
+    original = icon;
     setIcon(icon);
 }
 
@@ -27,7 +28,7 @@ void VideoFile::setIcon(QIcon* newIcon){
 
 void VideoFile::setFavourite(bool flag){
     favorite = flag;
-    setIcon(icon);
+    setIcon(original);
 }
 
 bool VideoFile::getFavourite(){

@@ -47,13 +47,12 @@ std::vector<ThumbnailButton*>* VideoLibrary::getButtons(){
 }
 
 void VideoLibrary::changeVideos(std::vector<VideoFile> &vids) {
-    qDebug() << "changeVideos got" << videos.size();
     delete buttonScrollArea;
     buttons.clear();
-    videos.clear();
+    if (&vids != &videos) {
+        videos.clear();
+    }
     setVideos(vids);
-    update();
-    buttonScrollArea->update();
 }
 
 void VideoLibrary::refresh(){
