@@ -23,7 +23,8 @@ SOURCES += \
         settingspage.cpp \
         thumbnail_button.cpp \
         tomeo.cpp \
-        video_player.cpp \
+    video_file.cpp \
+        video_player.cpp
 
 HEADERS += \
     albumsPage/albumbutton.h \

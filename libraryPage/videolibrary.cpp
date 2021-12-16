@@ -8,6 +8,7 @@ VideoLibrary::VideoLibrary(std::vector<VideoFile> &vids, Player* player) : QScro
     setWidgetResizable(1);
     mediaPlayer = player;
     setVideos(vids);
+    connect(player,&Player::playerQuit,this,&VideoLibrary::refresh);
 }
 
 void VideoLibrary::setVideos(std::vector<VideoFile> &vids){
@@ -52,5 +53,10 @@ void VideoLibrary::changeVideos(std::vector<VideoFile> &vids) {
     setVideos(vids);
     update();
     buttonScrollArea->update();
+}
+
+void VideoLibrary::refresh(){
+//    qDebug() << "Refreshing";
+//    changeVideos(videos);
 }
 

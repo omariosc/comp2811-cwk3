@@ -15,4 +15,5 @@ void VideoPlayer::setContent(VideoFile* i) {
         setMedia(*i->url);
         play();
     }
+
 }

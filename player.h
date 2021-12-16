@@ -23,7 +23,8 @@ public:
     void setScreen();
     QToolButton* returnBack();
 
-private slots:
+signals:
+    void playerQuit();
 
     //void playStateChanged (QMediaPlayer::State ms);
 

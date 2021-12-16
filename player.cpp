@@ -163,7 +163,7 @@ void Player::rotateScreen(){
 void Player::playVideo(VideoFile* newVideo){
     videoPlayer->pause();
     if(toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
-    if(newVideo->favorite == true) favoriteToggle->setCurrentIndex(1);
+    if(newVideo->getFavourite() == true) favoriteToggle->setCurrentIndex(1);
     else favoriteToggle->setCurrentIndex(0);
     playPause->setCurrentIndex(0);
     videoPlayer->setContent(newVideo);
@@ -208,13 +208,13 @@ void Player::updateSlider(qint64 position){
 }
 
 void Player::toggleFavorite(){
-    if(currentVideo->favorite == true){
-        currentVideo->favorite = false;
+    if(currentVideo->getFavourite() == true){
+        currentVideo->setFavourite(false);
         favoriteToggle->setCurrentIndex(0);
         qDebug() << "Video removed from favorites";
     }
     else{
-        currentVideo->favorite = true;
+        currentVideo->setFavourite(true);
         favoriteToggle->setCurrentIndex(1);
         qDebug() << "Video added to favorites";
     }
@@ -224,6 +224,7 @@ void Player::quitPlayer(){
     videoPlayer->stop();
     toggler->setCurrentIndex(0);
     currentVideo = NULL;
+    emit playerQuit();
 }
 
 void Player::conditionalPlay(){
