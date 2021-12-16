@@ -10,10 +10,10 @@ class SettingsPage : public QWidget {
   SettingsPage(QStackedWidget* parent);
 
  private slots:
-  void returnBack();
+  void returnBack(); // Returns back to index(0) within the stacked widget
 
  private:
-  QStackedWidget* stackedParent;
+  QStackedWidget* stackedParent; // Saves pointer to parent so that can easily call switch back to main stacked page
 };
 
 #endif  // SETTINGSPAGE_H

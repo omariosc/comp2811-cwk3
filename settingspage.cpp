@@ -19,13 +19,13 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
   NavigationButton *returnButton = new NavigationButton("BACK");
   returnButton->setIcon(QIcon(":/goback-white-icon"));
   connect(returnButton, &NavigationButton::clicked, this,
-          &SettingsPage::returnBack);
+          &SettingsPage::returnBack); // Returns back to parent stacked widget index 0 when return button is clicked
 
   MenuLayout *headerLayout = new MenuLayout();
   headerLayout->addWidget(title, 0, 1, 1, 2);
   headerLayout->addWidget(returnButton, 0, 3);
 
-  QWidget *header = new QWidget();
+  QWidget *header = new QWidget(); // Widget rather than layout so that it can be styled
   header->setProperty("type", "menuBackground");
   header->setLayout(headerLayout);
 
@@ -37,7 +37,7 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
   textColor->setProperty("type", "setting");
   textColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
   QComboBox *textColorCB = new QComboBox();
-  QStringList textColors = {"White", "Black", "Red", "Green", "Blue"};
+  QStringList textColors = {"White", "Black", "Red", "Green", "Blue"}; // Hard coded abitrary group of colours
   textColorCB->insertItems(0, textColors);
   textColorCB->setInsertPolicy(QComboBox::InsertAlphabetically);
   settingsLayout->addWidget(textColor, 0, 0);
@@ -47,7 +47,7 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
   backgroundColor->setProperty("type", "setting");
   backgroundColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
   QComboBox *backgroundColorCB = new QComboBox();
-  QStringList backgroundColors = {"White", "Red", "Green", "Blue"};
+  QStringList backgroundColors = {"White", "Red", "Green", "Blue"}; // Hard coded abitrary group of colours
   backgroundColorCB->insertItems(0, backgroundColors);
   backgroundColorCB->setInsertPolicy(QComboBox::InsertAlphabetically);
   settingsLayout->addWidget(backgroundColor, 1, 0);
@@ -58,7 +58,7 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
   language->setProperty("type", "setting");
   language->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
   QComboBox *languageCB = new QComboBox();
-  QStringList languages = {"English", "Romanian"};
+  QStringList languages = {"English", "Romanian"}; // Hard coded abitrary group of languages
   languageCB->insertItems(0, languages);
   languageCB->setInsertPolicy(QComboBox::InsertAlphabetically);
   settingsLayout->addWidget(language, 2, 0);
