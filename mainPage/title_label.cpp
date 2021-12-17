@@ -1,6 +1,3 @@
 #include "title_label.h"
 
-TitleLabel::TitleLabel() : QLabel()
-{
-    setAlignment(Qt::AlignCenter);
-}
+TitleLabel::TitleLabel() : QLabel() { setAlignment(Qt::AlignCenter); }

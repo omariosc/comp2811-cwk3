@@ -3,10 +3,9 @@
 
 #include <QGridLayout>
 
-class MenuLayout : public QGridLayout
-{
+class MenuLayout : public QGridLayout {
 public:
-    MenuLayout();
+  MenuLayout();
 };
 
 #endif // MENULAYOUT_H
