@@ -12,7 +12,7 @@ class AlbumButton : public QToolButton {
   AlbumButton(QWidget* parent);
 
   void init(int album);
-  void setAlbum(int album);
+  void setAlbum(int album); //modify the button's albumNr
 
   virtual ~AlbumButton(){};
 
@@ -20,11 +20,11 @@ class AlbumButton : public QToolButton {
   void clicked();
 
  signals:
-  void changeAlbum(int);
+  void changeAlbum(int); //Signal an album selection
 
  private:
   int iconWidth;
-  int albumNr;
+  int albumNr; //Holds the album's ID
 };
 
 #endif  // ALBUMBUTTON_H

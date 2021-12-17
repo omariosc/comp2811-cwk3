@@ -17,16 +17,16 @@ class AlbumLibrary : public QScrollArea {
   void setAlbums();
 
  public slots:
-  void switchToAlbum();
-  void switchBack();
+  void switchToAlbum(); //Display VideoLibrary containing the album's videos
+  void switchBack(); //Display the AlbumLibrary again
 
-  void filterForAlbum(int album);
+  void filterForAlbum(int album); //Filter for videos in an album, then display it in VideoLibrary
 
  private:
-  std::vector<AlbumButton*> buttons;
+  std::vector<AlbumButton*> buttons; //holds the buttons triggering Album Selection
   std::vector<VideoFile*>& videos;
-  VideoLibrary* library;
-  QStackedWidget* toggler;
+  VideoLibrary* library; //pointer to the VideoLibrary displaying the album videos
+  QStackedWidget* toggler; //Pointer to the stacked widget holding this object and the library above
   QWidget* buttonScrollArea;
 };
 

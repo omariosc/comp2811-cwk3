@@ -12,9 +12,9 @@ class FavouritePage : public QWidget {
 
  public:
   FavouritePage(std::vector<VideoFile *> &videos, Player *player);
-  void filterForFavourites();
+  void filterForFavourites(); //filter for favourited videos and display them
 
-  VideoLibrary *library;
+  VideoLibrary *library; //holds the pointer to the connected library
 
  public slots:
   void refresh(); // Refresh Library
