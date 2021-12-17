@@ -113,8 +113,7 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
 
   // Setup the layout
   top = new QVBoxLayout();
-  top->addWidget(videoWidget);
-  top->addStretch(1);
+  top->addWidget(videoWidget, 1);
 
   QWidget* bot = new QWidget();
   bot->setProperty("type", "playerMenu");
