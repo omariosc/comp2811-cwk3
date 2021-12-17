@@ -129,9 +129,8 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   top->setContentsMargins(0, 0, 0, 0);
   top->setSpacing(0);
   setLayout(top);
-  show();
 
-  playVideo(video);
+  playVid(video);
   QFile File(":/tomeoStyleSheet");
   File.open(QFile::ReadOnly);
   QString StyleSheet = QLatin1String(File.readAll());
@@ -160,7 +159,7 @@ void Player::rotateScreen() {
   toggler->resize(height, width);
 }
 
-void Player::playVideo(VideoFile* newVideo) {
+void Player::playVid(VideoFile* newVideo) {
   videoPlayer->pause();
   if (toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
   if (newVideo->getFavourite() == true)

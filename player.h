@@ -28,7 +28,7 @@ class Player : public QWidget {
   void playerQuit();
 
  public slots:
-  void playVideo(VideoFile* newVideo);
+  void playVid(VideoFile* newVideo);
   void quitPlayer();
   void rotateScreen();
 
