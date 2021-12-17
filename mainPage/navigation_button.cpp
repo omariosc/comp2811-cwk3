@@ -16,7 +16,7 @@ NavigationButton::NavigationButton(QString newName) : QToolButton() {
   setSizePolicy(myPolicy);
   setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
   setIconSize(QSize(48, 48));
-  connect(this, SIGNAL(clicked()), this, SLOT(dataClicked()));
+  connect(this, &NavigationButton::released, this, &NavigationButton::dataClicked);
 }
 
 void NavigationButton::setName(QString newName) { this->name = newName; }
@@ -31,6 +31,7 @@ void NavigationButton::setActive(bool newState) {
   } else {
     setProperty("type", "Unselected");
   }
+  // Refresh style sheet as type property is changed
   this->style()->unpolish(this);
   this->style()->polish(this);
 }
