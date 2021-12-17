@@ -23,6 +23,7 @@ void Image::mousePressEvent(QMouseEvent *event) {
 }
 
 void Image::resizeEvent(QResizeEvent *e) {
+  // New dimensions of label
   double h = e->size().height();
   double w = e->size().width();
 
@@ -40,6 +41,7 @@ void Image::sendRequest(double lat, double lon) {
   auto status = connect(manager, &QNetworkAccessManager::finished, this,
                         &Image::processRequest);
 
+  // Format the string with co-ordinates
   QString url = QString(
                     "https://nominatim.openstreetmap.org/"
                     "reverse?lat=%1&lon=%2&format=json&zoom=3")

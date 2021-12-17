@@ -7,10 +7,10 @@
 #include "QUrl"
 
 VideoPlayer::VideoPlayer() : QMediaPlayer(NULL) {
-  setVolume(50);  // be slightly less annoying
+  setVolume(50);  // Be slightly less annoying
 }
 
-// change Media being played
+// Change Media being played
 void VideoPlayer::setContent(VideoFile* i) {
   if (i != NULL) {
     setMedia(*i->url);

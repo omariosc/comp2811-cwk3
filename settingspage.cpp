@@ -19,7 +19,7 @@ SettingsPage::SettingsPage(QStackedWidget *parent) : QWidget() {
   NavigationButton *returnButton = new NavigationButton("BACK");
   returnButton->setIcon(QIcon(":/goback-white-icon"));
   connect(returnButton, &NavigationButton::clicked, this,
-          &SettingsPage::returnBack); // Returns back to parent stacked widget index 0 when return button is clicked
+          &SettingsPage::returnBack);
 
   MenuLayout *headerLayout = new MenuLayout();
   headerLayout->addWidget(title, 0, 1, 1, 2);

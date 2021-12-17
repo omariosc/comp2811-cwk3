@@ -7,13 +7,13 @@
 
 VideoFile::VideoFile(QUrl* url, QIcon* icon, bool favourite)
     : url(url), favourite(favourite), originalIcon(icon) {
-  // call update icon as icon may have to be set to version with favourites star
+  // Call update icon as icon may have to be set to version with favourites star
   updateIcon();
   hasMetaData = false;
 }
 
 void VideoFile::setMeta(QString metadata) {
-  // string parsing of metadata file input to relevant fields
+  // String parsing of metadata file input to relevant fields
   QStringList splitData(metadata.split(","));
   creationDate = QDate::fromString(splitData[0], "dd/MM/yyyy");
   videoLength = splitData[1].toInt();
@@ -39,19 +39,19 @@ void VideoFile::updateIcon(QIcon* newIcon) {
     painter.drawPixmap(0, 0, overlay);
     icon = QIcon(result);
   } else {
-    //otherwise, display the icon as is
+    // Otherwise, display the icon as is
     icon = *newIcon;
   }
 }
 
 void VideoFile::setFavourite(bool flag) {
   favourite = flag;
-  updateIcon(); //ensure the icon reflects the change in favourite status
+  updateIcon();  // Ensure the icon reflects the change in favourite status
 }
 
 void VideoFile::toggleFavourite() {
   favourite = !favourite;
-  updateIcon(); //ensure the icon reflects the change in favourite status
+  updateIcon();  // Ensure the icon reflects the change in favourite status
 }
 
 bool VideoFile::getFavourite() { return favourite; }

@@ -13,12 +13,13 @@ FavouritePage::FavouritePage(std::vector<VideoFile *> &videos, Player *player)
   QGridLayout *libraryLayout = new QGridLayout();
   libraryLayout->addWidget(library, 0, 0);
   setLayout(libraryLayout);
-  filterForFavourites(); //ensure only favourited videos are displayed
+  filterForFavourites();  // Ensure only favourited videos are
+  // Refresh on player quit to account for (un)favourited videos.
   connect(player, &Player::playerQuit, this,
-          &FavouritePage::filterForFavourites); // refresh on player quit to account for (un)favourited videos.
+          &FavouritePage::filterForFavourites);
 }
 
-//update videolibrary with only the videos that are favourited
+// Update videoLibrary with only the videos that are favourited
 void FavouritePage::filterForFavourites() {
   std::vector<VideoFile *> currentVideos;
   for (VideoFile *video : videos) {

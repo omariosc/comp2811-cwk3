@@ -11,7 +11,7 @@
 
 FilterPage::FilterPage(std::vector<VideoFile *> &videos, Player *player)
     : QWidget() {
-  allVideos = videos; // contains all videos that can be filtered through
+  allVideos = videos;  // Contains all videos that can be filtered through
   mediaPlayer = player;
 
   afterDate = new QCheckBox("After date: ");
@@ -90,23 +90,29 @@ FilterPage::FilterPage(std::vector<VideoFile *> &videos, Player *player)
 }
 
 void FilterPage::applyChanges() {
-  std::vector<VideoFile *> filteredVideos; // contains pointers to videos that have the correct metadata from the filters
-  int longerThanUnits = 1; // default
-  int shorterThanUnits = 1; // 3600 seconds in an hour
+  // Contains pointers to videos that have the correct metadata from the filters
+  std::vector<VideoFile *> filteredVideos;
+  int longerThanUnits = 1;   // Default
+  int shorterThanUnits = 1;  // 3600 seconds in an hour
+
   if (longerThanCB->currentIndex() == 1) {
     longerThanUnits = 60; // 60 seconds in a minute
   } else if (longerThanCB->currentIndex() == 2) {
     longerThanUnits = 3600; // 3600 seconds in an hour
   }
+
   if (shorterThanCB->currentIndex() == 1) {
     shorterThanUnits = 60; // 60 seconds in a minute
   } else if (shorterThanCB->currentIndex() == 2) {
-    shorterThanUnits = 3600; // 3600 seconds in an hour
+    shorterThanUnits = 3600;  // 3600 seconds in an hours
   }
+
   for (VideoFile *video : allVideos) {
-    if (video->hasMeta()) { // Only filters videos that do contain metadata
+    if (video->hasMeta()) {  // Only filters videos that have metadata
       bool valid = true;
+      // Check if an option is checked
       if (afterDate->isChecked()) {
+        // Check if video meets option criteria
         if (video->getDate() <= afterDateDE->date()) {
           valid = false;
         }

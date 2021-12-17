@@ -51,8 +51,7 @@ std::vector<VideoFile> getInfoIn(std::string loc) {
 
     QString f = it.next();
 
-    if (f.contains("."))
-
+    if (f.contains(".")) {
 #if defined(_WIN32)
       if (f.contains(".wmv")) {  // windows
 #else
@@ -60,17 +59,18 @@ std::vector<VideoFile> getInfoIn(std::string loc) {
 #endif
 
         QString thumb = f.left(f.length() - 4) + ".png";
-        if (QFile(thumb).exists()) {  // if a png thumbnail exists
+        if (QFile(thumb).exists()) {  // If a png thumbnail exists
           QImageReader* imageReader = new QImageReader(thumb);
-          QImage sprite = imageReader->read();  // read the thumbnail
+          QImage sprite = imageReader->read();  // Read the thumbnail
           if (!sprite.isNull()) {
             QIcon* icon = new QIcon(QPixmap::fromImage(
-                sprite));  // voodoo to create an icon for the button
+                sprite));  // Voodoo to create an icon for the button
             QUrl* url = new QUrl(QUrl::fromLocalFile(
-                f));  // convert the file location to a generic url
+                f));  // Convert the file location to a generic url
 
-            out.push_back(VideoFile(url, icon));  // add to the output list
-            // Checks if file for meta data  exists and if so reads it and sets to file.
+            out.push_back(VideoFile(url, icon));  // Add to the output list
+            // Checks if file for meta data  exists and if so reads it and sets
+            // to file.
             QString meta = f.left(f.length() - 4) + ".metadata";
             QFile metaFile(meta);
             if (metaFile.exists()) {
@@ -90,6 +90,7 @@ std::vector<VideoFile> getInfoIn(std::string loc) {
               << "warning: skipping video because I couldn't find thumbnail "
               << thumb;
       }
+    }
   }
 
   return out;
@@ -98,6 +99,8 @@ std::vector<VideoFile> getInfoIn(std::string loc) {
 int main(int argc, char* argv[]) {
   // Let's just check that Qt is operational first
   qDebug() << "Qt version: " << QT_VERSION_STR;
+
+  // Check that OpenSSL is supported (for map)
   qDebug() << QSslSocket::sslLibraryBuildVersionString();
   qDebug() << QSslSocket::supportsSsl();
   qDebug() << QSslSocket::sslLibraryVersionString();
@@ -106,9 +109,11 @@ int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
 
   // Collect all the videos in the folder
-  // "videos" is a vector of pointers to VideoFiles so that when a videofile is edited it will work globally
-  // "actualVideos" is a vecotr of VideoFiles so that the pointers do not fall out of scope
-  // If new VideoFiles would need to be added to/removed from actualVideos then the pointers in videos should be recalculated
+  // "videos" is a vector of pointers to VideoFiles so that when a videofile is
+  // edited it will work globally
+  // "actualVideos" is a vector of VideoFiles so that the pointers do not fall
+  // out of scope If new VideoFiles would need to be added to/removed from
+  // actualVideos then the pointers in videos should be recalculated
   std::vector<VideoFile*> videos;
   std::vector<VideoFile> actualVideos;
 
@@ -144,6 +149,7 @@ int main(int argc, char* argv[]) {
   for (unsigned int x = 0; x < videos.size(); x++) {
     videos.at(x)->album = rand() % 3 + 1;
   }
+
   // Override some videos to have at least one video in each album
   videos.at(0)->album = 1;
   videos.at(1)->album = 2;

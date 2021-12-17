@@ -10,8 +10,8 @@ static const int butMaxWidth = 360 / 5;
 static const int butMinWidth = 50;
 static const int butMaxHeight = 25;
 
-Player::Player(VideoFile* video, QStackedWidget* toggler)
-    : currentVideo(video), toggler(toggler), isLandscape(false) {
+Player::Player(VideoFile* video, QStackedWidget* stackedParent)
+    : currentVideo(video), stackedParent(stackedParent), isLandscape(false) {
   setWindowTitle("Video Player");
   this->setProperty("type", "menuBackground");
   videoWidget = new QVideoWidget();
@@ -46,21 +46,21 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   connect(play, &QToolButton::clicked, this, &Player::toggleVideo);
   connect(pause, &QToolButton::clicked, this, &Player::toggleVideo);
 
-  // Create the favorite/unfavorite buttons
-  favoriteToggle = new QStackedWidget();
-  QToolButton* favorite = new QToolButton();
-  favorite->setProperty("type", "playerMenu");
-  QToolButton* unfavorite = new QToolButton();
-  unfavorite->setProperty("type", "playerMenu");
-  favorite->setIcon(QIcon(":/hollow-favourite"));
-  unfavorite->setIcon(QIcon(":/favouritesIcon"));
-  favoriteToggle->addWidget(favorite);
-  favoriteToggle->addWidget(unfavorite);
-  favoriteToggle->setCurrentIndex(0);
+  // Create the favourite/unfavourite buttons
+  favouriteToggle = new QStackedWidget();
+  QToolButton* favourite = new QToolButton();
+  favourite->setProperty("type", "playerMenu");
+  QToolButton* unfavourite = new QToolButton();
+  unfavourite->setProperty("type", "playerMenu");
+  favourite->setIcon(QIcon(":/hollow-favourite"));
+  unfavourite->setIcon(QIcon(":/favouritesIcon"));
+  favouriteToggle->addWidget(favourite);
+  favouriteToggle->addWidget(unfavourite);
+  favouriteToggle->setCurrentIndex(0);
 
   // And connect them
-  connect(favorite, &QToolButton::clicked, this, &Player::toggleFavorite);
-  connect(unfavorite, &QToolButton::clicked, this, &Player::toggleFavorite);
+  connect(favourite, &QToolButton::clicked, this, &Player::toggleFavourite);
+  connect(unfavourite, &QToolButton::clicked, this, &Player::toggleFavourite);
 
   // Make the scroll and add it
   videoSlider = new QSlider(Qt::Horizontal, this);
@@ -84,7 +84,6 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   toggleRotation->setIcon(QIcon(":/rotate-white"));
   connect(toggleRotation, &QToolButton::clicked, this, &Player::rotateScreen);
 
-  // Code here kept in case we decide to add the "playback" button back
   // Create the playback speed button
   playbackSpeedButton = new QToolButton();
   playbackSpeedButton->setProperty("type", "playerMenu");
@@ -98,93 +97,91 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   back->setMaximumHeight(butMaxHeight);
   toggleRotation->setMaximumHeight(butMaxHeight);
   playPause->setMaximumHeight(butMaxHeight);
-  favoriteToggle->setMaximumHeight(butMaxHeight);
+  favouriteToggle->setMaximumHeight(butMaxHeight);
   playbackSpeedButton->setMaximumHeight(butMaxHeight);
   // These are the QStackedWidgets
   playPause->setMaximumWidth(back->sizeHint().width());
-  favoriteToggle->setMaximumWidth(back->sizeHint().width());
+  favouriteToggle->setMaximumWidth(back->sizeHint().width());
 
   // Setting MINIMUM widths
   back->setMinimumWidth(butMinWidth);
   toggleRotation->setMinimumWidth(butMinWidth);
   playPause->setMinimumWidth(butMinWidth);
-  favoriteToggle->setMinimumWidth(butMinWidth);
+  favouriteToggle->setMinimumWidth(butMinWidth);
   playbackSpeedButton->setMinimumWidth(butMinWidth);
 
   // Setup the layout
-  top = new QVBoxLayout();
-  top->addWidget(videoWidget, 1);
+  container = new QVBoxLayout();
+  container->addWidget(videoWidget, 1);
 
-  QWidget* bot = new QWidget();
-  bot->setProperty("type", "playerMenu");
+  QWidget* controls = new QWidget();
+  controls->setProperty("type", "playerMenu");
 
-  //Create vertical layout to use within the bottom widget
-  bottoplayout = new QVBoxLayout;
-  //And the horizontal layout for the buttons
-  botlayout = new QHBoxLayout();
-  botlayout->addWidget(back);
-  botlayout->addWidget(playPause);
-  botlayout->addWidget(favoriteToggle);
-  botlayout->addWidget(toggleRotation);
-  botlayout->addWidget(playbackSpeedButton);
-  //Add the layouts to the bottom widget
-  bottoplayout->addLayout(botlayout);
-  bot->setLayout(bottoplayout);
+  // Create vertical layout to use within the controls widget
+  controlLayout = new QVBoxLayout;
+  // And the horizontal layout for the buttons
+  buttonLayout = new QHBoxLayout();
+  buttonLayout->addWidget(back);
+  buttonLayout->addWidget(playPause);
+  buttonLayout->addWidget(favouriteToggle);
+  buttonLayout->addWidget(toggleRotation);
+  buttonLayout->addWidget(playbackSpeedButton);
+  // Add the layouts to the controls widget
+  controlLayout->addLayout(buttonLayout);
+  controls->setLayout(controlLayout);
 
-  //Add the video slider and bottom widget to the vertical layout
-  top->addWidget(videoSlider);
-  top->addWidget(bot);
-  top->setContentsMargins(0, 0, 0, 0);
-  top->setSpacing(0);
-  setLayout(top);
+  // Add the video slider and controls widget to the vertical layout
+  container->addWidget(videoSlider);
+  container->addWidget(controls);
+  container->setContentsMargins(0, 0, 0, 0);
+  container->setSpacing(0);
+  setLayout(container);
 
   playVid(video);
 
-  //stylize the player
-  QFile File(":/tomeoStyleSheet");
-  File.open(QFile::ReadOnly);
-  QString StyleSheet = QLatin1String(File.readAll());
-  setStyleSheet(StyleSheet);
-  //Ensure original video used for initialization doesn't auto-play
+  // Ensure original video used for initialization doesn't auto-play
   videoPlayer->pause();
 }
 
 void Player::rotateScreen() {
-  int width = toggler->size().width();
-  int height = toggler->size().height();
+  int width = stackedParent->size().width();
+  int height = stackedParent->size().height();
 
-  if (isLandscape == true) {
+  if (isLandscape) {
     isLandscape = false;
-    //Remove the video slider from the horizontal layout with buttons,
-    //add it to the vertical layout
-    botlayout->removeWidget(videoSlider);
-    bottoplayout->insertWidget(0, videoSlider);
+    // Remove the video slider from the horizontal layout with buttons,
+    // add it to the vertical layout
+    buttonLayout->removeWidget(videoSlider);
+    controlLayout->insertWidget(0, videoSlider);
     playPause->setMaximumWidth(butMaxWidth);
-    favoriteToggle->setMaximumWidth(butMaxWidth);
+    favouriteToggle->setMaximumWidth(butMaxWidth);
   } else {
     isLandscape = true;
-    //Same as landscape to portrait, just the reverse
-    bottoplayout->removeWidget(videoSlider);
-    botlayout->addWidget(videoSlider);
+    // Same as landscape to portrait, just the reverse
+    controlLayout->removeWidget(videoSlider);
+    buttonLayout->addWidget(videoSlider);
     playPause->setMaximumWidth(back->sizeHint().width());
-    favoriteToggle->setMaximumWidth(back->sizeHint().width());
+    favouriteToggle->setMaximumWidth(back->sizeHint().width());
   }
 
-  toggler->resize(height, width);
+  stackedParent->resize(height, width);
 }
 
 void Player::playVid(VideoFile* newVideo) {
   videoPlayer->pause();
-  //Ensure the player is being displayed
-  if (toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
+  // Ensure the player is being displayed
+  if (stackedParent->currentIndex() != 1) {
+    stackedParent->setCurrentIndex(1);
+  }
 
-  //Toggle favourite widget if the video is already added to favourites
-  if (newVideo->getFavourite() == true)
-    favoriteToggle->setCurrentIndex(1);
-  else
-    favoriteToggle->setCurrentIndex(0);
+  // Toggle favourite widget if the video is already added to favourites
+  if (newVideo->getFavourite()) {
+    favouriteToggle->setCurrentIndex(1);
+  } else {
+    favouriteToggle->setCurrentIndex(0);
+  }
 
-  //Since video auto-plays, display the "pause" buttons
+  // Since video auto-plays, display the "pause" buttons
   playPause->setCurrentIndex(0);
   videoPlayer->setContent(newVideo);
   currentVideo = newVideo;
@@ -194,11 +191,11 @@ void Player::playVid(VideoFile* newVideo) {
 void Player::toggleVideo() {
   int current = playPause->currentIndex();
   if (current == 1) {
-     //play if paused
+    // Play if paused
     videoPlayer->play();
     playPause->setCurrentIndex(0);
   } else {
-      //pause if playing
+    // Pause if playing
     videoPlayer->pause();
     playPause->setCurrentIndex(1);
   }
@@ -213,42 +210,48 @@ void Player::playbackSpeed() {
 }
 
 void Player::modifySlider(qint64 duration) {
-  videoSlider->setRange(0, duration / 1000); //set ticks for each second of the video
+  // Set ticks for each second of the video
+  videoSlider->setRange(0, duration / 1000);
 }
 
 void Player::updateSlider(qint64 position) {
-  if (!videoSlider->isSliderDown()) videoSlider->setValue(position / 1000); //seek to nearest second
+  if (!videoSlider->isSliderDown()) {
+    // Seek to nearest second
+    videoSlider->setValue(position / 1000);
+  }
 }
 
-void Player::toggleFavorite() {
+void Player::toggleFavourite() {
   if (currentVideo->getFavourite() == true) {
-      //unfavorite the video
+    // Unfavourite the video
     currentVideo->setFavourite(false);
-    favoriteToggle->setCurrentIndex(0);
+    favouriteToggle->setCurrentIndex(0);
   } else {
-      //favorite the video
+    // Favourite the video
     currentVideo->setFavourite(true);
-    favoriteToggle->setCurrentIndex(1);
+    favouriteToggle->setCurrentIndex(1);
   }
 }
 
 void Player::quitPlayer() {
   videoPlayer->stop();
-  toggler->setCurrentIndex(0); //display the main UI
+  stackedParent->setCurrentIndex(0);  // Display the main UI
   currentVideo = NULL;
-  //Emit a signal to announce the player is quiting
+  // Emit a signal to announce the player is quiting
   emit playerQuit();
 }
 
 void Player::conditionalPlay() {
-    //If video was playing before seek, then play it again
-  if (playPause->currentIndex() == 0) videoPlayer->play();
+  // If video was playing before seek, then play it again
+  if (playPause->currentIndex() == 0) {
+    videoPlayer->play();
+  }
 }
 
-void Player::playStateChanged (QMediaPlayer::State ms) {
-    if(ms == QMediaPlayer::State::StoppedState){
-        videoPlayer->pause();
-    }
+void Player::playStateChanged(QMediaPlayer::State ms) {
+  if (ms == QMediaPlayer::State::StoppedState) {
+    videoPlayer->pause();
+  }
 }
 
 QToolButton* Player::returnBack() { return back; }

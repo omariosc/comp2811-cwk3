@@ -12,10 +12,10 @@ ThumbnailButton::ThumbnailButton(QWidget* parent) : QToolButton(parent) {
   buttonSizePolicy.setHorizontalPolicy(QSizePolicy::Ignored);
   buttonSizePolicy.setWidthForHeight(1);
   setSizePolicy(buttonSizePolicy);
+
   setMinimumHeight(45);
-  connect(
-      this, &ThumbnailButton::released, this,
-      &ThumbnailButton::clicked);  // if QPushButton clicked...then run clicked() below
+
+  connect(this, &ThumbnailButton::released, this, &ThumbnailButton::clicked);
 }
 
 void ThumbnailButton::init(VideoFile* i) {

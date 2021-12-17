@@ -12,6 +12,7 @@ Results::Results(const std::vector<VideoFile *> &videos, Player *player) {
   header->setAlignment(Qt::AlignCenter);
   header->setFixedHeight(30);
 
+  // Creates an empty video vector so result initially appears empty
   std::vector<VideoFile *> emptyVideos = std::vector<VideoFile *>();
   result = new VideoLibrary(emptyVideos, p);
 
@@ -25,6 +26,7 @@ Results::Results(const std::vector<VideoFile *> &videos, Player *player) {
   setLayout(l);
 }
 
+// Receives new country from Image class
 void Results::getCountry(QString country) { updateWidget(country); }
 
 void Results::updateWidget(QString country) {

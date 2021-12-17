@@ -13,10 +13,13 @@ class NavigationButton : public QToolButton {
   void setActive(bool newState);
 
  signals:
-  void clicked(int pageNumber, QString pageName); // Outputs clicked with the number and name for page that is being changed to
+  void clicked(int pageNumber,
+               QString pageName);  // Outputs clicked with the number and name
+                                   // for page that is being changed to
 
  private slots:
-  void dataClicked(); // Connects button released with emitting the custom clicked signal
+  void dataClicked();  // Connects button released with emitting the custom
+                       // clicked signal
 
  private:
   QString name;

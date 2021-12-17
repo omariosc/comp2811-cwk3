@@ -25,38 +25,15 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
                        Player *player)
     : QWidget() {
   stackedParent = parent;
-  NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
-  libraryPageButton->setIcon(QIcon(":/libraryIcon"));
-  libraryPageButton->setPageNum(0);
-  navButtons.push_back(libraryPageButton);
-  connect(libraryPageButton, &NavigationButton::clicked, this,
-          &MainWindow::navButtonClicked);
 
-  TitleLabel *currentPageLabel = new TitleLabel();
-  currentPageLabel->setText("LIBRARY");
-  connect(this, &MainWindow::changedName, currentPageLabel,
-          &TitleLabel::setText);
-
-  NavigationButton *settingsButton = new NavigationButton("SETTINGS");
-  settingsButton->setIcon(QIcon(":/settingsIcon"));
-  connect(settingsButton, &NavigationButton::clicked, this,
-          &MainWindow::settingsButtonClicked);
-
-  MenuLayout *headerLayout = new MenuLayout();
-  headerLayout->addWidget(libraryPageButton, 0, 0);
-  headerLayout->addWidget(currentPageLabel, 0, 1, 1, 2);
-  headerLayout->addWidget(settingsButton, 0, 3);
-  QWidget *header = new QWidget();
-  header->setLayout(headerLayout);
-  header->setProperty("type", "menuBackground");
-
-  // Add pages to stacked widget
+  // Create Page Widgets
   LibraryPage *libraryPage = new LibraryPage(videos, player);
   FavouritePage *favouritesPage = new FavouritePage(videos, player);
   MapPage *mapPage = new MapPage(videos, player);
   AlbumPage *albumsPage = new AlbumPage(videos, player);
   FilterPage *filterPage = new FilterPage(videos, player);
 
+  // Add pages to stacked widget
   QStackedWidget *stackedPage = new QStackedWidget();
   stackedPage->addWidget(libraryPage);
   stackedPage->addWidget(favouritesPage);
@@ -77,6 +54,27 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   connect(this, &MainWindow::refreshLibrary, albumsPage,
           &AlbumPage::refreshCurrent);
 
+  // Set Initial Title
+  TitleLabel *currentPageLabel = new TitleLabel();
+  currentPageLabel->setText("LIBRARY");
+  connect(this, &MainWindow::changedName, currentPageLabel,
+          &TitleLabel::setText);
+
+  // Library Page Button
+  NavigationButton *libraryPageButton = new NavigationButton("LIBRARY");
+  libraryPageButton->setIcon(QIcon(":/libraryIcon"));
+  libraryPageButton->setPageNum(0);
+  navButtons.push_back(libraryPageButton);
+  connect(libraryPageButton, &NavigationButton::clicked, this,
+          &MainWindow::navButtonClicked);
+
+  // Settings Page Button
+  NavigationButton *settingsButton = new NavigationButton("SETTINGS");
+  settingsButton->setIcon(QIcon(":/settingsIcon"));
+  connect(settingsButton, &NavigationButton::clicked, this,
+          &MainWindow::settingsButtonClicked);
+
+  // Favourites Page Button
   NavigationButton *favouritesPageButton = new NavigationButton("FAVOURITES");
   favouritesPageButton->setIcon(QIcon(":/favouritesIcon"));
   favouritesPageButton->setPageNum(1);
@@ -84,6 +82,7 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   connect(favouritesPageButton, &NavigationButton::clicked, this,
           &MainWindow::navButtonClicked);
 
+  // Map Page Button
   NavigationButton *mapPageButton = new NavigationButton("MAP");
   mapPageButton->setIcon(QIcon(":/mapIcon"));
   mapPageButton->setPageNum(2);
@@ -91,6 +90,7 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   connect(mapPageButton, &NavigationButton::clicked, this,
           &MainWindow::navButtonClicked);
 
+  // Albums Page Button
   NavigationButton *albumsPageButton = new NavigationButton("ALBUMS");
   albumsPageButton->setIcon(QIcon(":/albumsIcon"));
   albumsPageButton->setPageNum(3);
@@ -98,6 +98,7 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   connect(albumsPageButton, &NavigationButton::clicked, this,
           &MainWindow::navButtonClicked);
 
+  // Filter Page Button
   NavigationButton *filterPageButton = new NavigationButton("FILTER");
   filterPageButton->setIcon(QIcon(":/filterIcon"));
   filterPageButton->setPageNum(4);
@@ -105,6 +106,16 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   connect(filterPageButton, &NavigationButton::clicked, this,
           &MainWindow::navButtonClicked);
 
+  // Upper Navigation Layout
+  MenuLayout *headerLayout = new MenuLayout();
+  headerLayout->addWidget(libraryPageButton, 0, 0);
+  headerLayout->addWidget(currentPageLabel, 0, 1, 1, 2);
+  headerLayout->addWidget(settingsButton, 0, 3);
+  QWidget *header = new QWidget();
+  header->setLayout(headerLayout);
+  header->setProperty("type", "menuBackground");
+
+  // Lower Navigation Layout
   MenuLayout *navTabsLayout = new MenuLayout();
   navTabsLayout->addWidget(favouritesPageButton);
   navTabsLayout->addWidget(mapPageButton);
@@ -115,6 +126,7 @@ MainWindow::MainWindow(std::vector<VideoFile *> &videos, QStackedWidget *parent,
   navTabs->setLayout(navTabsLayout);
   navTabs->setProperty("type", "menuBackground");
 
+  // Layout of Whole Widget
   QVBoxLayout *baseLayout = new QVBoxLayout();
   baseLayout->setMargin(0);
   baseLayout->setSpacing(0);

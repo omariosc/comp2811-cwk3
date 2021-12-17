@@ -4,19 +4,23 @@
 #include <QStyle>
 #include <QVariant>
 
-NavigationButton::NavigationButton(QString newName) : QToolButton() {
+NavigationButton::NavigationButton(QString newName)
+    : QToolButton(), name(newName) {
   setActive(false);
-  setName(newName);
   setText(newName);
   setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-  QSizePolicy myPolicy = QSizePolicy();
-  myPolicy.setWidthForHeight(1);
-  myPolicy.setHorizontalPolicy(QSizePolicy::Ignored);
-  myPolicy.setVerticalPolicy(QSizePolicy::Minimum);
-  setSizePolicy(myPolicy);
+
+  QSizePolicy buttonPolicy = QSizePolicy();
+  buttonPolicy.setWidthForHeight(1);
+  buttonPolicy.setHorizontalPolicy(QSizePolicy::Ignored);
+  buttonPolicy.setVerticalPolicy(QSizePolicy::Minimum);
+  setSizePolicy(buttonPolicy);
+
   setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
   setIconSize(QSize(48, 48));
-  connect(this, &NavigationButton::released, this, &NavigationButton::dataClicked);
+
+  connect(this, &NavigationButton::released, this,
+          &NavigationButton::dataClicked);
 }
 
 void NavigationButton::setName(QString newName) { this->name = newName; }

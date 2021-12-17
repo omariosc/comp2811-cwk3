@@ -12,7 +12,7 @@
 
 AlbumPage::AlbumPage(std::vector<VideoFile *> &videos, Player *videoPlayer)
     : QWidget(), player(videoPlayer), videos(videos) {
-  toggler = new QStackedWidget;
+  stackedParent = new QStackedWidget;
   // Create the layouts
   QGridLayout *albumsLayout = new QGridLayout();
   QVBoxLayout *currentLibrary = new QVBoxLayout();
@@ -27,7 +27,7 @@ AlbumPage::AlbumPage(std::vector<VideoFile *> &videos, Player *videoPlayer)
   back->setIcon(QIcon("://back-white"));
   back->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
 
-  //Add all the widgets for browsing the selected album to the layout
+  // Add all the widgets for browsing the selected album to the layout
   currentLibrary->addWidget(currentAlbum);
   currentLibrary->addStretch(1);
   currentLibrary->addWidget(back);
@@ -35,20 +35,22 @@ AlbumPage::AlbumPage(std::vector<VideoFile *> &videos, Player *videoPlayer)
   currentLibrary->setMargin(0);
 
   // Create the AlbumLibrary, for selecting an album to browse
-  AlbumLibrary *albumLibrary = new AlbumLibrary(videos, currentAlbum, toggler);
-  toggler->addWidget(albumLibrary);
+  AlbumLibrary *albumLibrary =
+      new AlbumLibrary(videos, currentAlbum, stackedParent);
+  stackedParent->addWidget(albumLibrary);
   albumsPageLayout->setSpacing(0);
   albumsPageLayout->setMargin(0);
   albumLibrary->setLayout(albumsPageLayout);
 
-  //Add the layout for browsing through the selected album to a widget, then add widget to the QStackedWidget
+  // Add the layout for browsing through the selected album to a widget,
+  // then add widget to the QStackedWidget
   QWidget *libraryWidget = new QWidget();
   libraryWidget->setLayout(currentLibrary);
-  toggler->addWidget(libraryWidget);
+  stackedParent->addWidget(libraryWidget);
 
   // Connect back button and the AlbumLibrary to the QStackedWidget
   connect(back, &QToolButton::clicked, albumLibrary, &AlbumLibrary::switchBack);
-  albumsLayout->addWidget(toggler, 0, 0);
+  albumsLayout->addWidget(stackedParent, 0, 0);
   albumsLayout->setSpacing(0);
   setLayout(albumsLayout);
 }
