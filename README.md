@@ -18,8 +18,8 @@ COMP2811 User Interfaces Coursework 3 - The Process. This project invloved creat
 
 ## Notes
 - When running on Linux, you need to ensure that all media codecs are installed (including Ubuntu Restricted Extras on Ubuntu)
-- The map will not work unless you have OpenSSL installed
-- OpenSSL can be installed on Linux using the following command `sudo apt-get openssl`. You can check if you have OpenSSL installed using `openssl version`
-- OpenSSL can be installed through the QtCreator Maintenance Tool under Select Components > Qt > Developer and Designer Tools > OpenSSL 1.1.1j Toolkit
-- OpenSSL can also be installed on Windows through `https://www.openssl.org/`
-- We have supplied a sample video folder containing some sample videos, video thumbnails and video metadata files. Feel free to remove videos, however, the app requires at least 4 videos to function to properly
+- The map feature will not work unless you have OpenSSL installed
+- OpenSSL (Windows Installation) through `https://www.openssl.org/`
+- OpenSSL (Linux Installation) using the following command `sudo apt-get openssl`. You can check if you have OpenSSL installed using `openssl version`
+- OpenSSL can also be installed through the QtCreator Maintenance Tool under Select Components > Qt > Developer and Designer Tools > OpenSSL 1.1.1j Toolkit
+- We have supplied a sample video folder containing some sample videos, video thumbnails and video metadata files. Feel free to remove videos, however, the app requires at least 4 videos to function to properly. Even if you use this folder you must still pass the location for step 5
