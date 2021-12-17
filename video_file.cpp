@@ -7,11 +7,13 @@
 
 VideoFile::VideoFile(QUrl* url, QIcon* icon, bool favourite)
     : url(url), favourite(favourite), originalIcon(icon) {
+  // call update icon as icon may have to be set to version with favourites star
   updateIcon();
   hasMetaData = false;
 }
 
 void VideoFile::setMeta(QString metadata) {
+  // string parsing of metadata file input to relevant fields
   QStringList splitData(metadata.split(","));
   creationDate = QDate::fromString(splitData[0], "dd/MM/yyyy");
   videoLength = splitData[1].toInt();
@@ -26,7 +28,7 @@ void VideoFile::updateIcon(QIcon* newIcon) {
   }
   newIcon = originalIcon;
   if (favourite) {
-    //if the video is a favourite, overlay it's icon with a star
+    // Overlay favourites star on icon and save it as new icon
     QPixmap base, overlay;
     base = newIcon->pixmap(128, 128);
     overlay = QPixmap(":/favouritesOverlay");
@@ -37,14 +39,12 @@ void VideoFile::updateIcon(QIcon* newIcon) {
     painter.drawPixmap(0, 0, overlay);
     icon = QIcon(result);
   } else {
-    //otherwise, simply display it as is
     icon = *newIcon;
   }
 }
 
 void VideoFile::setFavourite(bool flag) {
   favourite = flag;
-  //Reflect the change in favourite to icon
   updateIcon();
 }
 

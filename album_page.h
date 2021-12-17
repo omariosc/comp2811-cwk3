@@ -14,12 +14,12 @@ class AlbumPage : public QWidget {
   AlbumPage(std::vector<VideoFile*>& videos, Player* player);
 
  public slots:
-  void refreshCurrent();
+  void refreshCurrent(); // Refresh library
 
  private:
   void showAlbums();
   VideoLibrary* currentAlbum;
-  QStackedWidget* toggler;
+  QStackedWidget* toggler; // switches between albums and videolibrary
   Player* player;
   std::vector<VideoFile*> videos;
 };

@@ -51,7 +51,6 @@ AlbumPage::AlbumPage(std::vector<VideoFile *> &videos, Player *videoPlayer)
   albumsLayout->addWidget(toggler, 0, 0);
   albumsLayout->setSpacing(0);
   setLayout(albumsLayout);
-  show();
 }
 
 void AlbumPage::refreshCurrent() { currentAlbum->refresh(); }

@@ -18,27 +18,27 @@ class FilterPage : public QWidget {
   FilterPage(std::vector<VideoFile*>& videos, Player* player);
 
  public slots:
-  void refresh();
+  void refresh(); // Refresh library
 
  private slots:
-  void applyChanges();
+  void applyChanges(); // Changes results based on filters chosen
 
  private:
-  std::vector<VideoFile*> allVideos;
-  Player* mediaPlayer;
-  QCheckBox* afterDate;
+  std::vector<VideoFile*> allVideos; // All videos that can be filtered through, should be set in constructor
+  Player* mediaPlayer; // Player to link to
+  QCheckBox* afterDate; // Toggle of filter including videos after given date
   QDateEdit* afterDateDE;
-  QCheckBox* beforeDate;
+  QCheckBox* beforeDate; // Toggle of filter including videos before given date
   QDateEdit* beforeDateDE;
-  QCheckBox* longerThan;
+  QCheckBox* longerThan; // Toggle of filter including videos longer than a given amount of time
   QSpinBox* longerThanSB;
-  QComboBox* longerThanCB;
-  QCheckBox* shorterThan;
+  QComboBox* longerThanCB; // Options of time units
+  QCheckBox* shorterThan; // Toggle of filter including videos shorter than a given amount of time
   QSpinBox* shorterThanSB;
-  QComboBox* shorterThanCB;
-  QCheckBox* location;
-  QComboBox* locationCB;
-  VideoLibrary* library;
+  QComboBox* shorterThanCB; // Options of time units
+  QCheckBox* location; // Toggle of filter including videos from set location
+  QComboBox* locationCB; // Options of locations
+  VideoLibrary* library; // Results display
 };
 
 #endif  // THE_FILTER_PAGE_H

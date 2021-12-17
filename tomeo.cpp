@@ -70,6 +70,7 @@ std::vector<VideoFile> getInfoIn(std::string loc) {
                 f));  // convert the file location to a generic url
 
             out.push_back(VideoFile(url, icon));  // add to the output list
+            // Checks if file for meta data  exists and if so reads it and sets to file.
             QString meta = f.left(f.length() - 4) + ".metadata";
             QFile metaFile(meta);
             if (metaFile.exists()) {
@@ -97,11 +98,17 @@ std::vector<VideoFile> getInfoIn(std::string loc) {
 int main(int argc, char* argv[]) {
   // Let's just check that Qt is operational first
   qDebug() << "Qt version: " << QT_VERSION_STR;
+  qDebug() << QSslSocket::sslLibraryBuildVersionString();
+  qDebug() << QSslSocket::supportsSsl();
+  qDebug() << QSslSocket::sslLibraryVersionString();
 
   // Create the Qt Application
   QApplication app(argc, argv);
 
   // Collect all the videos in the folder
+  // "videos" is a vector of pointers to VideoFiles so that when a videofile is edited it will work globally
+  // "actualVideos" is a vecotr of VideoFiles so that the pointers do not fall out of scope
+  // If new VideoFiles would need to be added to/removed from actualVideos then the pointers in videos should be recalculated
   std::vector<VideoFile*> videos;
   std::vector<VideoFile> actualVideos;
 

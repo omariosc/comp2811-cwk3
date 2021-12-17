@@ -47,10 +47,8 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   favoriteToggle = new QStackedWidget();
   QToolButton* favorite = new QToolButton();
   QToolButton* unfavorite = new QToolButton();
-
   favorite->setIcon(QIcon(":/hollow-favourite"));
   unfavorite->setIcon(QIcon(":/favouritesIcon"));
-
   favoriteToggle->addWidget(favorite);
   favoriteToggle->addWidget(unfavorite);
   favoriteToggle->setCurrentIndex(0);
@@ -80,6 +78,7 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   toggleRotation->setIcon(QIcon(":/rotate-white"));
   connect(toggleRotation, &QToolButton::clicked, this, &Player::rotateScreen);
 
+  // Code here kept in case we decide to add the "playback" button back
   // Create the playback speed button
   playbackSpeedButton = new QToolButton();
   connect(playbackSpeedButton, &QToolButton::clicked, this,
@@ -94,7 +93,7 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   playPause->setMaximumHeight(butMaxHeight);
   favoriteToggle->setMaximumHeight(butMaxHeight);
   playbackSpeedButton->setMaximumHeight(butMaxHeight);
-  // These are the QStackedWidgets. Their max width is based on the size hint of the other buttons.
+  // These are the QStackedWidgets
   playPause->setMaximumWidth(back->sizeHint().width());
   favoriteToggle->setMaximumWidth(back->sizeHint().width());
 
@@ -115,36 +114,27 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
       "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #191919, "
       "stop: 0.4 #2D2D2D,stop: 0.5 #2D2D2D, stop: 1.0 #191919);");
 
-  //Display the botlayout and videoslider in portrait mode in a vertical layout
   bottoplayout = new QVBoxLayout;
-  //Create the bottom widget horizontal layout for the buttons
   botlayout = new QHBoxLayout();
-  //Add the widgets to the horizontal layout
   botlayout->addWidget(back);
   botlayout->addWidget(playPause);
   botlayout->addWidget(favoriteToggle);
   botlayout->addWidget(toggleRotation);
   botlayout->addWidget(playbackSpeedButton);
-   //Then add the vertical and bottom layout to the bottom widget
   bottoplayout->addLayout(botlayout);
   bot->setLayout(bottoplayout);
 
-  //Add the videoSlider and Bottom Widget to the Vertical Box layout
   top->addWidget(videoSlider);
   top->addWidget(bot);
   top->setContentsMargins(0, 0, 0, 0);
   top->setSpacing(0);
   setLayout(top);
-  show();
 
-  playVideo(video);
-
-  //Stylize the player
+  playVid(video);
   QFile File(":/tomeoStyleSheet");
   File.open(QFile::ReadOnly);
   QString StyleSheet = QLatin1String(File.readAll());
   setStyleSheet(StyleSheet);
-  //Ensure the original video (used for setup) doesn't auto-play
   videoPlayer->pause();
 }
 
@@ -154,14 +144,11 @@ void Player::rotateScreen() {
 
   if (isLandscape == true) {
     isLandscape = false;
-    //For portrait, remove the video slider from the bottom layout
-    //and add it to the bottom widget's Vertical Box Layout instead
     botlayout->removeWidget(videoSlider);
     bottoplayout->insertWidget(0, videoSlider);
     playPause->setMaximumWidth(butMaxWidth);
     favoriteToggle->setMaximumWidth(butMaxWidth);
   } else {
-    //Same as the switch from landscape to portrait, just the other way around
     isLandscape = true;
     bottoplayout->removeWidget(videoSlider);
     botlayout->addWidget(videoSlider);
@@ -169,26 +156,17 @@ void Player::rotateScreen() {
     favoriteToggle->setMaximumWidth(back->sizeHint().width());
   }
 
-  //Ensure the modifications are displayed
   toggler->resize(height, width);
 }
 
-void Player::playVideo(VideoFile* newVideo) {
+void Player::playVid(VideoFile* newVideo) {
   videoPlayer->pause();
-
-  //Make sure the videoplayer is overlaying
   if (toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
-
-  //Toggle the favourite button if the video is already favourited
   if (newVideo->getFavourite() == true)
     favoriteToggle->setCurrentIndex(1);
   else
     favoriteToggle->setCurrentIndex(0);
-
-  //Since the video auto-plays, display the "pause" button first
   playPause->setCurrentIndex(0);
-
-  //Set the video to play then show
   videoPlayer->setContent(newVideo);
   currentVideo = newVideo;
   videoPlayer->play();
@@ -198,11 +176,9 @@ void Player::playVideo(VideoFile* newVideo) {
 void Player::toggleVideo() {
   int current = playPause->currentIndex();
   if (current == 1) {
-    //Play the video if paused
     videoPlayer->play();
     playPause->setCurrentIndex(0);
   } else {
-    //Pause the video if playing
     videoPlayer->pause();
     playPause->setCurrentIndex(1);
   }
@@ -212,32 +188,29 @@ void Player::seek(int seconds) { videoPlayer->setPosition(seconds * 1000); }
 
 void Player::playbackSpeed() {
   /*
-  This functions could not be implemented due to time constaints
+  Function added if time allows for an implementation later on.
+  It will be removed if it can not be implemented by the final iteration
   */
 }
 
 void Player::modifySlider(qint64 duration) {
-  videoSlider->setRange(0, duration / 1000); //set the range so that each tick is one second
+  videoSlider->setRange(0, duration / 1000);
 }
 
 void Player::updateSlider(qint64 position) {
-  if (!videoSlider->isSliderDown()) videoSlider->setValue(position / 1000); //seek the nearest second
+  if (!videoSlider->isSliderDown()) videoSlider->setValue(position / 1000);
 }
 
 void Player::toggleFavorite() {
   if (currentVideo->getFavourite() == true) {
-    //Unfavorite the video
     currentVideo->setFavourite(false);
     favoriteToggle->setCurrentIndex(0);
   } else {
-    //Favorite the video
     currentVideo->setFavourite(true);
     favoriteToggle->setCurrentIndex(1);
   }
 }
 
-
-//Stop the player and emit a signal announcing the player is quitting.
 void Player::quitPlayer() {
   videoPlayer->stop();
   toggler->setCurrentIndex(0);
@@ -246,7 +219,7 @@ void Player::quitPlayer() {
 }
 
 void Player::conditionalPlay() {
-  if (playPause->currentIndex() == 0) videoPlayer->play(); //if video was playing before seeking, then play it again.
+  if (playPause->currentIndex() == 0) videoPlayer->play();
 }
 
 QToolButton* Player::returnBack() { return back; }

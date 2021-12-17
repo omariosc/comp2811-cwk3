@@ -18,13 +18,13 @@ class MainWindow : public QWidget {
              Player* player);
 
  signals:
-  void changedFocus(int pageNumber);
-  void changedName(QString name);
-  void refreshLibrary();
+  void changedFocus(int pageNumber); // Emits new page number
+  void changedName(QString name); // Emits new page name
+  void refreshLibrary(); // videoLibrary needs to be refreshed when loading page containing one so that the layout is correct
 
  private slots:
-  void navButtonClicked(int pageNumber, QString pageName);
-  void settingsButtonClicked();
+  void navButtonClicked(int pageNumber, QString pageName); // Emits necessary signals when navigation button is clicked
+  void settingsButtonClicked(); // To be called when settings button is clicked
 
  private:
   std::vector<NavigationButton*> navButtons;

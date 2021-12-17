@@ -12,12 +12,12 @@ class VideoLibrary : public QScrollArea {
 
  public:
   VideoLibrary(std::vector<VideoFile *> &vids, Player *player);
-  void setVideos(std::vector<VideoFile *> &vids);
-  std::vector<ThumbnailButton *> *getButtons();
+  void setVideos(std::vector<VideoFile *> &vids); // Set the videos that are currently displayed
+  std::vector<ThumbnailButton *> *getButtons(); // Return buttons
 
  public slots:
   void changeVideos(std::vector<VideoFile *> &vids);
-  void refresh();
+  void refresh(); // Refresh for layout
 
  private:
   std::vector<ThumbnailButton *> buttons;

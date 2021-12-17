@@ -10,7 +10,7 @@ VideoLibrary::VideoLibrary(std::vector<VideoFile *> &vids, Player *player)
   setWidgetResizable(1);
   mediaPlayer = player;
   setVideos(vids);
-  connect(player, &Player::playerQuit, this, &VideoLibrary::refresh);
+  connect(player, &Player::playerQuit, this, &VideoLibrary::refresh); // When  player quits refresh all videoLibraries as there might have been changes
 }
 
 void VideoLibrary::setVideos(std::vector<VideoFile *> &vids) {
@@ -31,10 +31,10 @@ void VideoLibrary::setVideos(std::vector<VideoFile *> &vids) {
 
   for (unsigned int i = 0; i < videos.size(); i++) {
     ThumbnailButton *button = new ThumbnailButton(buttonScrollArea);
-    button->connect(button, SIGNAL(jumpTo(VideoFile *)), mediaPlayer,
-                    SLOT(playVideo(VideoFile *)));
+    connect(button, &ThumbnailButton::jumpTo, mediaPlayer,
+                    &Player::playVid);
     buttons.push_back(button);
-    layout->addWidget(button, i / 4, i % 4);
+    layout->addWidget(button, i / 4, i % 4); // Places
     button->init(videos.at(i));
   }
 
@@ -47,9 +47,9 @@ std::vector<ThumbnailButton *> *VideoLibrary::getButtons() {
 }
 
 void VideoLibrary::changeVideos(std::vector<VideoFile *> &vids) {
-  delete buttonScrollArea;
+  delete buttonScrollArea; // Delete button scroll area for all new widget with new layout
   buttons.clear();
-  if (&vids != &videos) {
+  if (&vids != &videos) { // Otherwise keep the current videos and just update layout
     videos.clear();
   }
   setVideos(vids);
