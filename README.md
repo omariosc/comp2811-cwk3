@@ -22,3 +22,4 @@ COMP2811 User Interfaces Coursework 3 - The Process. This project invloved creat
 - OpenSSL can be installed on Linux using the following command `sudo apt-get openssl`. You can check if you have OpenSSL installed using `openssl version`
 - OpenSSL can be installed through the QtCreator Maintenance Tool under Select Components > Qt > Developer and Designer Tools > OpenSSL 1.1.1j Toolkit
 - OpenSSL can also be installed on Windows through `https://www.openssl.org/`
+- We have supplied a sample video folder containing thumbnails and metadata files. Feel free to remove videos, however, the app requires at least 4 videos to function to properly
