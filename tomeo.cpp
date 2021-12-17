@@ -98,6 +98,9 @@ std::vector<VideoFile> getInfoIn(std::string loc) {
 int main(int argc, char* argv[]) {
   // Let's just check that Qt is operational first
   qDebug() << "Qt version: " << QT_VERSION_STR;
+  qDebug() << QSslSocket::sslLibraryBuildVersionString();
+  qDebug() << QSslSocket::supportsSsl();
+  qDebug() << QSslSocket::sslLibraryVersionString();
 
   // Create the Qt Application
   QApplication app(argc, argv);
