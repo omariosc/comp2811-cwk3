@@ -15,3 +15,10 @@ COMP2811 User Interfaces Coursework 3 - The Process. This project invloved creat
 7. The metadata should be in the following format: `Date,Length,City,CountryCode`. Where date is in the format `dd/MM/yyyy`, length in seconds, city in caps and country code in caps as a 2 letter code. For example: `15/12/2021,15,SNOWDON,UK`
 8. Run the project
 9. To run different iterations, open the folder in terminal and run `git checkout iteration-n`. Reload the project in QtCreator and run
+
+## Notes
+- When running on Linux, you need to ensure that all media codecs are installed (including Ubuntu Restricted Extras on Ubuntu)
+- The map will not work unless you have OpenSSL installed, this can be added in the Qt Installer under additional options or downloaded seperately
+- OpenSSL can be installed on Linux using the following command `sudo apt-get openssl`. You can check if you have OpenSSL installed using `openssl version`
+- OpenSSL can be installed through the QtCreator Maintenance Tool under Select Components > Qt > Developer and Designer Tools > OpenSSL 1.1.1j Toolkit
+- OpenSSL can also be installed on Windows through `https://www.openssl.org/`
