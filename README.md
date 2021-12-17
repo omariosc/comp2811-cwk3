@@ -8,7 +8,7 @@ COMP2811 User Interfaces Coursework 3 - The Process. This project invloved creat
 
 1. Download Qt 5.13.2 (must be 5.13.2) and Qt Creator from `https://www.qt.io/download-qt-installer`
 2. Clone the repository  using `git clone https://github.com/omariosc/comp2811-cwk3.git`
-3. Create a folder of video files called `videos` and place it in the repository folder
+3. Create a folder of video files called `videos` and place it in the repository folder (see Notes regarding video folder)
 4. Open `the.pro` in Qt Creator and configure the project
 5. Add the command line argument (to the run tab in Qt Creator) `"path/to/videos"`
 6. To add video metadata, create a file for the video called `videoname.metadata` where `videoname` is the exact name of the video in the `videos` directory containing the metadata
@@ -22,3 +22,4 @@ COMP2811 User Interfaces Coursework 3 - The Process. This project invloved creat
 - OpenSSL can be installed on Linux using the following command `sudo apt-get openssl`. You can check if you have OpenSSL installed using `openssl version`
 - OpenSSL can be installed through the QtCreator Maintenance Tool under Select Components > Qt > Developer and Designer Tools > OpenSSL 1.1.1j Toolkit
 - OpenSSL can also be installed on Windows through `https://www.openssl.org/`
+- We have supplied a sample video folder containing some sample videos, video thumbnails and video metadata files. Feel free to remove videos, however, the app requires at least 4 videos to function to properly
