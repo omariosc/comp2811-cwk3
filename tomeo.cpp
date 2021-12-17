@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
   for (unsigned int x = 0; x < videos.size(); x++) {
     videos.at(x)->album = rand() % 3 + 1;
   }
-  // Override some for testing
+  // Override some videos to have at least one video in each album
   videos.at(0)->album = 1;
   videos.at(1)->album = 2;
   videos.at(2)->album = 3;
@@ -151,6 +151,7 @@ int main(int argc, char* argv[]) {
   videos[0]->setFavourite(true);
   videos[2]->setFavourite(true);
   videos[3]->setFavourite(true);
+
   // Create the main window and layout
   QStackedWidget* menu = new QStackedWidget;
   Player* player = new Player(videos[0], menu);

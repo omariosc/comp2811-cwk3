@@ -5,6 +5,7 @@
 #include <QSizePolicy>
 
 AlbumButton::AlbumButton(QWidget* parent) : QToolButton(parent) {
+  //So we can add the names of the albums
   setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
   QSizePolicy buttonSizePolicy;
   buttonSizePolicy.setHorizontalPolicy(QSizePolicy::Ignored);
@@ -21,6 +22,6 @@ void AlbumButton::init(int album) {
   albumNr = album;
 }
 
-void AlbumButton::clicked() { emit changeAlbum(albumNr); }
+void AlbumButton::clicked() { emit changeAlbum(albumNr); } //Make the VideoLibrary show only videos within this album
 
-void AlbumButton::setAlbum(int album) { albumNr = album; }
+void AlbumButton::setAlbum(int album) { albumNr = album; } //Change the album's ID
