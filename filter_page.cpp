@@ -11,7 +11,7 @@
 
 FilterPage::FilterPage(std::vector<VideoFile *> &videos, Player *player)
     : QWidget() {
-  allVideos = videos;
+  allVideos = videos; // contains all videos that can be filtered through
   mediaPlayer = player;
 
   afterDate = new QCheckBox("After date: ");
@@ -24,7 +24,7 @@ FilterPage::FilterPage(std::vector<VideoFile *> &videos, Player *player)
   beforeDate->setProperty("type", "filter");
   beforeDateDE = new QDateEdit();
 
-  QStringList units = {"Seconds", "Minutes", "Hours"};
+  QStringList units = {"Seconds", "Minutes", "Hours"}; // Units of time as options
 
   longerThan = new QCheckBox("Longer than: ");
   longerThan->setProperty("type", "filter");
@@ -45,7 +45,7 @@ FilterPage::FilterPage(std::vector<VideoFile *> &videos, Player *player)
   shorterThanCB->addItems(units);
 
   QStringList locations = {"LEEDS, UK", "SNOWDON, UK", "PYONGYANG, NK",
-                           "WASHINGTON, US"};
+                           "WASHINGTON, US"}; // Hard coded locations
   location = new QCheckBox("Location: ");
   location->setProperty("type", "filter");
   location->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
@@ -90,21 +90,21 @@ FilterPage::FilterPage(std::vector<VideoFile *> &videos, Player *player)
 }
 
 void FilterPage::applyChanges() {
-  std::vector<VideoFile *> filteredVideos;
-  int longerThanUnits = 1;
-  int shorterThanUnits = 1;
+  std::vector<VideoFile *> filteredVideos; // contains pointers to videos that have the correct metadata from the filters
+  int longerThanUnits = 1; // default
+  int shorterThanUnits = 1; // 3600 seconds in an hour
   if (longerThanCB->currentIndex() == 1) {
-    longerThanUnits = 60;
+    longerThanUnits = 60; // 60 seconds in a minute
   } else if (longerThanCB->currentIndex() == 2) {
-    longerThanUnits = 3600;
+    longerThanUnits = 3600; // 3600 seconds in an hour
   }
   if (shorterThanCB->currentIndex() == 1) {
-    shorterThanUnits = 60;
+    shorterThanUnits = 60; // 60 seconds in a minute
   } else if (shorterThanCB->currentIndex() == 2) {
-    shorterThanUnits = 3600;
+    shorterThanUnits = 3600; // 3600 seconds in an hour
   }
   for (VideoFile *video : allVideos) {
-    if (video->hasMeta()) {
+    if (video->hasMeta()) { // Only filters videos that do contain metadata
       bool valid = true;
       if (afterDate->isChecked()) {
         if (video->getDate() <= afterDateDE->date()) {
