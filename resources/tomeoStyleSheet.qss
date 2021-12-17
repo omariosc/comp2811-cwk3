@@ -200,3 +200,22 @@ QLabel[type="resultsHeader"] {
     padding: 5px 5px 5px 5px;
     font-family: Arial;
 }
+
+QWidget[type="playerMenu"] {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #191919, stop: 0.4 #2D2D2D, stop: 0.5 #2D2D2D, stop: 1.0 #191919);
+}
+
+QToolButton[type="playerMenu"] {
+    background-color: #2D2D2D;
+    border-color: #FFFFFF;
+}
+
+QToolButton[type="playerMenu"]:hover {
+    background-color: #191919;
+    border-color: #2A2A2A;
+}
+
+QToolButton[type="playerMenu"]:pressed {
+    background-color: #191919;
+    border-color: #2A2A2A;
+}
