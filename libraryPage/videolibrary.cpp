@@ -29,7 +29,7 @@ void VideoLibrary::setVideos(std::vector<VideoFile*> &vids){
 
     for (unsigned int i = 0; i < videos.size(); i++) {
         ThumbnailButton *button = new ThumbnailButton(buttonScrollArea);
-        button->connect(button, SIGNAL(jumpTo(VideoFile*)), mediaPlayer, SLOT(playVideo(VideoFile*)));
+        button->connect(button, SIGNAL(jumpTo(VideoFile*)), mediaPlayer, SLOT(playVid(VideoFile*)));
         buttons.push_back(button);
         layout->addWidget(button, i / 4, i % 4);
         button->init(videos.at(i));

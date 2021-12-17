@@ -71,7 +71,7 @@ std::vector<VideoFile> getInfoIn (std::string loc) {
                         QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
 
                         out.push_back(VideoFile(url, icon)); // add to the output list
-                        QString meta = f.left( f .length() - 4) +".metadata";
+                        QString meta = f.left( f .length() - 4) +".metaData";
                         QFile metaFile(meta);
                         if (metaFile.exists()) {
                             if(metaFile.open(QFile::ReadOnly)) {
