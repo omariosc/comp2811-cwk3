@@ -12,7 +12,6 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     //this->setMinimumSize(100,100);
     setWindowTitle("Video Player");
     this->setProperty("type", "menuBackground");
-    setStyleSheet("background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #191919, stop: 0.4 #2D2D2D, stop: 0.5 #2D2D2D, stop: 1.0 #191919);");
     videoWidget = new QVideoWidget();
     //videoWidget->setMinimumSize(100,100);
 
@@ -22,6 +21,7 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
 
     //Create the back button
     back = new QToolButton();
+    back->setProperty("type", "playerMenu");
     back->setText("Back");
     back->setIcon(QIcon(":/back-white"));
     back->setMaximumWidth(60);
@@ -32,7 +32,9 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
 
     //Create the play/pause stacked widget
     QToolButton *play = new QToolButton();
+    play->setProperty("type", "playerMenu");
     QToolButton *pause = new QToolButton();
+    pause->setProperty("type", "playerMenu");
     play->setIcon(QIcon(":/play-white"));
     pause->setIcon(QIcon(":/pause-white"));
 //    play->setText("Play");
@@ -51,7 +53,9 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     //Create the favorite/unfavorite buttons
     favoriteToggle = new QStackedWidget();
     QToolButton* favorite = new QToolButton();
+    favorite->setProperty("type", "playerMenu");
     QToolButton* unfavorite = new QToolButton();
+    unfavorite->setProperty("type", "playerMenu");
     favorite->setIcon(QIcon(":/hollow-favourite"));
     unfavorite->setIcon(QIcon(":/favouritesIcon"));
     favoriteToggle->addWidget(favorite);
@@ -76,12 +80,14 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
 
     //Create rotation toggle button
     toggleRotation = new QToolButton();
+    toggleRotation->setProperty("type", "playerMenu");
     toggleRotation->setIcon(QIcon(":/rotate-white"));
     connect(toggleRotation,&QToolButton::clicked,this,&Player::rotateScreen);
 
     //Code here kept in case we decide to add the "playback" button back
     //Create the playback speed button
     playbackSpeedButton = new QToolButton();
+    playbackSpeedButton->setProperty("type", "playerMenu");
     connect(playbackSpeedButton, &QToolButton::clicked,this,&Player::playbackSpeed);
     playbackSpeedButton->setText("Speed");
     playbackSpeedButton->setIcon(QIcon(":/2x-white"));
@@ -105,11 +111,10 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
 
     //setup the layout
     top = new QVBoxLayout();
-    top->addWidget(videoWidget);
+    top->addWidget(videoWidget, 1);
 
     QWidget* bot = new QWidget();
-    bot->setStyleSheet("background: #5c6670;");
-    bot->setStyleSheet("background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #191919, stop: 0.4 #2D2D2D,stop: 0.5 #2D2D2D, stop: 1.0 #191919);");
+    bot->setProperty("type", "playerMenu");
 
     bottoplayout = new QVBoxLayout;
     botlayout = new QHBoxLayout();
@@ -128,13 +133,8 @@ Player::Player(VideoFile* video,QStackedWidget* toggler): currentVideo(video), t
     top->setSpacing(0);
     setLayout(top);
     //layout()->update();
-    show();
 
     playVideo(video);
-    QFile File(":/tomeoStyleSheet");
-    File.open(QFile::ReadOnly);
-    QString StyleSheet = QLatin1String(File.readAll());
-    setStyleSheet(StyleSheet);
     videoPlayer->pause();
 }
 
@@ -169,7 +169,6 @@ void Player::playVideo(VideoFile* newVideo){
     videoPlayer->setContent(newVideo);
     currentVideo = newVideo;
     videoPlayer->play();
-    show();
 }
 
 void Player::toggleVideo(){
