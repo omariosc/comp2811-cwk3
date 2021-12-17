@@ -185,7 +185,6 @@ void Player::playVid(VideoFile* newVideo) {
   videoPlayer->setContent(newVideo);
   currentVideo = newVideo;
   videoPlayer->play();
-  show();
 }
 
 void Player::toggleVideo() {
