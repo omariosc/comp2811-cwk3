@@ -62,8 +62,10 @@ void AlbumLibrary::setAlbums() {
   buttonScrollArea->setSizePolicy(buttonScrollAreaSizePolicy);
 }
 
+//Display the VideoLibrary
 void AlbumLibrary::switchToAlbum() { toggler->setCurrentIndex(1); }
 
+//Display the AlbumLibrary
 void AlbumLibrary::switchBack() { toggler->setCurrentIndex(0); }
 
 //Go through the videos, filter for videos with the provided album ID

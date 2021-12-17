@@ -13,9 +13,9 @@ FavouritePage::FavouritePage(std::vector<VideoFile *> &videos, Player *player)
   QGridLayout *libraryLayout = new QGridLayout();
   libraryLayout->addWidget(library, 0, 0);
   setLayout(libraryLayout);
-  filterForFavourites();
+  filterForFavourites(); //ensure only favourited videos are displayed
   connect(player, &Player::playerQuit, this,
-          &FavouritePage::filterForFavourites); // Connects to player quit as that is where a user can edit favourite state
+          &FavouritePage::filterForFavourites); // refresh on player quit to account for (un)favourited videos.
 }
 
 //update videolibrary with only the videos that are favourited

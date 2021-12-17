@@ -114,16 +114,20 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
       "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #191919, "
       "stop: 0.4 #2D2D2D,stop: 0.5 #2D2D2D, stop: 1.0 #191919);");
 
+  //Create vertical layout to use within the bottom widget
   bottoplayout = new QVBoxLayout;
+  //And the horizontal layout for the buttons
   botlayout = new QHBoxLayout();
   botlayout->addWidget(back);
   botlayout->addWidget(playPause);
   botlayout->addWidget(favoriteToggle);
   botlayout->addWidget(toggleRotation);
   botlayout->addWidget(playbackSpeedButton);
+  //Add the layouts to the bottom widget
   bottoplayout->addLayout(botlayout);
   bot->setLayout(bottoplayout);
 
+  //Add the video slider and bottom widget to the vertical layout
   top->addWidget(videoSlider);
   top->addWidget(bot);
   top->setContentsMargins(0, 0, 0, 0);
@@ -131,10 +135,13 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   setLayout(top);
 
   playVid(video);
+
+  //stylize the player
   QFile File(":/tomeoStyleSheet");
   File.open(QFile::ReadOnly);
   QString StyleSheet = QLatin1String(File.readAll());
   setStyleSheet(StyleSheet);
+  //Ensure original video used for initialization doesn't auto-play
   videoPlayer->pause();
 }
 
@@ -144,12 +151,15 @@ void Player::rotateScreen() {
 
   if (isLandscape == true) {
     isLandscape = false;
+    //Remove the video slider from the horizontal layout with buttons,
+    //add it to the vertical layout
     botlayout->removeWidget(videoSlider);
     bottoplayout->insertWidget(0, videoSlider);
     playPause->setMaximumWidth(butMaxWidth);
     favoriteToggle->setMaximumWidth(butMaxWidth);
   } else {
     isLandscape = true;
+    //Same as landscape to portrait, just the reverse
     bottoplayout->removeWidget(videoSlider);
     botlayout->addWidget(videoSlider);
     playPause->setMaximumWidth(back->sizeHint().width());
@@ -161,11 +171,16 @@ void Player::rotateScreen() {
 
 void Player::playVid(VideoFile* newVideo) {
   videoPlayer->pause();
+  //Ensure the player is being displayed
   if (toggler->currentIndex() != 1) toggler->setCurrentIndex(1);
+
+  //Toggle favourite widget if the video is already added to favourites
   if (newVideo->getFavourite() == true)
     favoriteToggle->setCurrentIndex(1);
   else
     favoriteToggle->setCurrentIndex(0);
+
+  //Since video auto-plays, display the "pause" buttons
   playPause->setCurrentIndex(0);
   videoPlayer->setContent(newVideo);
   currentVideo = newVideo;
@@ -176,9 +191,11 @@ void Player::playVid(VideoFile* newVideo) {
 void Player::toggleVideo() {
   int current = playPause->currentIndex();
   if (current == 1) {
+     //play if paused
     videoPlayer->play();
     playPause->setCurrentIndex(0);
   } else {
+      //pause if playing
     videoPlayer->pause();
     playPause->setCurrentIndex(1);
   }
@@ -188,24 +205,25 @@ void Player::seek(int seconds) { videoPlayer->setPosition(seconds * 1000); }
 
 void Player::playbackSpeed() {
   /*
-  Function added if time allows for an implementation later on.
-  It will be removed if it can not be implemented by the final iteration
+  Functionality not added due to time constraints
   */
 }
 
 void Player::modifySlider(qint64 duration) {
-  videoSlider->setRange(0, duration / 1000);
+  videoSlider->setRange(0, duration / 1000); //set ticks for each second of the video
 }
 
 void Player::updateSlider(qint64 position) {
-  if (!videoSlider->isSliderDown()) videoSlider->setValue(position / 1000);
+  if (!videoSlider->isSliderDown()) videoSlider->setValue(position / 1000); //seek to nearest second
 }
 
 void Player::toggleFavorite() {
   if (currentVideo->getFavourite() == true) {
+      //unfavorite the video
     currentVideo->setFavourite(false);
     favoriteToggle->setCurrentIndex(0);
   } else {
+      //favorite the video
     currentVideo->setFavourite(true);
     favoriteToggle->setCurrentIndex(1);
   }
@@ -213,12 +231,14 @@ void Player::toggleFavorite() {
 
 void Player::quitPlayer() {
   videoPlayer->stop();
-  toggler->setCurrentIndex(0);
+  toggler->setCurrentIndex(0); //display the main UI
   currentVideo = NULL;
+  //Emit a signal to announce the player is quiting
   emit playerQuit();
 }
 
 void Player::conditionalPlay() {
+    //If video was playing before seek, then play it again
   if (playPause->currentIndex() == 0) videoPlayer->play();
 }
 

@@ -28,7 +28,7 @@ void VideoFile::updateIcon(QIcon* newIcon) {
   }
   newIcon = originalIcon;
   if (favourite) {
-    // Overlay favourites star on icon and save it as new icon
+    // Overlay favourites star on icon and save it as new icon if video is favourited
     QPixmap base, overlay;
     base = newIcon->pixmap(128, 128);
     overlay = QPixmap(":/favouritesOverlay");
@@ -39,18 +39,19 @@ void VideoFile::updateIcon(QIcon* newIcon) {
     painter.drawPixmap(0, 0, overlay);
     icon = QIcon(result);
   } else {
+    //otherwise, display the icon as is
     icon = *newIcon;
   }
 }
 
 void VideoFile::setFavourite(bool flag) {
   favourite = flag;
-  updateIcon();
+  updateIcon(); //ensure the icon reflects the change in favourite status
 }
 
 void VideoFile::toggleFavourite() {
   favourite = !favourite;
-  updateIcon();
+  updateIcon(); //ensure the icon reflects the change in favourite status
 }
 
 bool VideoFile::getFavourite() { return favourite; }
