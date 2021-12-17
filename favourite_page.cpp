@@ -15,9 +15,10 @@ FavouritePage::FavouritePage(std::vector<VideoFile *> &videos, Player *player)
   setLayout(libraryLayout);
   filterForFavourites();
   connect(player, &Player::playerQuit, this,
-          &FavouritePage::filterForFavourites);
+          &FavouritePage::filterForFavourites); // Connects to player quit as that is where a user can edit favourite state
 }
 
+//update videolibrary with only the videos that are favourited
 void FavouritePage::filterForFavourites() {
   std::vector<VideoFile *> currentVideos;
   for (VideoFile *video : videos) {

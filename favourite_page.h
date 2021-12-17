@@ -17,7 +17,7 @@ class FavouritePage : public QWidget {
   VideoLibrary *library;
 
  public slots:
-  void refresh();
+  void refresh(); // Refresh Library
 
  private:
   std::vector<VideoFile *> &videos;
