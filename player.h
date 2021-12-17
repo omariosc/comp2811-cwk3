@@ -40,6 +40,7 @@ class Player : public QWidget {
   void toggleFavorite();
   void conditionalPlay();
   void playbackSpeed();
+  void playStateChanged (QMediaPlayer::State ms);
 
  private:
   VideoFile* currentVideo;

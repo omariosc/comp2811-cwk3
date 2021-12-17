@@ -246,4 +246,10 @@ void Player::conditionalPlay() {
   if (playPause->currentIndex() == 0) videoPlayer->play();
 }
 
+void Player::playStateChanged (QMediaPlayer::State ms) {
+    if(ms == QMediaPlayer::State::StoppedState){
+        videoPlayer->pause();
+    }
+}
+
 QToolButton* Player::returnBack() { return back; }
