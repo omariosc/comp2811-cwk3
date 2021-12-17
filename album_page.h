@@ -19,7 +19,7 @@ class AlbumPage : public QWidget {
  private:
   void showAlbums();
   VideoLibrary* currentAlbum;
-  QStackedWidget* toggler; // switches between albums and videolibrary
+  QStackedWidget* stackedParent;  // switches between albums and videolibrary
   Player* player;
   std::vector<VideoFile*> videos;
 };
