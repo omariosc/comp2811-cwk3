@@ -1,8 +1,5 @@
-# video files
-/videos
-
 # .pro.user files
-*.pro.user
+*.pro.user.*
 
 # Prerequisites
 *.d
