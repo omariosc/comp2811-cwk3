@@ -14,7 +14,7 @@ class LibraryPage : public QWidget {
   LibraryPage(std::vector<VideoFile*>& videos, Player* player);
 
  public slots:
-  void refresh();
+  void refresh(); // Refresh library
 
  private:
   VideoLibrary* library;
