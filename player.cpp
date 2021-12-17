@@ -107,6 +107,7 @@ Player::Player(VideoFile* video, QStackedWidget* toggler)
   // Setup the layout
   top = new QVBoxLayout();
   top->addWidget(videoWidget);
+  top->addStretch(1);
 
   QWidget* bot = new QWidget();
   bot->setStyleSheet("background: #5c6670;");
